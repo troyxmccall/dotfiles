@@ -98,6 +98,13 @@ brew install zopfli
 # installation method.
 brew install node
 
+#install rbenv and ruby build
+brew install rbenv
+brewn install ruby-build
+
+#install git
+brew install git
+
 # Install io.js
 brew install iojs
 

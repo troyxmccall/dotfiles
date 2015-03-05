@@ -1,0 +1,5 @@
+#rbenv
+eval "$(rbenv init -)"
+export PATH="/usr/local/bin:$PATH"
+#composer
+export PATH="~/.composer/vendor/bin:$PATH"
