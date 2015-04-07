@@ -705,6 +705,10 @@ defaults write com.google.Chrome.canary AppleEnableMouseSwipeNavigateWithScrolls
 defaults write com.google.Chrome DisablePrintPreview -bool true
 defaults write com.google.Chrome.canary DisablePrintPreview -bool true
 
+# Expand the print dialog by default
+defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
+defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool true
+
 ###############################################################################
 # GPGMail 2                                                                   #
 ###############################################################################
@@ -798,8 +802,9 @@ defaults write com.divisiblebyzero.Spectacle UndoLastMove -data 62706c6973743030
 ###############################################################################
 
 for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
-	"Dock" "Finder" "Mail" "Messages" "Safari" "SizeUp" "Spectacle" \
-	"SystemUIServer" "Terminal" "Transmission" "Twitter" "iCal"; do
+	"Dock" "Finder" "Google Chrome" "Google Chrome Canary" "Mail" "Messages" \
+	"Opera" "Safari" "SizeUp" "Spectacle" "SystemUIServer" "Terminal" \
+	"Transmission" "Twitter" "iCal"; do
 	killall "${app}" > /dev/null 2>&1
 done
 echo "Done. Note that some of these changes require a logout/restart to take effect."
