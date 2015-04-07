@@ -102,7 +102,7 @@ brew install node
 
 #install rbenv and ruby build
 brew install rbenv
-brewn install ruby-build
+brew install ruby-build
 
 #install git
 brew install git
@@ -120,8 +120,6 @@ git config --global credential.helper osxkeychain
 
 # Install io.js
 brew install iojs
-
-
 
 # Remove outdated versions from the cellar.
 brew cleanup
