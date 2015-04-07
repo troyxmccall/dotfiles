@@ -164,3 +164,6 @@
 [url "git://gist.github.com/"]
 
 	insteadOf = "gist:"
+# use osx keychain
+[credential]
+	helper = osxkeychain
