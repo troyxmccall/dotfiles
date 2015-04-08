@@ -45,7 +45,19 @@ brew install vim --override-system-vi
 brew install homebrew/dupes/grep
 brew install homebrew/dupes/openssh
 brew install homebrew/dupes/screen
-brew install homebrew/php/php55 --with-gmp
+
+#better php tap
+brew tap josegonzalez/php
+#install current dev/vm version of php
+brew install php54
+
+
+#install php mods / composer
+brew install composer
+brew tap josegonzalez/homebrew-php
+brew install phpmd
+brew install php-code-sniffer
+brew install php-cs-fixer
 
 # Install font tools.
 brew tap bramstein/webfonttools
@@ -103,6 +115,7 @@ brew install node
 #install rbenv and ruby build
 brew install rbenv
 brew install ruby-build
+brew install rbenv-default-gems
 
 #install git
 brew install git
