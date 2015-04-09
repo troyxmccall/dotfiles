@@ -49,7 +49,7 @@ brew install homebrew/dupes/screen
 #better php tap
 brew tap josegonzalez/php
 #install current dev/vm version of php
-brew install php54
+brew install php56
 
 
 #install php mods / composer
