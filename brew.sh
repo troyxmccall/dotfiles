@@ -57,7 +57,6 @@ brew install php56
 
 #install php mods / composer
 brew install composer
-brew tap josegonzalez/homebrew-php
 brew install phpmd
 brew install php-code-sniffer
 brew install php-cs-fixer
