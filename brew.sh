@@ -47,7 +47,10 @@ brew install homebrew/dupes/openssh
 brew install homebrew/dupes/screen
 
 #better php tap
-brew tap josegonzalez/php
+brew untap josegonzalez/homebrew-php
+brew tap homebrew/dupes
+brew tap homebrew/versions
+brew tap homebrew/homebrew-php
 #install current dev/vm version of php
 brew install php56
 
