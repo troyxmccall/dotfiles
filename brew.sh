@@ -88,12 +88,14 @@ brew install sqlmap
 brew install tcpflow
 brew install tcpreplay
 brew install tcptrace
+brew install tcpdump
 brew install ucspi-tcp # `tcpserver` etc.
 brew install xpdf
 brew install xz
 
 # Install other useful binaries.
 brew install ack
+brew install ngrep
 #brew install exiv2
 brew install git
 brew install git-lfs
