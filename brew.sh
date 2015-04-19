@@ -139,5 +139,10 @@ git config --global credential.helper osxkeychain
 # Install io.js
 brew install iojs
 
+#Install thefuck: https://github.com/nvbn/thefuck
+brew install python
+brew linkapps python
+sudo pip install thefuck
+
 # Remove outdated versions from the cellar.
 brew cleanup
