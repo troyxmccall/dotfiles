@@ -81,6 +81,7 @@ brew install hashpump
 brew install hydra
 brew install john
 brew install knock
+brew install netpbm
 brew install nmap
 brew install pngcheck
 brew install socat

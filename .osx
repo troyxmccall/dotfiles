@@ -769,8 +769,6 @@ defaults write com.twitter.twitter-mac HideInBackground -bool true
 # Spectacle.app                                                               #
 ###############################################################################
 
-# Start Spectacle at login
-defaults write com.divisiblebyzero.Spectacle StartAtLogin -bool true
 
 ###############################################################################
 # Kill affected applications                                                  #
