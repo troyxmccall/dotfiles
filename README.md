@@ -1,6 +1,6 @@
 # Troy’s dotfiles
 
-![Screenshot of my shell prompt](http://i.imgur.com/EkEtphC.png)
+![Screenshot of my shell prompt](http://i.imgur.com/2ADOkhf.png)
 
 ## Installation
 
@@ -86,11 +86,16 @@ Suggestions/improvements
 
 ## Author
 
+| [![twitter/interzonejunkie](https://avatars0.githubusercontent.com/u/129784?v=3&s=70)](http://twitter.com/interzonejunkie "Follow @interzonejunkie on Twitter") |
+|---|
+| [Troy McCall](http://thoughtalotaboutbeingarobot.net) |
+
+## Thanks to…
+
+
 | [![twitter/mathias](http://gravatar.com/avatar/24e08a9ea84deb17ae121074d0f17125?s=70)](http://twitter.com/mathias "Follow @mathias on Twitter") |
 |---|
 | [Mathias Bynens](https://mathiasbynens.be/) |
-
-## Thanks to…
 
 * @ptb and [his _OS X Lion Setup_ repository](https://github.com/ptb/Mac-OS-X-Lion-Setup)
 * [Ben Alman](http://benalman.com/) and his [dotfiles repository](https://github.com/cowboy/dotfiles)
