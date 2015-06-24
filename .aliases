@@ -18,6 +18,12 @@ alias g="git"
 alias h="history"
 alias j="jobs"
 
+#custom iris stuff
+alias b="cd  ~/projects/lowes-iris-microsite/app/webroot/blog/wp-content/themes/heterochromia"
+alias i="cd  ~/projects/lowes-iris-microsite/"
+
+
+
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
 	colorflag="--color"
