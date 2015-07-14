@@ -18,10 +18,11 @@ alias g="git"
 alias h="history"
 alias j="jobs"
 
-#custom iris stuff
-alias b="cd  ~/projects/lowes-iris-microsite/app/webroot/blog/wp-content/themes/heterochromia"
+#custom project shortcuts
+alias ib="cd  ~/projects/lowes-iris-microsite/app/webroot/blog/wp-content/themes/heterochromia"
 alias i="cd  ~/projects/lowes-iris-microsite/"
-
+alias bh="cd  ~/projects/boars-head-webiste/"
+alias sl="cd  ~/projects/lowes-slate-microsite/"
 
 
 # Detect which `ls` flavor is in use
