@@ -119,6 +119,8 @@ brew install zopfli
 # installation method.
 brew install node
 
+brew install phantomjs
+
 #install rbenv and ruby build
 brew install rbenv
 brew install ruby-build
