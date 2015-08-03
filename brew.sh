@@ -167,6 +167,8 @@ brew cask install atom
 brew cask install sublime-text
 brew cask install totalterminal
 brew cask install sequel-pro
+brew cask install alfred
+brew cask install slack
 
 # Remove outdated versions from the cellar.
 brew cleanup
