@@ -155,5 +155,16 @@ brew install python
 brew linkapps python
 sudo pip install thefuck
 
+#apps
+brew install caskroom/cask/brew-cask
+brew cask install vagrant
+brew cask install virtualbox
+brew cask install charles
+brew cask install atom
+brew cask install sublime-text
+brew cask install java
+brew cask install totalterminal
+brew cask install sequel-pro
+
 # Remove outdated versions from the cellar.
 brew cleanup
