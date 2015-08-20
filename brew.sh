@@ -119,6 +119,8 @@ brew install zopfli
 # installation method.
 brew install node
 
+brew install phantomjs
+
 #install rbenv and ruby build
 brew install rbenv
 brew install ruby-build
@@ -154,6 +156,19 @@ brew install iojs
 brew install python
 brew linkapps python
 sudo pip install thefuck
+
+#apps
+brew install caskroom/cask/brew-cask
+brew cask install virtualbox
+brew cask install vagrant
+brew cask install java
+brew cask install charles
+brew cask install atom
+brew cask install sublime-text
+brew cask install totalterminal
+brew cask install sequel-pro
+brew cask install alfred
+brew cask install slack
 
 # Remove outdated versions from the cellar.
 brew cleanup
