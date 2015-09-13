@@ -23,6 +23,7 @@ alias ib="cd  ~/projects/lowes-iris-microsite/app/webroot/blog/wp-content/themes
 alias i="cd  ~/projects/lowes-iris-microsite/"
 alias bh="cd  ~/projects/boars-head-webiste/"
 alias sl="cd  ~/projects/lowes-slate-microsite/"
+alias ua="cd ~/projects/under-armour-blog/wp-content/themes/ua"
 
 
 # Detect which `ls` flavor is in use
@@ -54,8 +55,8 @@ alias week='date +%V'
 # Stopwatch
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 
-# Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-alias update='sudo softwareupdate -i -a; brew update; brew upgrade --all; brew cleanup; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update; apm update --all -y;'
+# Get OS X Software Updates, and update installed Ruby gems, Homebrew, Cask, Atom, npm, and their installed packages
+alias update='sudo softwareupdate -i -a; brew update; brew upgrade --all; brew cleanup; brew cask cleanup; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update; apm update --all -yes;'
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
