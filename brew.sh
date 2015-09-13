@@ -47,7 +47,6 @@ brew install homebrew/dupes/openssh
 brew install homebrew/dupes/screen
 
 #better php tap
-brew untap josegonzalez/homebrew-php
 brew tap homebrew/dupes
 brew tap homebrew/versions
 brew tap homebrew/homebrew-php
@@ -74,6 +73,7 @@ brew install binutils
 brew install binwalk
 brew install cifer
 brew install dex2jar
+brew install dnsmasq
 brew install dns2tcp
 brew install fcrackzip
 brew install foremost
@@ -101,6 +101,7 @@ brew install dark-mode
 brew install exiv2
 brew install git
 brew install git-lfs
+brew install hub
 brew install imagemagick --with-webp
 brew install lua
 brew install lynx
@@ -158,17 +159,55 @@ brew linkapps python
 sudo pip install thefuck
 
 #apps
+
+# Apps for caskroom
+apps=(
+  adobe-creative-cloud
+  alfred
+  appcleaner
+  arq
+  atom
+  caffeine
+  charles
+  cloudup
+  dropbox
+  firefox
+  flash
+  flux
+  geektool
+  google-chrome
+  hazel
+  lastpass
+  little-snitch
+  mailbox
+  qlcolorcode
+  qlmarkdown
+  qlprettypatch
+  qlstephen
+  quicklook-json
+  screenflick
+  sequel-pro
+  shiori
+  sketch
+  skype
+  slack
+  spotify
+  sublime-text
+  telegram
+  totalterminal
+  tower
+  transmission
+  transmit
+  vagrant
+  virtualbox
+  vlc
+)
+
 brew install caskroom/cask/brew-cask
-brew cask install virtualbox
-brew cask install vagrant
-brew cask install java
-brew cask install charles
-brew cask install atom
-brew cask install sublime-text
-brew cask install totalterminal
-brew cask install sequel-pro
-brew cask install alfred
-brew cask install slack
+
+# Install apps to /Applications - default is: /Users/$user/Applications
+echo "installing cask apps..."
+brew cask install --appdir="/Applications" ${apps[@]}
 
 # Remove outdated versions from the cellar.
 brew cleanup
