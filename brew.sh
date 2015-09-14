@@ -50,9 +50,12 @@ brew install homebrew/dupes/screen
 brew tap homebrew/dupes
 brew tap homebrew/versions
 brew tap homebrew/homebrew-php
+
+#tap services - see: https://github.com/Homebrew/homebrew-services
+brew tap homebrew/services
+
 #install current dev/vm version of php
 brew install php56
-
 
 #install php mods / composer
 brew install composer
@@ -141,6 +144,9 @@ sudo mv git-credential-osxkeychain \
 
 git config --global credential.helper osxkeychain
 
+#install hub
+brew install hub
+
 #dat private repo access
 pub=$HOME/.ssh/id_rsa.pub
 echo 'Checking for SSH key, generating one if it does not exist...'
@@ -163,6 +169,7 @@ sudo pip install thefuck
 # Apps for caskroom
 apps=(
   adobe-creative-cloud
+  adium
   alfred
   appcleaner
   arq
@@ -185,9 +192,11 @@ apps=(
   qlprettypatch
   qlstephen
   quicklook-json
+  rdio
   screenflick
   sequel-pro
   shiori
+  shuttle
   sketch
   skype
   slack
@@ -211,3 +220,5 @@ brew cask install --appdir="/Applications" ${apps[@]}
 
 # Remove outdated versions from the cellar.
 brew cleanup
+
+brew cask cleanup
