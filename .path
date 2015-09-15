@@ -5,3 +5,5 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH="~/.composer/vendor/bin:$PATH"
 #gnu utils
 export PATH="(brew --prefix coreutils)/libexec/gnubin:$PATH"
+#brew cask install path
+export HOMEBREW_CASK_OPTS="--appdir=/Applications
