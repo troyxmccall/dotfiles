@@ -18,6 +18,10 @@ alias g="git"
 alias h="history"
 alias j="jobs"
 
+#purge local branches that were deleted remotely - making sure to never delete master
+alias gbpurge='git branch --merged | grep -v "\*" | grep -v "master"| xargs -n 1 git branch -d'
+
+
 #custom project shortcuts
 alias ib="cd  ~/projects/lowes-iris-microsite/app/webroot/blog/wp-content/themes/heterochromia"
 alias i="cd  ~/projects/lowes-iris-microsite/"
