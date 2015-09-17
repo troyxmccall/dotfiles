@@ -1,12 +1,15 @@
 #!/bin/bash
 
+# make this badass script executable
+# chmod +x update_projects.sh
+
 # store the current dir
 CUR_DIR=$(pwd)
 
 #hey user
 echo "Pulling in latest changes for all repositories..."
 
-# Find all git repositories and update it to the master latest revision
+# Find all git repositories and update it to the latest revision on current branch
 for i in $(find . -name ".git" | cut -c 3-); do
     #ignore li3 submodules
     if [[ "$i" != *libraries* ]]
@@ -25,9 +28,8 @@ for i in $(find . -name ".git" | cut -c 3-); do
                 git config core.preloadindex true
     			#pull
     			git pull;
-			#update submodules
-			git submodule update;
-
+    			#update submodules
+    			git submodule update;
     			#lets get back to the CUR_DIR
     			cd $CUR_DIR
 	  	fi
