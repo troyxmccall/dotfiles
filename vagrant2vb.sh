@@ -1,0 +1,196 @@
+#!/bin/sh
+# vagrant2vb.sh
+#
+# Made for use alongside the excellent ievms -
+# https://github.com/xdissent/ievms
+#
+# Will export the local hosts (from /etc/hosts)
+# to a batch script & add that batch script to a Windows VM
+# The batch script will be executed to import the hosts onto the VM
+# The batch file seems convoluted, until you only want to append the new hosts.
+#
+# REQUIREMENTS :
+# VirtualBox & Guest Additions installed (v5.0 or greater) on the guest
+# VirtualBox command line tools installed on the host
+# Local hosts defined in /etc/hosts using the private network address in your Vagrantfile.
+# VM's setup via ievms.sh - the user listed below must be an admin on the VM.
+#
+# OVERVIEW :
+# 1 Parse local (vagrant) hosts to a list
+# 2 Create a .bat file to copy to the Windows VM disk
+# 3 Loop over hosts, adding commands to batchfile.
+# 4 Copy batchfile to C:\ in the VM
+# 5 Execute the batch
+#
+# For info on getting UAC on Windows from within batch script see
+# http://www.sevenforums.com/general-discussion/12936-how-run-batch-file-admin-2.html?s=0c0b169bcd910dc62c1adc18ef279179
+#
+#
+# USAGE:
+# Call with Virtualbox VM name, or without args to see usage.
+# vagrant2vb.sh "VM - Name" [ "VM2 - Name" "VM3 - Name" ... ]
+#
+# make this badass script executable
+# chmod +x vagrant2vb.sh
+#
+# To run on all
+# ./vagrant2vb.sh  "IE9 - Win7" "IE10 - Win7" "IE11 - Win7" "MSEdge - Win10"
+#
+# CONFIG
+###########################################################
+# VM admin guest_user
+guest_user='IEUser'
+# VM admin user password
+guest_pass='Passw0rd!'
+# check delay when starting VM's
+sleep_wait="60"
+###########################################################
+
+# The generated batch file
+BATCHFILE="/tmp/hosts.bat"
+# Source hosts file
+HOSTS="/etc/hosts"
+
+# Helpers
+SCRIPT=`basename "$0"`
+# IP of your Web Server VM
+IP=`(grep 'private_network, ip:' Vagrantfile | awk '{print $4}')`
+
+# Requires VM pass it as arg1
+if [[ -z $1 ]]; then
+  echo  "    NAME
+        ${SCRIPT}
+
+    USAGE
+        Specify at least one Virtual Machine to use.
+
+        Call the script as follows on the host
+        ${SCRIPT} \"VM - Name\"  [ \"VM2 - Name\" \"VM3 - Name\" ... ]
+
+        Edit this script if you want to avoid overwriting the Windows hosts file.
+        See OVERWRITE comment in get_hosts function in ${SCRIPT}
+
+        ${SCRIPT} \"VM - Name\"
+
+        A hosts.bat is generated, copied to the VM and then run.
+        The VM will launch, the Windows Console should open & disappear.
+        The hosts.bat can be re-run, it will request admin priveledges via UAC
+        The batch file will remain in the users home directory.
+
+        UAC on Windows 7 - USER INTERACTION REQUIRED INSIDE THE VM.
+        Manually agree to run the hosts.bat file with admin privileges on Windows 7 VM's.
+
+        The new hosts file in Windows uses the hosts IP address,
+        127.0.0.1 would resolve to the VM, not the host OS.
+        Ensure the guest has a static IP on the primary interface or
+        re-run this script to overwrite the hosts file.
+  "
+  exit 0
+fi
+
+
+# Get local hostnames on the host machine
+# batch file requires header to disable echo,
+# request admin priveldges on via UAC
+function get_hosts() {
+  HOSTLIST=`awk -v "ip=$IP" '/localhost/ || /broadcasthost/ || /^#/ {next}; /^$/ {next}; {/ip/} {print $2}' $HOSTS`
+  # Setup our batch file
+  touch $BATCHFILE
+  # Will OVERWRITE hosts file on VM unless you remove the echo. >NUL 2>%hostspath%
+  cat > $BATCHFILE <<"BATCHHEADER"
+@echo off
+
+net session >NUL 2>&1|| powershell Start-Process '%0' -Verb RunAs&& exit /b|| exit /b
+
+set hostspath=%windir%\System32\drivers\etc\hosts
+
+echo. >NUL 2>%hostspath%
+BATCHHEADER
+  # for each host add a line to create it in our batchfile...
+  #echo local-IP-addr host.name >> %hostspath%
+  for host in $HOSTLIST
+  do
+  echo "echo ${IP//\"} $host >> %hostspath%" >> $BATCHFILE
+done
+# Add the script closure to the batch file
+  cat >> $BATCHFILE << 'CLOSURE'
+exit
+CLOSURE
+}
+
+
+
+# functions borrowed from ievms
+# Pause execution until guest control is available for a virtual machine
+wait_for_guestcontrol() {
+while true ; do
+  echo "Waiting for ${1} to be available for guestcontrol..."
+  sleep "${sleep_wait}"
+  VBoxManage showvminfo "${1}" | grep 'Additions run level:' | grep -q "3" && return 0 || true
+done
+}
+
+# Is it a virtual machine in VirtualBox?
+is_vm() {
+VBoxManage showvminfo "${1}" >/dev/null 2>&1
+if [[ "$?" -ne "0" ]]; then
+  return 1
+fi
+}
+
+# Copy a file to the virtual machine from the ievms home folder.
+copy_to_vm() {
+echo "Copying ${2} to ${3}"
+guest_control_exec "${1}" cmd.exe /c copy "E:\\${2}" "${3}"
+}
+
+# Execute a command with arguments on a virtual machine.
+guest_control_exec() {
+local vm="${1}"
+local image="${2}"
+shift
+VBoxManage guestcontrol "${vm}" start \
+--username "${guest_user}" --password "${guest_pass}" \
+--exe "${image}" -- "$@"
+}
+
+get_hosts
+
+# Quote to allow for spaces in arguments
+for VM in "$@" ; do
+
+# sanity check
+is_vm "${VM}"
+if [[ "$?" -eq "0" ]]; then
+
+  STATE=`VBoxManage showvminfo "${VM}" | awk '/State/ {print $2}'`
+  if [[ "${STATE}" != 'running' ]]; then
+    echo "The virtual machine ${VM} is not running ... starting it"
+    VBoxManage startvm  "${VM}"
+  fi
+
+  wait_for_guestcontrol "${VM}"
+  # Import the batch to the VM
+  # Using windows back slashes fails
+  # Copying into user directory
+  echo  "Copying ${BATCHFILE} to ${VM}"
+  WIN_OS_VER=$(VBoxManage showvminfo --machinereadable "${VM}" | grep "ostype=" | cut -d '=' -f2 | sed 's/\"//g' )
+
+
+  echo "${WIN_OS_VER}"
+
+  cp ${BATCHFILE} ~/.ievms/hosts.bat
+  copy_to_vm "${VM}" "hosts.bat" "C:\\Users\\IEUser\\hosts.bat"
+  echo "Check for UAC popup in taskbar in ${VM}"
+  guest_control_exec "${VM}" "cmd.exe" /c \
+  "C:\\Users\\IEUser\\hosts.bat /f /t 0"
+else
+  echo "ERROR ${VM} is not a virtual machine in VirtualBox... skipping."
+fi
+
+done
+
+# Cleanup local copy
+rm "${BATCHFILE}"
+
+exit 0
