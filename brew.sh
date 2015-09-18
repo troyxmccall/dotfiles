@@ -144,9 +144,6 @@ sudo mv git-credential-osxkeychain \
 
 git config --global credential.helper osxkeychain
 
-#install hub
-brew install hub
-
 #dat private repo access
 pub=$HOME/.ssh/id_rsa.pub
 echo 'Checking for SSH key, generating one if it does not exist...'
@@ -159,12 +156,12 @@ echo 'Copying public key to clipboard. Paste it into your Github account...'
 # Install io.js
 brew install iojs
 
-#Install thefuck: https://github.com/nvbn/thefuck
+#import anti-gravity
 brew install python
 brew linkapps python
-sudo pip install thefuck
 
-#apps
+#Install thefuck: https://github.com/nvbn/thefuck
+brew install thefuck
 
 # Apps for caskroom
 apps=(
