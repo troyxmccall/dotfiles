@@ -28,13 +28,13 @@
 #
 # USAGE:
 # Call with Virtualbox VM name, or without args to see usage.
-# vagrant2vb.sh "VM - Name" [ "VM2 - Name" "VM3 - Name" ... ]
+# $ vagrant2vb.sh "VM - Name" [ "VM2 - Name" "VM3 - Name" ... ]
 #
-# make this badass script executable
-# chmod +x vagrant2vb.sh
+# make this script executable
+# $ chmod +x vagrant2vb.sh
 #
 # To run on all
-# ./vagrant2vb.sh  "IE9 - Win7" "IE10 - Win7" "IE11 - Win7" "MSEdge - Win10"
+# $ ./vagrant2vb.sh  "IE9 - Win7" "IE10 - Win7" "IE11 - Win7" "MSEdge - Win10"
 #
 # CONFIG
 ###########################################################
