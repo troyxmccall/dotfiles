@@ -184,6 +184,7 @@ apps=(
   lastpass
   little-snitch
   mailbox
+  onyx
   qlcolorcode
   qlmarkdown
   qlprettypatch
