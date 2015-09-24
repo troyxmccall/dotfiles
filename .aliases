@@ -20,7 +20,11 @@ alias j="jobs"
 
 #purge local branches that were deleted remotely - making sure to never delete master
 alias gbpurge='git branch --merged | grep -v "\*" | grep -v "master"| xargs -n 1 git branch -d'
+#pull in and merge latest master into working branch
+alias gmm='git pull origin master'
 
+# Fix Homebrew permissions if they get fucked
+alias fixbrew='sudo chown -R $(whoami):admin $(brew --prefix)'
 
 #custom project shortcuts
 alias ib="cd  ~/projects/lowes-iris-microsite/app/webroot/blog/wp-content/themes/heterochromia"
