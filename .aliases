@@ -26,13 +26,21 @@ alias gmm='git pull origin master'
 # Fix Homebrew permissions if they get fucked
 alias fixbrew='sudo chown -R $(whoami):admin $(brew --prefix)'
 
-#custom project shortcuts
-alias ib="cd  ~/projects/lowes-iris-microsite/app/webroot/blog/wp-content/themes/heterochromia"
-alias i="cd  ~/projects/lowes-iris-microsite/"
-alias bh="cd  ~/projects/boars-head-webiste/"
-alias sl="cd  ~/projects/lowes-slate-microsite/"
-alias ua="cd ~/projects/under-armour-blog/wp-content/themes/ua"
+#vagrant shortcuts
+alias vss="vagrant ssh"
+alias vu="vagrant up"
+alias vr="vagrant reload"
+alias vd="vagrant suspend"
+alias vh="vagrant halt"
 
+#custom project shortcuts
+alias bh="cd ~/projects/boars-head-webiste/"
+alias .f="cd ~/projects/dotfiles"
+alias ib="cd ~/projects/lowes-iris-microsite/app/webroot/blog/wp-content/themes/heterochromia"
+alias  i="cd ~/projects/lowes-iris-microsite/"
+alias md="cd ~/projects/mosdef/"
+alias sl="cd ~/projects/lowes-slate-microsite/"
+alias ua="cd ~/projects/under-armour-blog/wp-content/themes/ua"
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
@@ -63,8 +71,8 @@ alias week='date +%V'
 # Stopwatch
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 
-# Get OS X Software Updates, and update installed Ruby gems, Homebrew, Cask, Atom, npm, Vagrant plugins and their installed packages
-alias update='sudo softwareupdate -i -a; brew update; brew upgrade --all; brew cleanup; brew cask cleanup; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update; apm update --all -yes; vagrant plugin update;'
+# Get OS X Software Updates, and update installed Ruby gems, Homebrew, Cask, Atom, NPM, Vagrant plugins, Composer and their installed packages
+alias update='sudo softwareupdate -i -a; brew update; brew upgrade --all; brew cleanup; brew cask cleanup; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update; apm update --all -yes; vagrant plugin update; composer global update;'
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
