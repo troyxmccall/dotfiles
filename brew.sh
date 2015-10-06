@@ -34,12 +34,6 @@ brew install bash-completion
 # Install `wget` with IRI support.
 brew install wget --with-iri
 
-# Install RingoJS and Narwhal.
-# Note that the order in which these are installed is important;
-# see http://git.io/brew-narwhal-ringo.
-brew install ringojs
-brew install narwhal
-
 # Install more recent versions of some OS X tools.
 brew install vim --override-system-vi
 brew install homebrew/dupes/grep
@@ -94,6 +88,7 @@ brew install tcpreplay
 brew install tcptrace
 brew install tcpdump
 brew install ucspi-tcp # `tcpserver` etc.
+brew install wireshark
 brew install xpdf
 brew install xz
 
@@ -201,20 +196,21 @@ apps=(
   spotify
   sublime-text
   telegram
-  totalterminal
   tower
   transmission
   transmit
   vagrant
   virtualbox
   vlc
+  wireshark
+  xquartz
 )
 
 brew install caskroom/cask/brew-cask
 
 # Install apps to /Applications - default is: /Users/$user/Applications
 echo "installing cask apps..."
-brew cask install --appdir="/Applications" ${apps[@]}
+brew cask install --force --appdir="/Applications" ${apps[@]}
 
 # Remove outdated versions from the cellar.
 brew cleanup
