@@ -176,6 +176,7 @@ apps=(
   geektool
   google-chrome
   hazel
+  iterm2
   lastpass
   little-snitch
   mailbox
