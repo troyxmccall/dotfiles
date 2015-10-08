@@ -183,6 +183,7 @@ apps=(
   google-chrome
   hazel
   iterm2
+  java
   lastpass
   little-snitch
   mailbox
@@ -217,7 +218,7 @@ brew install caskroom/cask/brew-cask
 
 # Install apps to /Applications - default is: /Users/$user/Applications
 echo "installing cask apps..."
-brew cask install --force --appdir="/Applications" ${apps[@]}
+brew cask install --appdir="/Applications" ${apps[@]}
 
 # Remove outdated versions from the cellar.
 brew cleanup
