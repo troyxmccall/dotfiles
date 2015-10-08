@@ -1,0 +1,21 @@
+"*":
+  editor:
+    invisibles: {}
+    showInvisibles: true
+    showIndentGuide: true
+    fontSize: 15
+    softWrap: true
+  core:
+    themes: [
+      "flatland-dark-ui"
+      "flatland"
+    ]
+    disabledPackages: [
+      "language-js-specs"
+    ]
+  "exception-reporting":
+    userId: "153182db-b434-ed1e-9c9d-3989c20bd15f"
+  "release-notes":
+    viewedVersion: "0.65.0"
+  welcome:
+    showOnStartup: false
