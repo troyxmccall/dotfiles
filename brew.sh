@@ -57,6 +57,10 @@ brew install phpmd
 brew install php-code-sniffer
 brew install php-cs-fixer
 
+#install some benchmarking tools
+brew install wrk
+brew install seige
+
 # Install font tools.
 brew tap bramstein/webfonttools
 brew install sfnt2woff
@@ -111,6 +115,7 @@ brew install rhino
 brew install speedtest_cli
 brew install ssh-copy-id
 brew install tree
+brew install trash
 brew install webkit2png
 brew install zopfli
 
