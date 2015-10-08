@@ -59,7 +59,7 @@ brew install php-cs-fixer
 
 #install some benchmarking tools
 brew install wrk
-brew install seige
+brew install siege
 
 # Install font tools.
 brew tap bramstein/webfonttools
