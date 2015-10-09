@@ -14,6 +14,22 @@ brew update
 # Upgrade any already-installed formulae.
 brew upgrade --all
 
+# Handle dependencies
+brew install caskroom/cask/brew-cask
+brew tap caskroom/versions
+
+# dependencies for Formulas and Casks
+dependencies=(
+  java
+  java6
+  virtualbox
+  xquartz
+)
+
+# Install dependencies to /Applications - default is: /Users/$user/Applications
+echo "installing dependencies..."
+brew cask install --appdir="/Applications" ${dependencies[@]}
+
 # Install GNU core utilities (those that come with OS X are outdated).
 # Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
 brew install coreutils
@@ -93,7 +109,7 @@ brew install tcptrace
 brew install tcpdump
 brew install ucspi-tcp # `tcpserver` etc.
 brew install wireshark
-brew install xpdf
+brew install homebrew/x11/xpdf
 brew install xz
 
 # Install other useful binaries.
@@ -123,8 +139,9 @@ brew install zopfli
 # Install Node.js. Note: this installs `npm` too, using the recommended
 # installation method.
 brew install node
-
-brew install phantomjs
+# install phantomjs for el capitan
+npm install phantom phantomjs -g
+# yosemite | brew install phantomjs
 
 #install rbenv and ruby build
 brew install rbenv
@@ -154,9 +171,6 @@ echo 'Copying public key to clipboard. Paste it into your Github account...'
   [[ -f $pub ]] && cat $pub | pbcopy
   open 'https://github.com/account/ssh'
 
-# Install io.js
-brew install iojs
-
 #import anti-gravity
 brew install python
 brew linkapps python
@@ -172,6 +186,7 @@ apps=(
   appcleaner
   arq
   atom
+  brackets
   caffeine
   charles
   cloudup
@@ -183,7 +198,6 @@ apps=(
   google-chrome
   hazel
   iterm2
-  java
   lastpass
   little-snitch
   mailbox
@@ -206,14 +220,10 @@ apps=(
   tower
   transmission
   transmit
-  virtualbox
   vagrant
   vlc
   wireshark
-  xquartz
 )
-
-brew install caskroom/cask/brew-cask
 
 # Install apps to /Applications - default is: /Users/$user/Applications
 echo "installing cask apps..."
