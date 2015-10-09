@@ -165,11 +165,13 @@ git config --global credential.helper osxkeychain
 #dat private repo access
 pub=$HOME/.ssh/id_rsa.pub
 echo 'Checking for SSH key, generating one if it does not exist...'
-  [[ -f $pub ]] || ssh-keygen -t rsa
-
-echo 'Copying public key to clipboard. Paste it into your Github account...'
-  [[ -f $pub ]] && cat $pub | pbcopy
+if
+  [ ! -f $pub ] ; then
+  ssh-keygen -t rsa
+  echo 'Copying public key to clipboard. Paste it into your Github account...'
+  cat $pub | pbcopy
   open 'https://github.com/account/ssh'
+fi
 
 #import anti-gravity
 brew install python
