@@ -199,6 +199,7 @@ apps=(
   geektool
   google-chrome
   hazel
+  hosts
   iterm2
   lastpass
   little-snitch
