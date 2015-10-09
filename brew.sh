@@ -187,7 +187,6 @@ apps=(
   lastpass
   little-snitch
   mailbox
-  onyx
   qlcolorcode
   qlmarkdown
   qlprettypatch
@@ -207,8 +206,8 @@ apps=(
   tower
   transmission
   transmit
-  vagrant
   virtualbox
+  vagrant
   vlc
   wireshark
   xquartz
