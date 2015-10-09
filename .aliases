@@ -26,7 +26,7 @@ alias gmm='git pull origin master'
 alias knife='git fetch upstream && git merge upstream/master'
 
 # Fix Homebrew permissions if they get fucked
-alias fixbrew='sudo chown -R $(whoami):admin $(brew --prefix)'
+alias fixbrew='sudo chown -R $(whoami):admin $(brew --prefix) && sudo chown -R $(whoami):admin /Library/Caches/Homebrew'
 
 #vagrant shortcuts
 alias vss="vagrant ssh"
