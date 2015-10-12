@@ -200,7 +200,7 @@ apps=(
   google-chrome
   hazel
   hosts
-  iterm2
+  iterm2-beta
   lastpass
   little-snitch
   mailbox
