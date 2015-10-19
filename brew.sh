@@ -107,6 +107,7 @@ brew install tcpflow
 brew install tcpreplay
 brew install tcptrace
 brew install tcpdump
+brew install dhcpdump
 brew install ucspi-tcp # `tcpserver` etc.
 brew install wireshark
 brew install homebrew/x11/xpdf
