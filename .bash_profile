@@ -49,3 +49,5 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes Syste
 
 #rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+eval "$(hub alias -s)"
