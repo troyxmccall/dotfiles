@@ -186,12 +186,14 @@ apps=(
   adobe-creative-cloud
   adium
   alfred
+  android-studio
   appcleaner
-  arq
   atom
+  backblaze
   brackets
   caffeine
   charles
+  chitchat
   cloudup
   dropbox
   firefox
@@ -218,6 +220,7 @@ apps=(
   sketch
   skype
   slack
+  spectacle
   spotify
   sublime-text
   telegram
@@ -226,6 +229,8 @@ apps=(
   transmit
   vagrant
   vlc
+  vox
+  vox-preferences-pane
   wireshark
 )
 
