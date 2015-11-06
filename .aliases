@@ -100,9 +100,6 @@ alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/La
 alias sniff="sudo ngrep -d 'en0' -t '^(GET|POST) ' 'tcp and port 80'"
 alias httpdump="sudo tcpdump -i en0 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
 
-# Enhanced WHOIS lookups
-alias whois="whois -h whois-servers.net"
-
 # Canonical hex dump; some systems have this symlinked
 command -v hd > /dev/null || alias hd="hexdump -C"
 
