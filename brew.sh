@@ -66,6 +66,8 @@ brew tap homebrew/services
 
 #install current dev/vm version of php
 brew install php56
+brew install php56-mcrypt
+brew install php56-xdebug
 
 #install php mods / composer
 brew install composer
