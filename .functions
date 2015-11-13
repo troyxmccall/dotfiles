@@ -254,8 +254,10 @@ function gh() {
      exit 1;
   fi
 
+  gitbranch=$(git symbolic-ref --quiet --short HEAD)
+
   giturl=${giturl/git\@github\.com\:/https://github.com/}
-  giturl=${giturl/\.git//}
+  giturl=${giturl/\.git//tree/$gitbranch}
   echo $giturl
   open $giturl
 }
