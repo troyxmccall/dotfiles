@@ -217,6 +217,17 @@ function a() {
   fi;
 }
 
+# `b` with no arguments opens the current directory in brackets, otherwise
+# opens the given location
+function b() {
+  if [ $# -eq 0 ]; then
+    brackets .;
+  else
+    brackets "$@";
+  fi;
+}
+
+
 # `v` with no arguments opens the current directory in Vim, otherwise opens the
 # given location
 function v() {
@@ -255,7 +266,7 @@ function gh() {
   fi
 
   gitbranch=$(git symbolic-ref --quiet --short HEAD)
-  
+
   giturl=${giturl/git\@github\.com\:/https://github.com/}
   giturl=${giturl/\.git//tree/$gitbranch}
   echo $giturl
