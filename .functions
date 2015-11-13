@@ -263,5 +263,5 @@ function gh() {
 # keep host working directory in vagrant
 function vagrant_working_dir {
     current_dir=`pwd`
-    echo ${current_dir/$HOME\/projects}
+    echo ${current_dir/$HOME\/projects/\/vagrant}
 }
