@@ -28,7 +28,7 @@ dependencies=(
 
 # Install dependencies to /Applications - default is: /Users/$user/Applications
 echo "installing dependencies..."
-brew cask install --appdir="/Applications" ${dependencies[@]}
+brew cask install --appdir="/Applications" "${dependencies[@]}"
 
 # Install GNU core utilities (those that come with OS X are outdated).
 # Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
@@ -160,8 +160,7 @@ https://github-media-downloads.s3.amazonaws.com/osx/git-credential-osxkeychain
 
 chmod u+x git-credential-osxkeychain
 
-sudo mv git-credential-osxkeychain \
-"$(dirname $(which git))/git-credential-osxkeychain"
+sudo mv git-credential-osxkeychain "$(dirname $(which git))/git-credential-osxkeychain"
 
 git config --global credential.helper osxkeychain
 
@@ -238,7 +237,7 @@ apps=(
 
 # Install apps to /Applications - default is: /Users/$user/Applications
 echo "installing cask apps..."
-brew cask install --appdir="/Applications" ${apps[@]}
+brew cask install --appdir="/Applications" "${apps[@]}"
 
 # Remove outdated versions from the cellar.
 brew cleanup
