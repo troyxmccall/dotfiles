@@ -366,9 +366,9 @@ function _gulp_completions() {
     echo $(gulp --tasks-simple) > .gulp_tasks
     local gulp_tasks=$(realpath .gulp_tasks)
   else
-    if test gulp_file -nt gulp_tasks; then
-     # gulpfile is newer than our gulp_tasks file, we need to update it
-     echo $(gulp --tasks-simple) > $gulp_tasks
+    if test $gulp_file -nt $gulp_tasks; then
+      # gulpfile is newer than our gulp_tasks file, we need to update it
+      echo $(gulp --tasks-simple) > $gulp_tasks
     fi
   fi
 
