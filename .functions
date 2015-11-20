@@ -314,12 +314,61 @@ function _grunt_completions() {
 complete -o default -F _grunt_completions grunt
 
 
+
+# Search the current directory and all parent directories for a gulpfile.
+function _gulp_file() {
+  local curpath="$PWD"
+  while [[ "$curpath" ]]; do
+    for gulp_file in "$curpath/"{G,g}ulpfile.{js,coffee}; do
+      if [[ -e "$gulp_file" ]]; then
+        echo "$gulp_file"
+        return
+      fi
+    done
+    curpath="${curpath%/*}"
+  done
+  return 1
+}
+
+# Search the current directory and all parent directories for a gulptasksfile.
+function _gulp_tasks() {
+  local curpath="$PWD"
+  while [[ "$curpath" ]]; do
+    for gulp_tasks in "$curpath/".gulp_tasks; do
+      if [[ -e "$gulp_tasks" ]]; then
+        echo "$gulp_tasks"
+        return
+      fi
+    done
+    curpath="${curpath%/*}"
+  done
+  return 1
+}
+
 # Enable gulp bash autocompletion.
 function _gulp_completions() {
   # The currently-being-completed word.
   local cur="${COMP_WORDS[COMP_CWORD]}"
-  #Grab tasks
-  local compls=$(gulp --tasks-simple)
+  # The current gulpfile, if it exists.
+  local gulp_file="$(_gulp_file)"
+  # The current gulptasksfile, if it exists.
+  local gulp_tasks="$(_gulp_tasks)"
+  #if we don't find a .gulptasks file create one, add the tasks and pull it's path back in
+  if [ ! -e "$gulp_tasks" ] ; then
+    touch ".gulp_tasks"
+    #save tasks
+    echo $(gulp --tasks-simple) > .gulp_tasks
+    local gulp_tasks=$(realpath .gulp_tasks)
+  else
+    if test gulp_file -nt gulp_tasks; then
+     # gulpfile is newer than our gulptasks file, we need to update it
+     echo $(gulp --tasks-simple) > $gulp_tasks
+    fi
+  fi
+
+  #now let's get those damn tasks
+  local compls=$(cat $gulp_tasks)
+
   # Tell complete what stuff to show.
   COMPREPLY=($(compgen -W "$compls" -- "$cur"))
 }
