@@ -351,9 +351,15 @@ function _gulp_completions() {
   local cur="${COMP_WORDS[COMP_CWORD]}"
   # The current gulpfile, if it exists.
   local gulp_file="$(_gulp_file)"
-  # The current gulptasksfile, if it exists.
+  # The current gulp_tasks file, if it exists.
   local gulp_tasks="$(_gulp_tasks)"
-  #if we don't find a .gulptasks file create one, add the tasks and pull it's path back in
+
+  #exit function if we don't have a gulpfile
+  if [ ! -e "$gulp_file" ] ; then
+    return
+  fi
+
+  #if we don't find a .gulp_tasks file create one, add the tasks and pull it's path back in
   if [ ! -e "$gulp_tasks" ] ; then
     touch ".gulp_tasks"
     #save tasks
@@ -361,7 +367,7 @@ function _gulp_completions() {
     local gulp_tasks=$(realpath .gulp_tasks)
   else
     if test gulp_file -nt gulp_tasks; then
-     # gulpfile is newer than our gulptasks file, we need to update it
+     # gulpfile is newer than our gulp_tasks file, we need to update it
      echo $(gulp --tasks-simple) > $gulp_tasks
     fi
   fi
