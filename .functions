@@ -280,12 +280,12 @@ function vagrant_working_dir {
 }
 
 # Search the current directory and all parent directories for a gruntfile.
-function _grunt_gruntfile() {
+function _grunt_file() {
   local curpath="$PWD"
   while [[ "$curpath" ]]; do
-    for gruntfile in "$curpath/"{G,g}runtfile.{js,coffee}; do
-      if [[ -e "$gruntfile" ]]; then
-        echo "$gruntfile"
+    for grunt_file in "$curpath/"{G,g}runtfile.{js,coffee}; do
+      if [[ -e "$grunt_file" ]]; then
+        echo "$grunt_file"
         return
       fi
     done
@@ -294,17 +294,17 @@ function _grunt_gruntfile() {
   return 1
 }
 
-# Enable bash autocompletion.
+# Enable grunt bash autocompletion.
 function _grunt_completions() {
   # The currently-being-completed word.
   local cur="${COMP_WORDS[COMP_CWORD]}"
   # The current gruntfile, if it exists.
-  local gruntfile="$(_grunt_gruntfile)"
+  local grunt_file="$(_grunt_file)"
   # The current grunt version, available tasks, options, etc.
-  local gruntinfo="$(grunt --version --verbose 2>/dev/null)"
+  local grunt_info="$(grunt --version --verbose 2>/dev/null)"
   # Options and tasks.
-  local opts="$(echo "$gruntinfo" | awk '/Available options: / {$1=$2=""; print $0}')"
-  local compls="$(echo "$gruntinfo" | awk '/Available tasks: / {$1=$2=""; print $0}')"
+  local opts="$(echo "$grunt_info" | awk '/Available options: / {$1=$2=""; print $0}')"
+  local compls="$(echo "$grunt_info" | awk '/Available tasks: / {$1=$2=""; print $0}')"
   # Only add -- or - options if the user has started typing -
   [[ "$cur" == -* ]] && compls="$compls $opts"
   # Tell complete what stuff to show.
