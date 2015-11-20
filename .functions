@@ -279,6 +279,7 @@ function vagrant_working_dir {
     echo ${current_dir/$HOME\/projects/\/vagrant}
 }
 
+
 # Search the current directory and all parent directories for a gruntfile.
 function _grunt_file() {
   local curpath="$PWD"
@@ -312,7 +313,6 @@ function _grunt_completions() {
 }
 
 complete -o default -F _grunt_completions grunt
-
 
 
 # Search the current directory and all parent directories for a gulpfile.
