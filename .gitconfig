@@ -92,6 +92,10 @@
 	# Detect whitespace errors when applying a patch
 	whitespace = fix
 
+[credential]
+	#use osx keychain to store git creditials
+	helper = osxkeychain
+
 [core]
 
 	# Use custom `.gitignore` and `.gitattributes`
