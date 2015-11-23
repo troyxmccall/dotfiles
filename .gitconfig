@@ -15,6 +15,12 @@
 	# Pull in remote changes for the current repository and all its submodules
 	p = !"git pull; git submodule foreach git pull origin master"
 
+	#pull in and merge latest master into working branch
+	mm = !"git pull origin master"
+
+	#pull in remote origin master and merge into existing fork
+	knife = !"git fetch upstream && git merge upstream/master"
+
 	# Clone a repository including all submodules
 	c = clone --recursive
 
@@ -57,13 +63,16 @@
 	# a.k.a. ‘delete merged’
 	dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
 
+	#purge local branches that were deleted remotely - making sure to never delete master
+	purge = !"git branch --merged | grep -v \"\\*\" | grep -v \"master\"| xargs -n 1 git branch -d"
+
 	# List contributors with number of commits
 	contributors = shortlog --summary --numbered
 
-	# Merge GitHub pull request on top of the `master` branch
+	# Merge GitHub pull request on top of the `master` branch, supports non origin remotes
 	mpr = "!f() { \
 		if [ $(printf \"%s\" \"$1\" | grep '^[0-9]\\+$' > /dev/null; printf $?) -eq 0 ]; then \
-			git fetch origin refs/pull/$1/head:pr/$1 && \
+			git fetch ${2:-origin} refs/pull/$1/head:pr/$1 && \
 			git rebase master pr/$1 && \
 			git checkout master && \
 			git merge pr/$1 && \
@@ -126,10 +135,6 @@
 	# Detect copies as well as renames
 	renames = copies
 
-[diff "bin"]
-	# Use `hexdump` to diff binary files
-	textconv = hexdump -v -C
-
 [help]
 
 	# Automatically correct and execute mistyped commands
@@ -170,6 +175,3 @@
 [url "git://gist.github.com/"]
 
 	insteadOf = "gist:"
-# use osx keychain
-[credential]
-	helper = osxkeychain

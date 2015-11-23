@@ -21,13 +21,6 @@ alias g="git"
 alias h="history"
 alias j="jobs"
 
-#purge local branches that were deleted remotely - making sure to never delete master
-alias gbpurge='git branch --merged | grep -v "\*" | grep -v "master"| xargs -n 1 git branch -d'
-#pull in and merge latest master into working branch
-alias gmm='git pull origin master'
-#pull in remote origin master and merge into existing fork
-alias knife='git fetch upstream && git merge upstream/master'
-
 # Fix Homebrew permissions if they get fucked
 alias fixbrew='sudo chown -R $(whoami):admin $(brew --prefix) && sudo chown -R $(whoami):admin /Library/Caches/Homebrew && sudo chown -R $(whoami):admin /opt/homebrew-cask/Caskroom'
 
