@@ -7,7 +7,6 @@ export PATH="~/.composer/vendor/bin:$PATH"
 export PATH="(brew --prefix coreutils)/libexec/gnubin:$PATH"
 #brew cask install path
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
-#go
-export PATH=$PATH:/usr/local/go/bin
-export GOROOT=$HOME/go
-export PATH=$PATH:$GOROOT/bin
+#go $ brew info go
+export PATH=$PATH:/usr/local/opt/go/libexec/bin
+export GOPATH=/usr/local/opt/go/bin
