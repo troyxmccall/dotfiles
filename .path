@@ -8,5 +8,8 @@ export PATH="(brew --prefix coreutils)/libexec/gnubin:$PATH"
 #brew cask install path
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 #go $ brew info go
-export PATH=$PATH:/usr/local/opt/go/libexec/bin
-export GOPATH=/usr/local/opt/go/bin
+# https://gist.github.com/vsouza/77e6b20520d07652ed7d
+export GOPATH=$HOME/golang
+export GOROOT=/usr/local/opt/go/libexec
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin
