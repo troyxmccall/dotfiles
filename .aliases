@@ -9,9 +9,6 @@ alias -- -="cd -"
 # Prevent common typos
 alias cd..="cd .."
 
-#use hub instead of git
-alias git="hub"
-
 # Shortcuts
 alias d="cd ~/Dropbox"
 alias dl="cd ~/Downloads"

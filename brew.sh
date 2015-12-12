@@ -179,6 +179,9 @@ fi
 brew install python
 brew linkapps python
 
+#gowithit
+brew install go
+
 #Install thefuck: https://github.com/nvbn/thefuck
 brew install thefuck
 
