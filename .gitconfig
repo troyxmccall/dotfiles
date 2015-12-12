@@ -67,10 +67,9 @@
 
 	# Remove branches that have already been merged with master
 	# a.k.a. ‘delete merged’
-	dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
-
-	#purge local branches that were deleted remotely - making sure to never delete master
-	purge = !"git branch --merged | grep -v \"\\*\" | grep -v \"master\"| xargs -n 1 git branch -d"
+	dm = "!git branch --merged master | grep -v 'master$' | xargs git branch -D"
+	#delete branches without remote origins
+ 	purge = "!git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D"
 
 	# List contributors with number of commits
 	contributors = shortlog --summary --numbered
