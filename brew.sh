@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+1#!/usr/bin/env bash
 
 # Install command-line tools using Homebrew.
 
@@ -103,6 +103,7 @@ brew install knock
 brew install netpbm
 brew install nmap
 brew install pngcheck
+brew install snort
 brew install socat
 brew install sqlmap
 brew install tcpflow
@@ -194,6 +195,7 @@ apps=(
   appcleaner
   atom
   backblaze
+  blockblock
   brackets
   caffeine
   charles
@@ -208,15 +210,15 @@ apps=(
   hazel
   hosts
   iterm2-beta
+  knockknock
   lastpass
   little-snitch
-  mailbox
+  malwarebytes-anti-malware
   qlcolorcode
   qlmarkdown
   qlprettypatch
   qlstephen
   quicklook-json
-  rdio
   screenflick
   sequel-pro
   shiori
@@ -226,6 +228,7 @@ apps=(
   slack
   spectacle
   spotify
+  sonarr
   sublime-text
   telegram
   tower
@@ -235,6 +238,7 @@ apps=(
   vlc
   vox
   vox-preferences-pane
+  vyprvpn
   wireshark
 )
 
