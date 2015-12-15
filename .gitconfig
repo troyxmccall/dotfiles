@@ -69,7 +69,7 @@
   # a.k.a. ‘delete merged’
   dm = "!git branch --merged master | grep -v 'master$' | xargs git branch -D"
   #delete branches without remote origins
-   purge = "!git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D"
+  purge = "!git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D"
 
   # List contributors with number of commits
   contributors = shortlog --summary --numbered
