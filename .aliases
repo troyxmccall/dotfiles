@@ -21,6 +21,9 @@ alias j="jobs"
 # Fix Homebrew permissions if they get fucked
 alias fixbrew='sudo chown -R $(whoami):admin $(brew --prefix) && sudo chown -R $(whoami):admin /Library/Caches/Homebrew && sudo chown -R $(whoami):admin /opt/homebrew-cask/Caskroom'
 
+# Fix NPM
+alias fixnpm='sudo chown -R $(whoami):admin $(npm config get prefix)'
+
 #vagrant shortcuts
 alias vss='LOCAL_WORKING_DIR=`vagrant_working_dir` vagrant ssh -- -oSendEnv=LOCAL_WORKING_DIR'
 alias vu="vagrant up"
