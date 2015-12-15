@@ -154,6 +154,7 @@ brew install rbenv-default-gems
 
 #install git
 brew install git
+brew link git --overwrite
 
 #config git
 curl -s -O \
@@ -196,7 +197,6 @@ apps=(
   atom
   backblaze
   blockblock
-  brackets
   caffeine
   charles
   chitchat
@@ -231,14 +231,15 @@ apps=(
   sonarr
   sublime-text
   telegram
+  torbrowser
   tower
   transmission
   transmit
+  tunnelblick
   vagrant
   vlc
   vox
   vox-preferences-pane
-  vyprvpn
   wireshark
 )
 
