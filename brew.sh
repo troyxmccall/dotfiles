@@ -218,8 +218,10 @@ apps=(
   appcleaner
   atom
   backblaze
+  betterzipql
   blockblock
   caffeine
+  cert-quicklook
   charles
   chitchat
   cloudup
@@ -236,11 +238,14 @@ apps=(
   lastpass
   little-snitch
   malwarebytes-anti-malware
+  provisionql
   qlcolorcode
+  qlimagesize
   qlmarkdown
   qlprettypatch
   qlstephen
   quicklook-json
+  quicklook-csv
   screenflick
   sequel-pro
   shiori
@@ -252,16 +257,18 @@ apps=(
   spotify
   sonarr
   sublime-text
+  suspicious-package
   telegram
   torbrowser
   tower
   transmission
   transmit
-  tunnelblick
   vagrant
+  viscosity
   vlc
   vox
   vox-preferences-pane
+  webpquicklook
   wireshark
 )
 
