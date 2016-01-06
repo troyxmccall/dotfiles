@@ -142,8 +142,7 @@ brew install trash
 brew install webkit2png
 brew install zopfli
 
-# Install Node.js. Note: this installs `npm` too, using the recommended
-# installation method.
+# Install Node.js. Note: this installs `npm` too, using the recommended installation method.
 brew install node
 # install phantomjs for el capitan
 npm install phantom phantomjs -g
@@ -215,9 +214,7 @@ brew install thefuck
 # Apps for caskroom
 apps=(
   adobe-creative-cloud
-  adium
   alfred
-  android-studio
   appcleaner
   atom
   backblaze
