@@ -170,6 +170,7 @@ npm install -g yo generator-hubot
 # other utilities
 npm install -g debug
 npm install -g jshint
+npm install -g npm-install-missing
 
 #install rbenv and ruby build
 brew install rbenv
