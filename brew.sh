@@ -216,7 +216,6 @@ apps=(
   adobe-creative-cloud
   adium
   alfred
-  android-studio
   appcleaner
   atom
   backblaze
