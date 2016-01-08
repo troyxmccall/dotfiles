@@ -40,6 +40,13 @@ alias md="cd ~/projects/mosdef/"
 alias sl="cd ~/projects/lowes-slate-microsite/"
 alias ua="cd ~/projects/under-armour-blog/wp-content/themes/ua"
 
+#spotify shortcuts https://github.com/troyxmccall/term-spot
+alias next="spotify next"
+alias stop="spotify pause"
+alias prev="spotify prev"
+alias ct="spotify info"
+alias play="spotify play"
+
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
   colorflag="--color"
