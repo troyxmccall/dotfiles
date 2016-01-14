@@ -220,7 +220,6 @@ apps=(
   backblaze
   betterzipql
   blockblock
-  caffeine
   cert-quicklook
   charles
   chitchat
@@ -234,6 +233,7 @@ apps=(
   hazel
   hosts
   iterm2-beta
+  keepingyouawake
   knockknock
   lastpass
   little-snitch
