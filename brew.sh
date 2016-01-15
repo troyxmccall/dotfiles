@@ -238,6 +238,7 @@ apps=(
   lastpass
   little-snitch
   malwarebytes-anti-malware
+  postman
   provisionql
   qlcolorcode
   qlimagesize
