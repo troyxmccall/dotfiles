@@ -142,8 +142,7 @@ brew install trash
 brew install webkit2png
 brew install zopfli
 
-# Install Node.js. Note: this installs `npm` too, using the recommended
-# installation method.
+# Install Node.js. Note: this installs `npm` too, using the recommended installation method.
 brew install node
 # install phantomjs for el capitan
 npm install phantom phantomjs -g
@@ -170,6 +169,7 @@ npm install -g yo generator-hubot
 # other utilities
 npm install -g debug
 npm install -g jshint
+npm install -g npm-install-missing
 
 #install rbenv and ruby build
 brew install rbenv
@@ -214,14 +214,12 @@ brew install thefuck
 # Apps for caskroom
 apps=(
   adobe-creative-cloud
-  adium
   alfred
   appcleaner
   atom
   backblaze
   betterzipql
   blockblock
-  caffeine
   cert-quicklook
   charles
   chitchat
@@ -235,6 +233,7 @@ apps=(
   hazel
   hosts
   iterm2-beta
+  keepingyouawake
   knockknock
   lastpass
   little-snitch
