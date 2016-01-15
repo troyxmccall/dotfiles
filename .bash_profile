@@ -49,5 +49,7 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes Syste
 
 #rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-
+#alias hub as git https://github.com/github/hub#aliasing
 eval "$(hub alias -s)"
+#iterm2 shell integration https://iterm2.com/shell_integration.html
+test -e ${HOME}/.iterm2_shell_integration.bash && source ${HOME}/.iterm2_shell_integration.bash
