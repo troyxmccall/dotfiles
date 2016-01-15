@@ -213,7 +213,9 @@ brew install thefuck
 
 # Apps for caskroom
 apps=(
+  adium
   adobe-creative-cloud
+  airparrot
   alfred
   appcleaner
   atom
@@ -236,9 +238,13 @@ apps=(
   keepingyouawake
   knockknock
   lastpass
+  licecap
   little-snitch
   malwarebytes-anti-malware
+  messenger
+  mono-mdk
   postman
+  private-internet-access
   provisionql
   qlcolorcode
   qlimagesize
@@ -271,6 +277,7 @@ apps=(
   vox-preferences-pane
   webpquicklook
   wireshark
+  yakyak
 )
 
 # Install apps to /Applications - default is: /Users/$user/Applications
