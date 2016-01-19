@@ -53,3 +53,5 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 eval "$(hub alias -s)"
 #iterm2 shell integration https://iterm2.com/shell_integration.html
 test -e ${HOME}/.iterm2_shell_integration.bash && source ${HOME}/.iterm2_shell_integration.bash
+#docker
+eval "$(docker-machine env default)"
