@@ -12,12 +12,14 @@ flatland@0.16.0
 flatland-dark@0.1.6
 flatland-dark-ui@0.2.4
 language-apache@1.4.0
+language-applescript@0.2.0
 language-nginx@0.6.1
 laravel@0.7.0
 linter@1.11.3
 linter-php@1.1.6
 local-history@3.2.3
 monokai@0.18.0
+node-debugger@1.3.2
 php-cs-fixer@2.5.2
 php-debug@0.1.4
 project-manager@2.7.3
