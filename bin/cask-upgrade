@@ -5,6 +5,7 @@
 # The app prompts you to update only if the Cask contain a version number and the installed app version can be retrieved.
 # Therefore casks that use "latest" will not be updated
 #
+# NOTE: THIS SCRIPT COMPLETELY REMOVES CASKS THEN ADDS THE LATEST VERSION BACK.
 #
 # Usage :
 # cask-upgrade 		: prompt each time it encouter an update to install it
