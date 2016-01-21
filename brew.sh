@@ -211,6 +211,9 @@ brew install go
 #Install thefuck: https://github.com/nvbn/thefuck
 brew install thefuck
 
+#force linking to make sure we override pre-installed binaries from OSX
+brew list -1 | while read line; do brew unlink $line; brew link --force $line; done
+
 # Apps for caskroom
 apps=(
   adium
