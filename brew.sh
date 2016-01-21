@@ -213,7 +213,7 @@ brew install go
 brew install thefuck
 
 #force linking to make sure we override pre-installed binaries from OSX
-brew list -1 | while read line; do brew unlink $line; brew link --force $line; done
+linkbrew
 
 # Apps for caskroom
 apps=(
