@@ -1,0 +1,141 @@
+#!/usr/bin/ruby
+
+# Another workaround solution to upgrade installed cask
+# Update Homebrew Cask and verify installed applications versions with Casks to perform an upgrade
+# The app prompt to update only if the Cask contain a version number and the installed app version can be retrieved.
+#
+# Application are uninstalled and resintalled with brew cask
+#
+# Usage :
+# cask-upgrade 		: prompt each time it encouter an update to install it
+# cask-upgrade auto : will upgrade applications automatically
+# cask-upgrade atom : will search for an application called atom and upgrade it
+
+
+class String
+def black;          "\e[30m#{self}\e[0m" end
+def red;            "\e[31m#{self}\e[0m" end
+def green;          "\e[32m#{self}\e[0m" end
+def brown;          "\e[33m#{self}\e[0m" end
+def blue;           "\e[34m#{self}\e[0m" end
+def magenta;        "\e[35m#{self}\e[0m" end
+def cyan;           "\e[36m#{self}\e[0m" end
+def gray;           "\e[1;30m#{self}\e[0m" end
+
+def bg_black;       "\e[40m#{self}\e[0m" end
+def bg_red;         "\e[41m#{self}\e[0m" end
+def bg_green;       "\e[42m#{self}\e[0m" end
+def bg_brown;       "\e[43m#{self}\e[0m" end
+def bg_blue;        "\e[44m#{self}\e[0m" end
+def bg_magenta;     "\e[45m#{self}\e[0m" end
+def bg_cyan;        "\e[46m#{self}\e[0m" end
+def bg_gray;        "\e[47m#{self}\e[0m" end
+
+def bold;           "\e[1m#{self}\e[22m" end
+def italic;         "\e[3m#{self}\e[23m" end
+def underline;      "\e[4m#{self}\e[24m" end
+def blink;          "\e[5m#{self}\e[25m" end
+def reverse_color;  "\e[7m#{self}\e[27m" end
+end
+
+option = ARGV[0]
+auto = (option == "auto") ? true : false
+appdir="~/Applications"
+
+system("clear")
+
+# CHANGE APP FOLDER
+CASK_OPTIONS=`echo $HOMEBREW_CASK_OPTS`
+if appdiropt = CASK_OPTIONS.match(/--appdir=(\S+)\s+/)
+  appdir = appdiropt[1] if File.exist?(appdiropt[1])
+end
+puts "Application directory: #{appdir}"
+
+# UPGRADE SPECIFIC APP
+if !option.nil? and !option.empty? and option != "auto"
+  app = option.chomp
+  if system("brew cask info #{app} &>/dev/null")
+    print "Do you want to reinstall #{app}? "+"[ y/N ] ".gray
+    update = STDIN.gets.strip
+    if update =~ /[yY]/
+      puts "Upgrading #{app}".green
+      system("brew cask uninstall #{app} --force && sleep 1 && brew cask install #{app} --force")
+    else
+      puts "Canceling update...".brown
+    end
+  else
+    puts "Unknow app to update".red
+  end
+  exit!()
+end
+
+# UPDATE HOMEBREW
+puts "Updating homebrew cask, please wait...".cyan
+system("brew cask update")
+if $? == 1
+  puts "Cask update failed".red
+  exit!()
+end
+system("clear")
+
+# BREW CASK LIST
+# IO.popen("echo atom") { |apps|
+IO.popen("brew cask list") { |apps|
+  apps.each { |app|
+    app.chomp!
+    puts "+-------------------------------------------------------------------+"
+    infosstr = app.upcase
+    infos=`brew cask info #{app}`
+    if vmatch = /: ([0-9\._]+)/.match(infos.lines.first)
+      version, build = vmatch[1].split(%r{[_-]})
+      infosstr += " version #{version}".gray
+      infosstr += " (#{build})".gray if build
+
+      print "#{infosstr}"
+      column1length = 69 - infosstr.gsub(/\e\[[0-9;]+[m]?/,'').length
+
+      if appname = /(.*) \(app\)/.match(infos)
+        # APPLICATION FILENAME
+        appname = appname[1].strip
+        if File.exist?("#{appdir}/#{appname}")
+          # GET APPLICATION VERSION WITH SPOTLIGHT
+          if currentmatch = /([0-9\.]+)/.match(`mdls "#{appdir}/#{appname}" -name kMDItemVersion -raw`)
+            current = currentmatch[1].chomp
+            # COMPARE VERSION WITH CASK VERSION
+            if Gem::Version.new(version) <= Gem::Version.new(current)
+              puts "up-to-date".rjust(column1length).green
+            elsif current != "(null)" and version != "latest"
+              puts "update available".rjust(column1length).cyan
+              print "Do you want to update #{app} to version #{version.green} (current #{current.green})? "+"[ y/N ] ".gray
+              if auto
+                puts "auto".cyan
+                update = "y"
+              else
+                update = STDIN.gets.strip
+              end
+              # UPDATE CURRENT APPLICAION
+              if update =~ /[yY]/
+                puts "Update #{app} to version #{version}".green
+                system("brew cask uninstall #{app} --force && sleep 1 && brew cask install #{app} --force")
+              else
+                puts "Cancel update...".brown
+              end
+            else
+              puts "update undefined...".rjust(column1length)
+            end
+          else
+            puts "unknow installed version".rjust(column1length).brown
+          end
+        else
+          puts "not found".rjust(column1length)
+        end
+      else
+        puts "unknow app".rjust(column1length).brown
+      end
+    else
+      print "#{infosstr}"
+      column1length = 69 - infosstr.length
+      puts "unknow version".rjust(column1length).brown
+    end
+  }
+}
