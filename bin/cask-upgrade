@@ -5,7 +5,7 @@
 # The app prompts you to update only if the Cask contain a version number and the installed app version can be retrieved.
 # Therefore casks that use "latest" will not be updated
 #
-# NOTE: THIS SCRIPT COMPLETELY REMOVES CASKS THEN ADDS THE LATEST VERSION BACK.
+# NOTE: THIS SCRIPT COMPLETELY REMOVES OUT-OF-DATE CASKS & ADDS THE LATEST VERSION.
 #
 # Usage :
 # cask-upgrade 		: prompt each time it encouter an update to install it
@@ -162,7 +162,7 @@ IO.popen('brew cask list') do |apps|
           # GET APPLICATION VERSION WITH SPOTLIGHT
           if currentmatch = /([0-9\.]+)/.match(`mdls "#{appdir}/#{appname}" -name kMDItemVersion -raw`)
             current = currentmatch[1].chomp
-            # COMPARE VERSION WITH CASK VERSION
+            # COMPARE INSTALLED VERSION WITH CASK VERSION
             if Gem::Version.new(version) <= Gem::Version.new(current)
               puts 'up-to-date'.rjust(column1length).green
             elsif current != '(null)' && version != 'latest'
