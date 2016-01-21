@@ -390,3 +390,45 @@ function _gulp_completions() {
 }
 
 complete -o default -F _gulp_completions gulp
+
+function witches-brew() {
+  brew update && brew upgrade && brew cleanup && cask-upgrade && cask-retire && brew cask cleanup && brew doctor && brew cask doctor
+}
+
+#casks that use "latest"
+function __is_pinned() {
+  local pinned=";adobe-creative-cloud;backblaze;betterzipql;cloudup;dropbox;firefoxdeveloperedition;google-chrome;google-hangouts;lastpass;qlimagesize;qlstephen;quicklook-csv;quicklook-json;screenflick;sketch;skype;sonarr;spotify;suspicious-package;vox;vox-preferences-pane;"
+  [[ *";${1};"* != "${pinned}" ]] && return 0 || return 1
+}
+
+function cask-upgrade() {
+  while read -r; do
+    reply=(${REPLY})
+    name="${reply[0]}"
+    vers="${reply[1]}"
+    if ! __is_pinned "${name}"; then
+      if [[ "${vers}" == "latest" ]]; then
+        brew cask install "${name}" --force
+      else
+        brew cask install "${name}" 2> >(grep -v "re-install")
+      fi
+    fi
+  done < <(brew cask list --versions)
+}
+
+function cask-retire() {
+  room="/opt/homebrew-cask/Caskroom"
+  while read -r; do
+    reply=(${REPLY})
+    name="${reply[0]}"
+    vers="${reply[1]}"
+    if ! __is_pinned "${name}"; then
+      for inst in $(ls "${room}/${name}"); do
+        if [[ "${inst}" != "${vers}" ]]; then
+          echo "Removing ${name} version ${inst}"
+          rm -r "${room}/${name}/${inst}"
+        fi
+      done
+    fi
+  done < <(brew cask list --versions)
+}

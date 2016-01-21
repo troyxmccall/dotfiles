@@ -9,7 +9,7 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 #homebrew now includes cask, so let's get rid of the old version
-brew uninstall --force brew-cask;
+brew uninstall --force brew-cask
 
 # Make sure we’re using the latest Homebrew.
 brew update
@@ -100,6 +100,7 @@ brew install fcrackzip
 brew install foremost
 brew install hashpump
 brew install hydra
+brew install iperf3
 brew install john
 brew install knock
 brew install netpbm
