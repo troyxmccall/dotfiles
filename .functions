@@ -391,6 +391,7 @@ function _gulp_completions() {
 
 complete -o default -F _gulp_completions gulp
 
+#keep casks up to date the right way
 function witches-brew() {
   brew update && brew upgrade && brew cleanup && cask-upgrade && cask-retire && brew cask cleanup && brew doctor && brew cask doctor
 }
@@ -401,6 +402,7 @@ function __is_pinned() {
   [[ *";${1};"* != "${pinned}" ]] && return 0 || return 1
 }
 
+#get the latests casks
 function cask-upgrade() {
   while read -r; do
     reply=(${REPLY})
@@ -416,6 +418,7 @@ function cask-upgrade() {
   done < <(brew cask list --versions)
 }
 
+#that's some old shit
 function cask-retire() {
   room="/opt/homebrew-cask/Caskroom"
   while read -r; do
