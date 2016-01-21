@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 
-# Another workaround solution to upgrade installed cask
+# A workaround to upgrade installed casks
 # Update Homebrew Cask and verify installed applications versions with Casks to perform an upgrade
-# The app prompt to update only if the Cask contain a version number and the installed app version can be retrieved.
+# The app prompts you to update only if the Cask contain a version number and the installed app version can be retrieved.
+# Therefore casks that use "latest" will not be updated
 #
-# Application are uninstalled and resintalled with brew cask
 #
 # Usage :
 # cask-upgrade 		: prompt each time it encouter an update to install it
