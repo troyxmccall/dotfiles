@@ -20,6 +20,8 @@ alias j="jobs"
 
 # Fix Homebrew permissions if they get fucked
 alias fixbrew='sudo chown -R $(whoami):admin $(brew --prefix) && sudo chown -R $(whoami):admin /Library/Caches/Homebrew && sudo chown -R $(whoami):admin /opt/homebrew-cask/Caskroom'
+#force linking to make sure we override pre-installed binaries from OSX
+alias linkbrew='brew list -1 | while read line; do brew unlink $line; brew link --force $line; done'
 
 # Fix NPM
 alias fixnpm='sudo chown -R $(whoami):admin $(npm config get prefix)'
