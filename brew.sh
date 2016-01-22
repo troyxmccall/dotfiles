@@ -226,7 +226,6 @@ apps=(
   backblaze
   betterzipql
   blockblock
-  cert-quicklook
   charles
   chitchat
   cloudup
