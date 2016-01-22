@@ -146,7 +146,8 @@ brew install zopfli
 # Install Node.js. Note: this installs `npm` too, using the recommended installation method.
 brew install node
 # install phantomjs for el capitan
-npm install phantom phantomjs -g
+brew install phantomjs
+brew link --overwrite phantomjs
 # front-end web, client and tasks modules
 npm install -g bower
 npm install -g grunt-cli grunt
@@ -229,6 +230,8 @@ apps=(
   charles
   chitchat
   cloudup
+  docker
+  docker-toolbox
   dropbox
   firefox
   flash
