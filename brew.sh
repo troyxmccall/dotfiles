@@ -206,6 +206,9 @@ fi
 #import anti-gravity
 brew install python
 brew linkapps python
+pip install Pygments
+pip install requests
+
 
 #gowithit
 brew install go
