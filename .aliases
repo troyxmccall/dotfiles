@@ -17,6 +17,19 @@ alias p="cd ~/projects"
 alias g="git"
 alias h="history"
 alias j="jobs"
+#detailed operations
+alias mv='mv -v'
+alias rm='rm -i -v'
+alias cp='cp -v'
+
+alias cask='brew cask' # i <3 u cask
+alias where=which # sometimes i forget
+alias brwe=brew  #typos
+
+alias hosts='sudo $EDITOR /etc/hosts'   #quick add
+
+# `cat` with beautiful colors. requires: sudo easy_install -U Pygments
+alias c='pygmentize -O style=monokai -f console256 -g'
 
 # Fix Homebrew permissions if they get fucked
 alias fixbrew='sudo chown -R $(whoami):admin $(brew --prefix) && sudo chown -R $(whoami):admin /Library/Caches/Homebrew && sudo chown -R $(whoami):admin /opt/homebrew-cask/Caskroom'

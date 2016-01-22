@@ -58,6 +58,12 @@ brew install homebrew/dupes/grep
 brew install homebrew/dupes/openssh
 brew install homebrew/dupes/screen
 
+# Install font tools.
+brew tap bramstein/webfonttools
+brew install sfnt2woff
+brew install sfnt2woff-zopfli
+brew install woff2
+
 #better php tap
 brew tap homebrew/dupes
 brew tap homebrew/versions
@@ -77,35 +83,40 @@ brew install phpmd
 brew install php-code-sniffer
 brew install php-cs-fixer
 
-#install some benchmarking tools
+#install some http benchmarking tools
 brew install wrk
 brew install siege
+brew install vegeta
 
-# Install font tools.
-brew tap bramstein/webfonttools
-brew install sfnt2woff
-brew install sfnt2woff-zopfli
-brew install woff2
+#install some network benchmarking/testing tools
+brew install iperf3
+brew install nuttcp
+brew install mtr
+brew install owamp
+brew install scamper
+brew install whatmask
 
-# Install some CTF tools; see https://github.com/ctfs/write-ups.
+# Install some more CTF tools; see https://github.com/ctfs/write-ups.
 brew install aircrack-ng
 brew install bfg
 brew install binutils
 brew install binwalk
 brew install cifer
+brew install cowpatty
 brew install dex2jar
 brew install dnsmasq
 brew install dns2tcp
 brew install fcrackzip
 brew install foremost
 brew install hashpump
+brew install homebrew/python/pyrit
 brew install hydra
-brew install iperf3
 brew install john
 brew install knock
 brew install netpbm
 brew install nmap
 brew install pngcheck
+brew install reaver
 brew install snort
 brew install socat
 brew install sqlmap
@@ -113,6 +124,7 @@ brew install tcpflow
 brew install tcpreplay
 brew install tcptrace
 brew install tcpdump
+brew install trafshow
 brew install dhcpdump
 brew install ucspi-tcp # `tcpserver` etc.
 brew install wireshark
@@ -121,6 +133,7 @@ brew install xz
 
 # Install other useful binaries.
 brew install ack
+brew install autojump
 brew install ngrep
 brew install dark-mode
 brew install exiv2
@@ -138,6 +151,7 @@ brew install rename
 brew install rhino
 brew install speedtest_cli
 brew install ssh-copy-id
+brew install the_silver_searcher
 brew install tree
 brew install trash
 brew install webkit2png
@@ -146,7 +160,8 @@ brew install zopfli
 # Install Node.js. Note: this installs `npm` too, using the recommended installation method.
 brew install node
 # install phantomjs for el capitan
-npm install phantom phantomjs -g
+brew install phantomjs
+brew link --overwrite phantomjs
 # front-end web, client and tasks modules
 npm install -g bower
 npm install -g grunt-cli grunt
@@ -205,6 +220,9 @@ fi
 #import anti-gravity
 brew install python
 brew linkapps python
+pip install Pygments
+pip install requests
+
 
 #gowithit
 brew install go
@@ -229,6 +247,8 @@ apps=(
   charles
   chitchat
   cloudup
+  docker
+  docker-toolbox
   dropbox
   firefox
   flash

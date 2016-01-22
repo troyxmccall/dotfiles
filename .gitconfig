@@ -21,8 +21,11 @@
   #pull in remote origin master and merge into existing fork
   knife = !"git fetch upstream && git merge upstream/master"
 
+  #rollback push
+  fuck = !"git push -f origin HEAD^:master"
+
   #hard reset and clean
-  fuck = !"git fetch origin; git reset --hard origin/master; git clean -fdx"
+  hardfuck = !"git fetch origin; git reset --hard origin/master; git clean -fdx"
 
   #undo previous commit
   undo = !"git revert HEAD^"

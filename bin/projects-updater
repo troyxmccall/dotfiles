@@ -1,0 +1,38 @@
+#!/usr/bin/env sh
+
+PROJECTS_DIR=$HOME/projects
+
+# store the current dir
+CUR_DIR=$(pwd)
+
+#hey user
+echo "Pulling in latest changes for all repositories..."
+
+cd $PROJECTS_DIR
+
+# Find all git repositories and update them to their latest revision on current branch
+for i in $(find . -name ".git" | cut -c 3-); do
+  #ignore submodules, vendor, composer,  and bins
+  if [[ "$i" != *libraries*  && "$i" != *deployment*  && "$i" != *vendor* && "$i" != *bin* ]]
+  then
+    
+    echo "";
+    echo $i;
+    
+    #We have to go to the .git parent directory to call the pull command
+    cd "$i";
+    cd ..;
+    #preload index - for nfs
+    git config core.preloadindex true
+    #pull
+    git pull;
+    #update submodules
+    git submodule update;
+    #lets get back to the PROJECTS_DIR and get more gits
+    cd $PROJECTS_DIR
+  fi
+done
+
+cd $CUR_DIR
+
+echo "Complete!"

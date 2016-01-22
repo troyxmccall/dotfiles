@@ -393,7 +393,7 @@ complete -o default -F _gulp_completions gulp
 
 #keep casks up to date the right way
 function witches-brew() {
-  brew update && brew upgrade && brew cleanup && cask-upgrade && cask-retire && brew cask cleanup && brew doctor && brew cask doctor
+  brew update && brew upgrade && brew cleanup && cask-upgrade auto && cask-retire && brew cask cleanup && brew doctor && brew cask doctor
 }
 
 #that's some old shit
@@ -419,4 +419,37 @@ function cask-retire {
   else
       clean-cask "$1"
   fi
+}
+
+function keyme () {
+  if [ -z "$1" -o -z "$2" ]; then
+    echo "Please provide your email and a name for the key (preferably the server domain) - usage: newkey <email> <keyname>"
+    return 1
+  fi
+  ssh-keygen -t rsa -b 4096 -C "$1" -f "$HOME/.ssh/${2}_rsa"
+
+  read -r -p "Would you like to upload this key to a server now? [y/N] " response
+  response=${response}    # tolower
+  if [[ $response =~ ^(yes|y)$ ]]; then
+    echo -n "Enter the server hostname or IP address and press [ENTER]: "
+    read server
+    echo -n "Enter your username for $server and press [ENTER]: "
+    read username
+    ssh-copy-id -i "$HOME/.ssh/${2}_rsa.pub" "$username@$server"
+  fi
+}
+
+function getkey2 () {
+  if [ -z "$1" ]; then
+    echo "Please provide a keyname (it's probably the domain) - usage: getkey2 <keyname>"
+    return 1
+  fi
+  local keyname="$1"
+
+  if [ -z "$keyname" ]; then
+    keyname="id"
+  fi
+
+  echo "Public key from file $HOME/.ssh/${keyname}_rsa.pub" && echo ""
+  cat "$HOME/.ssh/${keyname}_rsa.pub"
 }
