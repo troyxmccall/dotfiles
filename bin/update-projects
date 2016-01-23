@@ -1,9 +1,4 @@
-#!/bin/bash
-
-# make this script executable
-# $ chmod +x pulleverything.sh
-# call it like this
-# $ ./pulleverything.sh
+#!/usr/bin/env sh
 
 # store the current dir
 CUR_DIR=$(pwd)
