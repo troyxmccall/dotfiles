@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+
 PROJECTS_DIR=$HOME/projects
 
 # store the current dir
