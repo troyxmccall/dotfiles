@@ -88,14 +88,15 @@ brew install wrk
 brew install siege
 brew install vegeta
 
-#install some network benchmarking tools
+#install some network benchmarking/testing tools
 brew install iperf3
 brew install nuttcp
 brew install mtr
 brew install owamp
 brew install scamper
+brew install whatmask
 
-# Install some CTF tools; see https://github.com/ctfs/write-ups.
+# Install some more CTF tools; see https://github.com/ctfs/write-ups.
 brew install aircrack-ng
 brew install bfg
 brew install binutils
@@ -123,6 +124,7 @@ brew install tcpflow
 brew install tcpreplay
 brew install tcptrace
 brew install tcpdump
+brew install trafshow
 brew install dhcpdump
 brew install ucspi-tcp # `tcpserver` etc.
 brew install wireshark
@@ -131,6 +133,7 @@ brew install xz
 
 # Install other useful binaries.
 brew install ack
+brew install autojump
 brew install ngrep
 brew install dark-mode
 brew install exiv2

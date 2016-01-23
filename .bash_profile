@@ -50,8 +50,10 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes Syste
 #rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 #alias hub as git https://github.com/github/hub#aliasing
-eval "$(hub alias -s)"
+if which hub > /dev/null; then eval "$(hub alias -s)"; fi
 #iterm2 shell integration https://iterm2.com/shell_integration.html
 test -e ${HOME}/.iterm2_shell_integration.bash && source ${HOME}/.iterm2_shell_integration.bash
 #docker
-eval "$(docker-machine env default)"
+if which docker-machine > /dev/null; then eval "$(docker-machine env default)"; fi
+#autojump
+if which autojump > /dev/null; then [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh; fi
