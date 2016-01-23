@@ -151,6 +151,7 @@ brew install rename
 brew install rhino
 brew install speedtest_cli
 brew install ssh-copy-id
+brew install the_silver_searcher
 brew install tree
 brew install trash
 brew install webkit2png
