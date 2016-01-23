@@ -58,6 +58,12 @@ brew install homebrew/dupes/grep
 brew install homebrew/dupes/openssh
 brew install homebrew/dupes/screen
 
+# Install font tools.
+brew tap bramstein/webfonttools
+brew install sfnt2woff
+brew install sfnt2woff-zopfli
+brew install woff2
+
 #better php tap
 brew tap homebrew/dupes
 brew tap homebrew/versions
@@ -77,15 +83,17 @@ brew install phpmd
 brew install php-code-sniffer
 brew install php-cs-fixer
 
-#install some benchmarking tools
+#install some http benchmarking tools
 brew install wrk
 brew install siege
+brew install vegeta
 
-# Install font tools.
-brew tap bramstein/webfonttools
-brew install sfnt2woff
-brew install sfnt2woff-zopfli
-brew install woff2
+#install some network benchmarking tools
+brew install iperf3
+brew install nuttcp
+brew install mtr
+brew install owamp
+brew install scamper
 
 # Install some CTF tools; see https://github.com/ctfs/write-ups.
 brew install aircrack-ng
@@ -100,7 +108,6 @@ brew install fcrackzip
 brew install foremost
 brew install hashpump
 brew install hydra
-brew install iperf3
 brew install john
 brew install knock
 brew install netpbm
