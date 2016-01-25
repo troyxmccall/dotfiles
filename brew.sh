@@ -248,7 +248,7 @@ apps=(
   chitchat
   cloudup
   docker
-  docker-toolbox
+  dockertoolbox
   dropbox
   firefox
   flash
