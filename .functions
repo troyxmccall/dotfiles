@@ -283,6 +283,24 @@ function gh() {
   open $giturl
 }
 
+function git-ag () {
+  if [[ "$1" = "-a" ]]
+  then
+    all=1
+    shift
+  else
+    all=0
+  fi
+  pattern="$1"
+  shift
+  if [[ "$all" = 1 ]]
+  then
+    git ls-files -- "$@" | ag -S "$pattern"
+  else
+    git ls-files -- "$@" | grep -vf .gitignore | ag -S "$pattern"
+  fi
+}
+
 # keep host working directory in vagrant
 function vagrant_working_dir {
     current_dir=`pwd`
