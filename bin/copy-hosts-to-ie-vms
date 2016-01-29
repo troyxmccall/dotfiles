@@ -17,7 +17,7 @@
 # VM's setup via ievms.sh - the user listed below must be an admin on the VM.
 #
 # OVERVIEW :
-# 1 Parse local (vagrant) hosts to a list
+# 1 Parse local $HOME (vagrant) hosts to a list
 # 2 Create a .bat file to copy to the Windows VM disk
 # 3 Loop over hosts, adding commands to batchfile.
 # 4 Copy batchfile to C:\ in the VM
@@ -53,7 +53,7 @@ HOSTS="/etc/hosts"
 # Helpers
 SCRIPT=`basename "$0"`
 # IP of your Web Server VM
-IP=`(grep 'private_network, ip:' Vagrantfile | awk '{print $4}')`
+IP=`(grep 'private_network, ip:' ~/Vagrantfile | awk '{print $4}')`
 
 # Requires VM pass it as arg1
 if [[ -z $1 ]]; then
@@ -62,6 +62,8 @@ if [[ -z $1 ]]; then
 
     USAGE
         Specify at least one Virtual Machine to use.
+
+        This script assumes you have your Vagrantfile in your $HOME user directory
 
         Call the script as follows on the host
         ${SCRIPT} \"VM - Name\"  [ \"VM2 - Name\" \"VM3 - Name\" ... ]
@@ -164,23 +166,23 @@ for VM in "$@" ; do
 # sanity check
 is_vm "${VM}"
 if [[ "$?" -eq "0" ]]; then
-  
+
   STATE=`VBoxManage showvminfo "${VM}" | awk '/State/ {print $2}'`
   if [[ "${STATE}" != 'running' ]]; then
     echo "The virtual machine ${VM} is not running ... starting it"
     VBoxManage startvm  "${VM}"
   fi
-  
+
   wait_for_guestcontrol "${VM}"
   # Import the batch to the VM
   # Using windows back slashes fails
   # Copying into user directory
   echo  "Copying ${BATCHFILE} to ${VM}"
   WIN_OS_VER=$(VBoxManage showvminfo --machinereadable "${VM}" | grep "ostype=" | cut -d '=' -f2 | sed 's/\"//g' )
-  
-  
+
+
   echo "${WIN_OS_VER}"
-  
+
   cp ${BATCHFILE} ~/.ievms/hosts.bat
   copy_to_vm "${VM}" "hosts.bat" "C:\\Users\\IEUser\\hosts.bat"
   echo "Check for UAC popup in taskbar in ${VM}"
