@@ -33,7 +33,7 @@
 #
 #
 # To run on all
-# $ copy-hosts-to-ie-vms  "IE9 - Win7" "IE10 - Win7" "IE11 - Win7" "MSEdge - Win10"
+# $ copy-hosts-to-ie-vms  "IE10 - Win7" "IE11 - Win7" "MSEdge - Win10"
 #
 # CONFIG
 ###########################################################
@@ -65,6 +65,9 @@ if [[ -z $1 ]]; then
 
         Call the script as follows on the host
         ${SCRIPT} \"VM - Name\"  [ \"VM2 - Name\" \"VM3 - Name\" ... ]
+
+        To run on all
+        ${SCRIPT} \"IE10 - Win7\" \"IE11 - Win7\" \"MSEdge - Win10\"
 
         Edit this script if you want to avoid overwriting the Windows hosts file.
         See OVERWRITE comment in get_hosts function in ${SCRIPT}
@@ -161,23 +164,23 @@ for VM in "$@" ; do
 # sanity check
 is_vm "${VM}"
 if [[ "$?" -eq "0" ]]; then
-
+  
   STATE=`VBoxManage showvminfo "${VM}" | awk '/State/ {print $2}'`
   if [[ "${STATE}" != 'running' ]]; then
     echo "The virtual machine ${VM} is not running ... starting it"
     VBoxManage startvm  "${VM}"
   fi
-
+  
   wait_for_guestcontrol "${VM}"
   # Import the batch to the VM
   # Using windows back slashes fails
   # Copying into user directory
   echo  "Copying ${BATCHFILE} to ${VM}"
   WIN_OS_VER=$(VBoxManage showvminfo --machinereadable "${VM}" | grep "ostype=" | cut -d '=' -f2 | sed 's/\"//g' )
-
-
+  
+  
   echo "${WIN_OS_VER}"
-
+  
   cp ${BATCHFILE} ~/.ievms/hosts.bat
   copy_to_vm "${VM}" "hosts.bat" "C:\\Users\\IEUser\\hosts.bat"
   echo "Check for UAC popup in taskbar in ${VM}"
