@@ -1,4 +1,6 @@
+Sublime-Style-Column-Selection@1.5.1
 aligner-php@1.0.0
+angularjs@0.3.4
 atom-beautify@0.28.22
 atom-pair@2.0.10
 atom-php-navigation@0.5.2
@@ -27,6 +29,7 @@ project-manager@2.7.6
 save-session@0.16.0
 sort-lines@0.14.0
 tabs-to-spaces@1.0.1
+turbo-javascript@1.3.1
 wakatime@5.0.2
 wordpress-api@1.2.1
 
