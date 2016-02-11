@@ -95,6 +95,11 @@ brew install mtr
 brew install owamp
 brew install scamper
 brew install whatmask
+brew install testssl
+
+#ssh stuff
+brew install ssh-copy-id
+brew install stormssh
 
 # Install some more CTF tools; see https://github.com/ctfs/write-ups.
 brew install aircrack-ng
@@ -150,7 +155,6 @@ brew install pv
 brew install rename
 brew install rhino
 brew install speedtest_cli
-brew install ssh-copy-id
 brew install the_silver_searcher
 brew install tree
 brew install trash
