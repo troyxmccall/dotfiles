@@ -16,7 +16,8 @@ flatland@0.16.0
 flatland-dark@0.1.6
 flatland-dark-ui@0.2.4
 go-config@0.3.3
-go-plus@3.5.2
+go-get@0.1.1
+go-plus@3.5.3
 language-apache@1.4.0
 language-applescript@0.2.0
 language-nginx@0.6.1
