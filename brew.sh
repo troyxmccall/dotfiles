@@ -196,5 +196,3 @@ brew install thefuck
 
 # Remove outdated versions from the cellar.
 brew cleanup
-
-brew cask cleanup

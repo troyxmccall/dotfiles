@@ -69,8 +69,8 @@ apps=(
   malwarebytes-anti-malware
   messenger
   mono-mdk
+  onyx
   postman
-  private-internet-access
   provisionql
   qlcolorcode
   qlimagesize
@@ -113,3 +113,5 @@ for app in "${apps[@]}"
 do
   brew cask install --appdir="/Applications" $app
 done
+
+brew cask cleanup
