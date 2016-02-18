@@ -66,12 +66,27 @@ When setting up a new Mac, you may want to set some sensible OS X defaults:
 ./.osx
 ```
 
-### Install Homebrew formulae
+### Install Homebrew formulas
 When setting up a new Mac, you may want to install some common [Homebrew](http://brew.sh/) formulae (after installing Homebrew, of course):
 
 ```bash
 ./brew.sh
 ```
+
+### Install Brew Casks
+because downloading binaries is so 2009:
+
+```bash
+./cask.sh
+```
+
+### Install Node Modules
+the world runs on node
+
+```bash
+./npm.sh
+```
+
 
 ## Feedback
 Suggestions/improvements [welcome](https://github.com/troyxmccall/dotfiles/issues)!
