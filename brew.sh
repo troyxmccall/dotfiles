@@ -17,20 +17,10 @@ brew update
 # Upgrade any already-installed formulae.
 brew upgrade --all
 
-# Handle dependencies
-brew tap caskroom/versions
-
-# dependencies for Formulas and Casks
-dependencies=(
-  java
-  java6
-  virtualbox
-  xquartz
-)
-
-# Install dependencies to /Applications - default is: /Users/$user/Applications
-echo "installing dependencies..."
-brew cask install --appdir="/Applications" "${dependencies[@]}"
+#taps
+brew tap homebrew/dupes
+brew tap homebrew/versions
+brew tap homebrew/homebrew-php
 
 # Install GNU core utilities (those that come with OS X are outdated).
 # Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
@@ -63,11 +53,6 @@ brew tap bramstein/webfonttools
 brew install sfnt2woff
 brew install sfnt2woff-zopfli
 brew install woff2
-
-#better php tap
-brew tap homebrew/dupes
-brew tap homebrew/versions
-brew tap homebrew/homebrew-php
 
 #tap services - see: https://github.com/Homebrew/homebrew-services
 brew tap homebrew/services
@@ -203,89 +188,11 @@ brew linkapps python
 pip install Pygments
 pip install requests
 
-
 #gowithit
 brew install go
 
 #Install thefuck: https://github.com/nvbn/thefuck
 brew install thefuck
-
-#force linking to make sure we override pre-installed binaries from OSX
-linkbrew
-
-# Apps for caskroom
-apps=(
-  adium
-  adobe-creative-cloud
-  airparrot
-  alfred
-  appcleaner
-  atom
-  backblaze
-  betterzipql
-  blockblock
-  charles
-  chitchat
-  cloudup
-  docker
-  dockertoolbox
-  dropbox
-  firefox
-  flash
-  flux
-  geektool
-  google-chrome
-  hazel
-  hosts
-  iterm2-beta
-  keepingyouawake
-  knockknock
-  lastpass
-  licecap
-  little-snitch
-  malwarebytes-anti-malware
-  messenger
-  mono-mdk
-  postman
-  private-internet-access
-  provisionql
-  qlcolorcode
-  qlimagesize
-  qlmarkdown
-  qlprettypatch
-  qlstephen
-  quicklook-json
-  quicklook-csv
-  screenflick
-  sequel-pro
-  shiori
-  shuttle
-  sketch
-  skype
-  slack
-  spectacle
-  spotify
-  sonarr
-  sublime-text
-  suspicious-package
-  telegram
-  torbrowser
-  tower
-  transmission
-  transmit
-  vagrant
-  viscosity
-  vlc
-  vox
-  vox-preferences-pane
-  webpquicklook
-  wireshark
-  yakyak
-)
-
-# Install apps to /Applications - default is: /Users/$user/Applications
-echo "installing cask apps..."
-brew cask install --appdir="/Applications" "${apps[@]}"
 
 # Remove outdated versions from the cellar.
 brew cleanup
