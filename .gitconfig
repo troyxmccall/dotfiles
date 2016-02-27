@@ -22,10 +22,10 @@
   knife = !"git fetch upstream && git merge upstream/master"
 
   #rollback push
-  fuck = !"git push -f origin HEAD^:master"
+  takeback = !"git push -f origin HEAD^:master"
 
   #hard reset and clean
-  hardfuck = !"git fetch origin; git reset --hard origin/master; git clean -fdx"
+  reseteverything = !"git fetch origin; git reset --hard origin/master; git clean -fdx"
 
   #undo previous commit
   undo = !"git revert HEAD^"
@@ -165,8 +165,8 @@
 
 [pager]
 
-  diff = diff-so-fancy | less --tabs=1,5 -RFX
-  show = diff-so-fancy | less --tabs=1,5 -RFX
+  diff = diff-so-fancy | less --tabs=4 -RFX
+  show = diff-so-fancy | less --tabs=4 -RFX
 
 [push]
 
