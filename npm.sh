@@ -25,6 +25,5 @@ npm install -g yo generator-hubot
 npm install -g debug
 npm install -g jshint
 npm install -g npm-install-missing
-npm install -g diff-so-fancy
 npm install -g webtorrent
 npm install -g vtop

@@ -133,8 +133,8 @@ brew install xz
 # Install other useful binaries.
 brew install ack
 brew install autojump
-brew install ngrep
 brew install dark-mode
+brew install diff-so-fancy
 brew install exiv2
 brew install git
 brew install git-lfs
@@ -143,6 +143,7 @@ brew install htop
 brew install imagemagick --with-webp
 brew install lua
 brew install lynx
+brew install ngrep
 brew install p7zip
 brew install pigz
 brew install pv
@@ -166,8 +167,7 @@ brew install rbenv
 brew install ruby-build
 brew install rbenv-default-gems
 
-#install git
-brew install git
+#use brewed git
 brew link git --overwrite
 
 #config git
