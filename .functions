@@ -471,3 +471,40 @@ function getkey2 () {
   echo "Public key from file $HOME/.ssh/${keyname}_rsa.pub" && echo ""
   cat "$HOME/.ssh/${keyname}_rsa.pub"
 }
+
+#toggle xdebug
+function php_xdebug() {
+  case $1 in
+  on)
+    sed -i 's/;zend_extension="\/usr\/local\/opt\/php56-xdebug\/xdebug\.so"/zend_extension="\/usr\/local\/opt\/php56-xdebug\/xdebug\.so"/g' /usr/local/etc/php/5.6/conf.d/ext-xdebug.ini
+  ;;
+  off)
+    sed -i 's/zend_extension=\"\/usr\/local\/opt\/php56-xdebug\/xdebug\.so\"/;zend_extension=\"\/usr\/local\/opt\/php56-xdebug\/xdebug\.so\"/g' /usr/local/etc/php/5.6/conf.d/ext-xdebug.ini
+  ;;
+  *)
+    echo "Usage: php_xdebug on|off"
+  ;;
+esac
+}
+
+#disable xdebug for composer on osx command line
+function composer() {
+  COMPOSER="$(which composer)" &&  php_xdebug off;
+  $COMPOSER "$@" ; STATUS=$? ;
+  php_xdebug on;
+  return $STATUS ;
+}
+
+
+#auto completion for composer
+_composer()
+{
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    local cmd=${COMP_WORDS[0]}
+    if ($cmd > /dev/null 2>&1)
+    then
+        COMPREPLY=( $(compgen -W "$($cmd list --raw | cut -f 1 -d " " | tr "\n" " ")" -- $cur) )
+    fi
+}
+complete  -o default -F _composer composer
+complete  -o default -F _composer composer.phar
