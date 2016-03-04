@@ -472,7 +472,7 @@ function getkey2 () {
   cat "$HOME/.ssh/${keyname}_rsa.pub"
 }
 
-#toggle xdebug
+#toggle xdebug for homebrewed php56
 function php_xdebug() {
   case $1 in
   on)
@@ -489,12 +489,12 @@ esac
 
 #disable xdebug for composer on osx command line
 function composer() {
-  COMPOSER="$(which composer)" &&  php_xdebug off;
-  $COMPOSER "$@" ; STATUS=$? ;
+  COMPOSER="$(which composer)" && php_xdebug off;
+  $COMPOSER "$@";
+  STATUS=$?;
   php_xdebug on;
   return $STATUS ;
 }
-
 
 #auto completion for composer
 _composer()
