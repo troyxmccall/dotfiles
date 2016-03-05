@@ -50,6 +50,7 @@ apps=(
   charles
   chitchat
   cloudup
+  dnscrypt
   docker
   dockertoolbox
   dropbox
@@ -66,6 +67,7 @@ apps=(
   lastpass
   licecap
   little-snitch
+  launchrocket
   malwarebytes-anti-malware
   messenger
   mono-mdk
