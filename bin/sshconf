@@ -17,7 +17,7 @@ OPTIONS:
               --user|-u   Username (optional) for remote host.
                           If not provided then current user is assumed
               --port|-p   Port (optional) port 22 assumed
-          --identity|-i   Identityfile (optional)
+          --identity|-i   Identityfile with Path (optional)
                --x11|-x   Forward X11
      --local-command|-c   LocalCommand Execute localcommand when connecting
      --local-forward|-f   Local forward (optional)
@@ -40,7 +40,7 @@ confirm () {
     if [ -z $reply ]; then
       reply="no"
     fi
-    
+
     case "$reply" in
       Y|y|YES|yes|Yes)
         return 0
@@ -54,7 +54,7 @@ confirm () {
 }
 
 success() {
-  printf "$(tput setab 2; tput setaf 7)☺ Your new ssh config is ready to rock!\n$(tput sgr0)"
+  printf "$(tput setab 2; tput setaf 7)☺ Your new ssh config is set!\n$(tput sgr0)"
 }
 
 open_it() {
@@ -95,89 +95,89 @@ make_host() {
     error "Name and Host must be set"
     exit 1
   fi
-  
+
   if [ -z $user ]; then
     user=$(whoami)
   fi
-  
+
   if [ -z $port ]; then
     port=22
   fi
-  
+
   check_host_file
-  
+
   if [ $(grep -ciE "^host $name$" "$config_file") -gt 0 ]; then
     error "host $name already exists in $config_file - not creating"
     exit 1
   fi
-  
-  line="\n\nhost $name\n\thostname $host\n\tuser $user\n\tport $port\n"
-  
+
+  line="\n\nHost $name\n\tHostname $host\n\tUser $user\n\tPort $port\n"
+
   if [ ! -z "$xeleven" ] && [ "$xeleven" -eq 1 ]; then
     line="${line}\tForwardX11 yes\n"
   fi
-  
+
   if [ ! -z "$agent" ] && [ "$agent" -eq 1 ]; then
     line="${line}\tForwardAgent yes\n"
   fi
-  
+
   if [ ! -z "$local_command" ]; then
     line="${line}\tLocalCommand $local_command\n"
   fi
-  
+
   if [ ! -z $identity ]; then
     if [ -f "$identity" ] || [ -f "$HOME/.ssh/$identity" ]; then
-      line="${line}IdentityFile $identity\n"
+      line="${line}\tIdentityFile $identity\n"
     else
       error "Identity file $identity not found"
       exit 1
     fi
   fi
-  
+
   if [ ! -z $local_forwards ] && [ ${#local_forwards[@]} -gt 0 ]; then
     for j in "${local_forwards[@]}"; do
       next="$(echo "$j" | sed -e 's/:/ /')"
-      
+
       if [ -z "$next" ]; then
         error "Couldn't make sense of $j Exiting..."
         exit 1
       fi
-      
+
       forward="${forward}\tLocalForward $next\n"
     done
-    
+
     line="${line}$forward"
     unset j
     unset forward
   fi
-  
+
   if [ ! -z $remote_forwards ] && [ ${#remote_forwards[@]} -gt 0 ]; then
     for k in "${local_forwards[@]}"; do
       next="$(echo "$k" | sed -e 's/:/ /')"
-      
+
       if [ -z "$next" ]; then
         error "Couldn't make sense of $k Exiting..."
         exit 1
       fi
-      
+
       forward="${forward}\tRemoteForward $next\n"
     done
-    
+
     line="${line}$forward"
     unset k
     unset forward
   fi
-  
+
   if [ ! -z $keyvals ] && [ ${#keyvals[@]} -gt 0 ]; then
     for l in "${keyvals[@]}"; do
       option=(${l/=/ })
       line="${line}\t${option[0]} ${option[1]}\n"
     done
-    
+
     unset l
     unset option
   fi
-  
+
   printf "%b\n" "$line" >> "$config_file" && success
 }
 
@@ -186,7 +186,7 @@ check_arg() {
     error "$2 expected value"
     exit 1
   fi
-  
+
   if [[ "$1" =~ ^- ]]; then
     error "$2 expected value"
     exit 1
@@ -196,7 +196,7 @@ check_arg() {
 parse_args () {
   while [ ! -z "$1" ]; do
     case "$1" in
-      
+
       --list|-l )
         list=1
         shift
@@ -205,12 +205,12 @@ parse_args () {
           shift
         fi
       ;;
-      
+
       --open|-o )
         open=1
         shift
       ;;
-      
+
       --delete|-D )
         delete=1
         shift
@@ -218,103 +218,103 @@ parse_args () {
         delete_term="$1"
         shift
       ;;
-      
+
       --name|-n )
         shift
         check_arg "$1" "--name"
         name="$1"
         shift
       ;;
-      
+
       --host|-h )
         shift
         check_arg "$1" "--host"
         host="$1"
         shift
       ;;
-      
+
       --user|-u )
         shift
         check_arg "$1" "--user"
         user="$1"
         shift
       ;;
-      
+
       --port|-p )
         shift
         check_arg "$1" "--port"
         port="$1"
         shift
       ;;
-      
+
       --identity|-i )
         shift
         check_arg "$1" "--identity"
         identity="$1"
         shift
       ;;
-      
+
       --x11|-x )
         xeleven=1
         shift
       ;;
-      
+
       --local-command|-c )
         shift
         check_arg "$1" "--local-command"
         local_command="$1"
         shift
       ;;
-      
+
       --agent|-A)
         agent=1
         shift
       ;;
-      
+
       --local-forward|-f )
         shift
         check_arg "$1" "--local-forward"
         local_forwards=("${local_forwards[@]}" "$1")
         shift
       ;;
-      
+
       --remote-forward|-r )
         shift
         check_arg "$1" "--remote-forward"
         remote_forwards=("${remote_forwards[@]}" "$1")
         shift
       ;;
-      
+
       --option|-O )
         shift
         check_arg "$1" "--option"
         keyvals=("${keyvals[@]}" "$1")
         shift
       ;;
-      
+
       * )
         error "$1 not recognized as a command"
         exit 1
       ;;
-      
+
     esac
   done
-  
+
   if [ ! -z $open ] && [ $open -eq 1 ]; then
     open_it
     exit 0
   fi
-  
+
   if [ ! -z $list ] && [ $list -eq 1 ]; then
     dump_it
     exit 0
   fi
-  
+
   if [ ! -z $delete ] && [ $delete -eq 1 ]; then
     delete_it
     exit 0
   fi
-  
+
   make_host
 }
 
@@ -323,9 +323,9 @@ main () {
     help
     exit 1
   fi
-  
+
   local config_file="$HOME/.ssh/config"
-  
+
   parse_args "$@"
 }
 
