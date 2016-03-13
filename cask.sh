@@ -38,7 +38,6 @@ done
 
 # Apps for caskroom
 apps=(
-  adium
   adobe-creative-cloud
   airparrot
   alfred
@@ -59,17 +58,18 @@ apps=(
   flux
   geektool
   google-chrome
+  goofy
   hazel
   hosts
   iterm2-beta
   keepingyouawake
   knockknock
   lastpass
+  launchrocket
   licecap
   little-snitch
-  launchrocket
+  lockdown
   malwarebytes-anti-malware
-  messenger
   mono-mdk
   onyx
   postman
