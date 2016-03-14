@@ -10,7 +10,6 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Install Homebrew.
 if [[ ! "$(type -P brew)" ]]; then
-  e_header "Installing Homebrew"
   true | ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
@@ -199,6 +198,11 @@ pip install requests
 
 #gowithit
 brew install go
+
+#mopidy
+brew tap mopidy/mopidy
+brew install mopidy
+brew install mopidy-spotify
 
 #Install thefuck: https://github.com/nvbn/thefuck
 brew install thefuck
