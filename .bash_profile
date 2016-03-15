@@ -57,3 +57,7 @@ test -e ${HOME}/.iterm2_shell_integration.bash && source ${HOME}/.iterm2_shell_i
 if which docker-machine > /dev/null; then eval "$(docker-machine env default)"; fi
 #autojump
 if which autojump > /dev/null; then [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh; fi
+# https://github.com/rupa/z
+if [ -f `brew --prefix`/etc/profile.d/z.sh ]; then
+  . `brew --prefix`/etc/profile.d/z.sh
+fi

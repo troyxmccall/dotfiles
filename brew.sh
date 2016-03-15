@@ -154,6 +154,7 @@ brew install tree
 brew install trash
 brew install webkit2png
 brew install zopfli
+brew install z
 
 # Install Node.js. Note: this installs `npm` too, using the recommended installation method.
 brew install node
