@@ -15,3 +15,5 @@ export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
 # homebrew cask contrib
 export PATH=$PATH:/usr/local/Library/Taps/caskroom/homebrew-cask/developer/bin
+#mopidy
+export PYTHONPATH=$(brew --prefix)/lib/python2.7/site-packages:$PYTHONPATH
