@@ -18,6 +18,8 @@ fi
 
 #homebrew now includes cask, so let's get rid of the old version
 brew uninstall --force brew-cask
+brew untap phinze/cask
+brew untap caskroom/cask
 
 # Make sure we’re using the latest Homebrew.
 brew update
