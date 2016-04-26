@@ -51,12 +51,15 @@ apps=(
   adobe-creative-cloud
   airparrot
   alfred
+  alternote
   appcleaner
+  armitage
   atom
   backblaze
   betterzipql
   blockblock
-  charles
+  brackets
+  charles-beta
   chitchat
   cloudup
   dnscrypt
@@ -67,10 +70,11 @@ apps=(
   flash
   flux
   geektool
-  google-chrome
+  google-chrome-beta
   goofy
   hazel
   hosts
+  imageoptim
   iterm2-beta
   keepingyouawake
   knockknock
@@ -80,8 +84,12 @@ apps=(
   little-snitch
   lockdown
   malwarebytes-anti-malware
+  max
   mono-mdk
   onyx
+  opera
+  paparazzi
+  paw
   postman
   provisionql
   qlcolorcode
@@ -101,7 +109,7 @@ apps=(
   spectacle
   spotify
   sonarr
-  sublime-text
+  sublime-text3
   suspicious-package
   telegram
   torbrowser
