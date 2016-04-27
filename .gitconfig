@@ -94,6 +94,9 @@
     fi \
   }; f"
 
+  # List git aliases
+  aliases = config --get-regexp alias
+
 
 [apply]
 
