@@ -61,3 +61,8 @@ if which autojump > /dev/null; then [[ -s $(brew --prefix)/etc/profile.d/autojum
 if [ -f `brew --prefix`/etc/profile.d/z.sh ]; then
   . `brew --prefix`/etc/profile.d/z.sh
 fi
+#nvm because node is just as fucked as ruby
+if [ -f "$(brew --prefix nvm)/nvm.sh" ]; then
+  export NVM_DIR="$HOME/.nvm"
+  . "$(brew --prefix nvm)/nvm.sh"
+fi

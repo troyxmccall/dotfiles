@@ -156,8 +156,8 @@ brew install webkit2png
 brew install zopfli
 brew install z
 
-# Install Node.js. Note: this installs `npm` too, using the recommended installation method.
-brew install node
+# Install Node Version Manager - because we are going to need to run multiple versions of node
+brew install nvm
 # install phantomjs for el capitan
 brew install phantomjs
 brew link --overwrite phantomjs
