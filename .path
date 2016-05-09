@@ -2,9 +2,9 @@
 export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 #composer
-export PATH="~/.composer/vendor/bin:$PATH"
+export PATH="$PATH:~/.composer/vendor/bin"
 #gnu utils
-export PATH="(brew --prefix coreutils)/libexec/gnubin:$PATH"
+export PATH="$PATH:(brew --prefix coreutils)/libexec/gnubin"
 #brew cask install path
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 #go $ brew info go
