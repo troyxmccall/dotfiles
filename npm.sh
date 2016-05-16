@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 nvm install stable
 
 # front-end web, client and tasks modules
