@@ -87,7 +87,7 @@ the world runs on node
 ./npm.sh
 ```
 
-### Use Bash Completion2 for Bash 4
+### Use Bash-Completion2 for Bash4
 older versions of these dotfiles used bash-completion, to upgrade to bash-completion2 (using bash4 instead of the system shell) run:
 
 ```bash
