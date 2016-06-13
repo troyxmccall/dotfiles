@@ -131,7 +131,7 @@ echo "installing cask apps..."
 
 for app in "${apps[@]}"
 do
-  brew cask install --appdir="/Applications" $app
+  brew cask install --appdir="/Applications" $app --force
 done
 
 brew cask cleanup
