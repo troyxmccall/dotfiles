@@ -31,10 +31,10 @@ alias brwe=brew  #typos
 alias hosts='sudo $EDITOR /etc/hosts'   #quick add
 
 # `cat` with beautiful colors. requires: sudo easy_install -U Pygments
-alias c='pygmentize -O style=monokai -f console256 -g'
+alias ccat='pygmentize -O style=monokai -f console256 -g'
 
 # Fix Homebrew permissions if they get fucked
-alias fixbrew='sudo chown -R $(whoami):admin $(brew --prefix) && sudo chown -R $(whoami):admin /Library/Caches/Homebrew && sudo chown -R $(whoami):admin /opt/homebrew-cask/Caskroom'
+alias fixbrew='sudo chown -R $(whoami):admin $(brew --prefix) && sudo chown -R $(whoami):admin /usr/local/Caskroom/'
 #force linking to make sure we override pre-installed binaries from OSX
 alias linkbrew='brew list -1 | while read line; do brew unlink $line --force; brew link --force --overwrite $line; done'
 #fix git linking because it gets messed up all the time
@@ -49,15 +49,6 @@ alias vu="vagrant up"
 alias vr="vagrant reload"
 alias vd="vagrant suspend"
 alias vh="vagrant halt"
-
-#custom project shortcuts
-alias bh="cd ~/projects/boars-head-webiste/"
-alias .f="cd ~/projects/dotfiles"
-alias ib="cd ~/projects/lowes-iris-microsite/app/webroot/blog/wp-content/themes/heterochromia"
-alias  i="cd ~/projects/lowes-iris-microsite/"
-alias md="cd ~/projects/mosdef/"
-alias sl="cd ~/projects/lowes-slate-microsite/"
-alias ua="cd ~/projects/under-armour-blog/wp-content/themes/ua"
 
 #spotify shortcuts https://github.com/troyxmccall/term-spot
 alias next="spotify next"
@@ -134,7 +125,7 @@ jscbin="/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources
 unset jscbin;
 
 # Trim new lines and copy to clipboard
-alias c="tr -d '\n' | pbcopy"
+alias copy="tr -d '\n' | pbcopy"
 
 # Recursively delete `.DS_Store` files
 alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
