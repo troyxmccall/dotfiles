@@ -88,6 +88,7 @@ apps=(
   mono-mdk
   onyx
   opera
+  ostiarius
   paparazzi
   paw
   postman
