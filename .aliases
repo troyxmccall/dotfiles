@@ -40,6 +40,8 @@ alias linkbrew='brew list -1 | while read line; do brew unlink $line --force; br
 #fix git linking because it gets messed up all the time
 alias linkgit='brew unlink git && brew link git --overwrite'
 
+alias lockscreen='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend'
+
 # Fix NPM
 alias fixnpm='sudo chown -R $(whoami):admin $(npm config get prefix)'
 
