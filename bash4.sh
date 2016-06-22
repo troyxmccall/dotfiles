@@ -19,6 +19,7 @@ fi
 #uninstall old bash-completions
 brew uninstall bash-completion
 brew tap homebrew/versions
+brew install bash
 brew install bash-completion2
 
 # Switch to using brew-installed bash as default shell
