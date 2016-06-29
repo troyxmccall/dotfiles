@@ -123,6 +123,10 @@ defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 #sudo rm -rf /System/Library/CoreServices/DefaultDesktop.jpg
 #sudo ln -s /path/to/your/image /System/Library/CoreServices/DefaultDesktop.jpg
 
+# Don't relaunch open apps on restart
+defaults write com.apple.loginwindow LoginwindowLaunchesRelaunchApps -bool false
+
+
 ###############################################################################
 # SSD-specific tweaks                                                         #
 ###############################################################################
