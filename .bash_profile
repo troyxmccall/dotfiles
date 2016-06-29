@@ -56,7 +56,7 @@ if which hub > /dev/null; then eval "$(hub alias -s)"; fi
 #iterm2 shell integration https://iterm2.com/shell_integration.html
 test -e ${HOME}/.iterm2_shell_integration.bash && source ${HOME}/.iterm2_shell_integration.bash
 #docker
-if which docker-machine > /dev/null; then eval "$(docker-machine env default)"; fi
+if which docker-machine > /dev/null; then eval "$(docker-machine env dev)"; fi
 #autojump
 if which autojump > /dev/null; then [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh; fi
 # https://github.com/rupa/z
