@@ -4,7 +4,7 @@
 #	A script to remove erroneous duplicate ACL permissions on Mac OS 10.6
 #
 # == Usage
-#	aclfix.rb [options] source_file
+#	aclfix [options] source_file
 #
 #	For help use: aclfix -h
 #
