@@ -70,3 +70,7 @@ if [ -f "$(brew --prefix nvm)/nvm.sh" ]; then
   #alias builtin cd function to call nvm_auto_switch everytime
   function cd() { builtin cd "$@"; nvm_auto_switch; }
 fi
+#wakatime
+if [ -f $HOME/projects/bash-wakatime/bash-wakatime.sh ]; then
+  . $HOME/projects/bash-wakatime/bash-wakatime.sh
+fi
