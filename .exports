@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Make vim the default editor.
 export EDITOR='vim';
 
@@ -16,6 +18,9 @@ export HISTSIZE='32768';
 export HISTFILESIZE="${HISTSIZE}";
 # Omit duplicates and commands that begin with a space from history.
 export HISTCONTROL='ignoreboth';
+
+# Display timestamps in history
+export HISTTIMEFORMAT='%F %T '
 
 # Prefer US English and use UTF-8.
 export LANG='en_US.UTF-8';
