@@ -35,6 +35,7 @@ dependencies=(
   java
   java6
   virtualbox
+  vmware-fusion
   xquartz
 )
 
@@ -56,15 +57,16 @@ apps=(
   armitage
   atom
   backblaze
+  basecamp
   betterzipql
   blockblock
   brackets
-  charles-beta
+  charles
   chitchat
   cloudup
   dnscrypt
   docker
-  dockertoolbox
+  docker-toolbox
   dropbox
   firefox
   flash
@@ -110,7 +112,7 @@ apps=(
   spectacle
   spotify
   sonarr
-  sublime-text3
+  sublime-text
   suspicious-package
   telegram
   torbrowser
