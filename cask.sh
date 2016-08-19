@@ -64,6 +64,7 @@ apps=(
   charles
   chitchat
   cloudup
+  dash
   dnscrypt
   docker
   docker-toolbox

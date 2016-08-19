@@ -211,8 +211,12 @@ brew tap mopidy/mopidy
 brew install mopidy
 brew install mopidy-spotify
 
-#Install thefuck: https://github.com/nvbn/thefuck
+#thefuck: https://github.com/nvbn/thefuck
 brew install thefuck
+
+#builder tools
+brew install packer
+brew install ansible
 
 # Remove outdated versions from the cellar.
 brew cleanup
