@@ -28,6 +28,7 @@ brew update
 brew upgrade --all
 
 # Handle dependencies
+brew tap caskroom/cask
 brew tap caskroom/versions
 
 # dependencies for Formulas and Casks
