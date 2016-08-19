@@ -214,7 +214,7 @@ brew install mopidy-spotify
 #thefuck: https://github.com/nvbn/thefuck
 brew install thefuck
 
-#builder tools
+#vm builder tools
 brew install packer
 brew install ansible
 
