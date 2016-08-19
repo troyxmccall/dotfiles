@@ -218,5 +218,8 @@ brew install thefuck
 brew install packer
 brew install ansible
 
+#sharp
+brew install homebrew/science/vips --with-webp --with-graphicsmagick
+
 # Remove outdated versions from the cellar.
 brew cleanup
