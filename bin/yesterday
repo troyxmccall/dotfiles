@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+# based on https://gist.github.com/cgutierrez/9c6149193b3091c7864f362b93216ac8
+
 PROJECTS_DIR=$HOME/projects
 LOG_FILE=$PROJECTS_DIR/commits.txt
 AUTHOR=$(git config user.name)
