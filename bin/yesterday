@@ -1,0 +1,50 @@
+#!/usr/bin/env sh
+
+PROJECTS_DIR=$HOME/projects
+LOG_FILE=$PROJECTS_DIR/commits.txt
+AUTHOR=$(git config user.name)
+
+# store the current dir
+CUR_DIR=$(pwd)
+
+#hey user
+echo "Building your commit log from yesterday..."
+
+cd $PROJECTS_DIR
+
+rm -f $LOG_FILE
+touch $LOG_FILE
+
+# Find all git repositories and update them to their latest revision on current branch
+for i in $(find . -name ".git" | cut -c 3-); do
+  #ignore submodules, vendor, composer,  and bins
+  if [[ "$i" != *libraries*  && "$i" != *deployment*  && "$i" != *vendor* && "$i" != *bin* ]]
+  then
+
+    PROJECT_DIR=$(dirname $i)
+
+    echo "checking $PROJECT_DIR...";
+
+    #We have to go to the .git parent directory to call the pull command
+    cd $PROJECT_DIR;
+
+    CMD="git --no-pager log --reverse --author='$AUTHOR' --date=short --since='yesterday' --pretty=format:'%h%x09%ad%x09%s'"
+
+    LOG_OUTPUT=$(eval $CMD)
+
+    if [ ! -z "$LOG_OUTPUT" ]; then
+      echo $(basename `pwd`) >> $LOG_FILE
+      echo "$LOG_OUTPUT" >> $LOG_FILE
+      echo "\n" >> $LOG_FILE
+    fi
+
+    #lets get back to the PROJECTS_DIR and get more gits
+    cd $PROJECTS_DIR
+  fi
+done
+
+open $LOG_FILE
+
+cd $CUR_DIR
+
+echo "Complete!"
