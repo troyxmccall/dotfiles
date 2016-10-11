@@ -17,3 +17,5 @@ export PATH=$PATH:$GOROOT/bin
 export PATH=$PATH:/usr/local/Library/Taps/caskroom/homebrew-cask/developer/bin
 #mopidy
 export PYTHONPATH=$(brew --prefix)/lib/python2.7/site-packages:$PYTHONPATH
+#yarn
+export PATH="$HOME/.yarn/bin:$PATH"
