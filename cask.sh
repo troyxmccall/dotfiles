@@ -73,6 +73,7 @@ apps=(
   firefox
   flash
   flux
+  geekbench
   geektool
   google-chrome-beta
   goofy
