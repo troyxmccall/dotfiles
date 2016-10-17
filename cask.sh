@@ -66,6 +66,7 @@ apps=(
   chitchat
   cloudup
   dash
+  disk-inventory-x
   dnscrypt
   docker
   docker-toolbox
