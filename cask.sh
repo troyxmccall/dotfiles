@@ -71,19 +71,22 @@ apps=(
   docker
   docker-toolbox
   dropbox
+  encryptr
   firefox
-  flash
   flux
   geekbench
   geektool
-  google-chrome-beta
+  gmail-notifr
   goofy
+  google-chrome-beta
+  handbrake
   hazel
   hosts
   imageoptim
   iterm2-beta
   keepingyouawake
   knockknock
+  ksdiff
   lastpass
   launchrocket
   licecap
@@ -122,6 +125,7 @@ apps=(
   torbrowser
   tower
   transmission
+  typora
   transmit
   vagrant
   viscosity
