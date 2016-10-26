@@ -74,3 +74,5 @@ fi
 if [ -f $HOME/projects/bash-wakatime/bash-wakatime.sh ]; then
   . $HOME/projects/bash-wakatime/bash-wakatime.sh
 fi
+#swift env
+if which swiftenv > /dev/null; then eval "$(swiftenv init -)"; fi
