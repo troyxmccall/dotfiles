@@ -76,3 +76,5 @@ if [ -f $HOME/projects/bash-wakatime/bash-wakatime.sh ]; then
 fi
 #swift env
 if which swiftenv > /dev/null; then eval "$(swiftenv init -)"; fi
+#behat
+export PATH="./vendor/bin:$PATH"
