@@ -25,7 +25,7 @@
   rollback = !"git push -f origin HEAD^:master"
 
   #hard reset and clean
-  reseteverything = !"git fetch origin; git reset --hard origin/master; git clean -fdx"
+  bleach = !"git fetch origin; git reset --hard origin/master; git clean -fdx"
 
   #undo previous commit
   uncommit = !"git revert HEAD^"
@@ -70,7 +70,7 @@
 
   # Remove branches that have already been merged with master
   # a.k.a. ‘delete merged’
-  dm = "!git branch --merged master | grep -v 'master$' | xargs git branch -D"
+  delete-merged-local = "!git branch --merged master | grep -v 'master$' | xargs git branch -D"
   #delete branches without remote origins
   purge = "!git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D"
 
