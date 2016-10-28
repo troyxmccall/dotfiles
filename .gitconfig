@@ -22,13 +22,13 @@
   knife = !"git fetch upstream && git merge upstream/master"
 
   #rollback push
-  takeback = !"git push -f origin HEAD^:master"
+  rollback = !"git push -f origin HEAD^:master"
 
   #hard reset and clean
   reseteverything = !"git fetch origin; git reset --hard origin/master; git clean -fdx"
 
   #undo previous commit
-  undo = !"git revert HEAD^"
+  uncommit = !"git revert HEAD^"
 
   # Clone a repository including all submodules
   c = clone --recursive
