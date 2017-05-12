@@ -74,7 +74,7 @@ end
 
 # UPDATE HOMEBREW
 puts 'Updating homebrew cask, please wait...'.cyan
-system('brew cask update')
+system('brew update')
 if $CHILD_STATUS == 1
   puts 'Cask update failed'.red
   exit!
