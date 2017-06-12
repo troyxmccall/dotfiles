@@ -426,6 +426,7 @@ function __clean-cask {
         while read versionToRemove ; do
             echo "Removing $cask $versionToRemove..."
             rm -rf "$caskDirectory/$versionToRemove"
+            rm -rf "$caskDirectory/.metadata/${versionToRemove}"
         done <<< "$versionsToRemove"
     fi
 }
