@@ -418,7 +418,7 @@ function witches-brew() {
 
 #that's some old shit
 function __clean-cask {
-    caskBasePath="/opt/homebrew-cask/Caskroom"
+    caskBasePath="/usr/local/Caskroom"
     local cask="$1"
     local caskDirectory="$caskBasePath/$cask"
     local versionsToRemove="$(ls -r $caskDirectory | sed 1,1d)"
@@ -437,7 +437,7 @@ function cask-retire {
           __clean-cask "$cask"
       done <<< "$(brew cask list)"
   else
-      clean-cask "$1"
+      __clean-cask "$1"
   fi
 }
 
