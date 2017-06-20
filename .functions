@@ -201,11 +201,19 @@ function ssl-get-cert-names() {
 
 #all the details
 function ssl-show-remote-cert() {
+  if [ -z "${1}" ]; then
+    echo "ERROR: No domain specified.";
+    return 1;
+  fi;
   echo -n '' | openssl s_client -showcerts -connect "$1:${2:-443}" -servername "$1"
 }
 
 # just show me the dates
 function ssl-check-remote-cert-expiration() {
+  if [ -z "${1}" ]; then
+    echo "ERROR: No domain specified.";
+    return 1;
+  fi;
   echo -n '' | openssl s_client -connect "$1:${2:-443}" -servername "$1"| openssl x509 -noout -dates
 }
 
