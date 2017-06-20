@@ -199,10 +199,12 @@ function ssl-get-cert-names() {
   fi;
 }
 
+#all the details
 function ssl-show-remote-cert() {
   echo -n '' | openssl s_client -showcerts -connect "$1:${2:-443}" -servername "$1"
 }
 
+# just show me the dates
 function ssl-check-remote-cert-expiration() {
   echo -n '' | openssl s_client -connect "$1:${2:-443}" -servername "$1"| openssl x509 -noout -dates
 }
