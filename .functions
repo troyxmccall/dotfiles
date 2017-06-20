@@ -167,7 +167,7 @@ function codepoint() {
 
 # Show all the names (CNs and SANs) listed in the SSL certificate
 # for a given domain
-function getcertnames() {
+function ssl-get-cert-names() {
   if [ -z "${1}" ]; then
     echo "ERROR: No domain specified.";
     return 1;
@@ -197,6 +197,14 @@ function getcertnames() {
     echo "ERROR: Certificate not found.";
     return 1;
   fi;
+}
+
+function ssl-show-remote-cert() {
+  echo -n '' | openssl s_client -showcerts -connect "$1:${2:-443}" -servername "$1"
+}
+
+function ssl-check-remote-cert-expiration() {
+  echo -n '' | openssl s_client -connect "$1:${2:-443}" -servername "$1"| openssl x509 -noout -dates
 }
 
 # `s` with no arguments opens the current directory in Sublime Text, otherwise
