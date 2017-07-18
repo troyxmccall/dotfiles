@@ -80,19 +80,19 @@
   # Merge GitHub pull request on top of the `master` branch, supports non origin remotes
   # Merge GitHub pull request on top of the current branch or,
   # if a branch name is specified, on top of the specified branch
-  mpr = "!f() { \
-    declare currentBranch=\"$(git symbolic-ref --short HEAD)\"; \
-    declare branch=\"${2:-$currentBranch}\"; \
-    if [ $(printf \"%s\" \"$1\" | grep '^[0-9]\\+$' > /dev/null; printf $?) -eq 0 ]; then \
-      git fetch origin refs/pull/$1/head:pr/$1 && \
-      git checkout -B $branch && \
-      git rebase $branch pr/$1 && \
-      git checkout -B $branch && \
-      git merge pr/$1 && \
-      git branch -D pr/$1 && \
-      git commit --amend -m \"$(git log -1 --pretty=%B)\n\nCloses #$1.\"; \
-    fi \
-  }; f"
+  # mpr = "!f() { \
+  #   declare currentBranch=\"$(git symbolic-ref --short HEAD)\"; \
+  #   declare branch=\"${2:-$currentBranch}\"; \
+  #   if [ $(printf \"%s\" \"$1\" | grep '^[0-9]\\+$' > /dev/null; printf $?) -eq 0 ]; then \
+  #     git fetch origin refs/pull/$1/head:pr/$1 && \
+  #     git checkout -B $branch && \
+  #     git rebase $branch pr/$1 && \
+  #     git checkout -B $branch && \
+  #     git merge pr/$1 && \
+  #     git branch -D pr/$1 && \
+  #     git commit --amend -m \"$(git log -1 --pretty=%B)\n\nCloses #$1.\"; \
+  #   fi \
+  # }; f"
 
   # List git aliases
   aliases = config --get-regexp alias
