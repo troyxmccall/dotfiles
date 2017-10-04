@@ -95,7 +95,7 @@ alias week='date +%V'
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 
 # Get OS X Software Updates, Brew Forumulas, Upgrade all Casks to latest versionsm, update installed Ruby gems, Homebrew, Cask, Atom, NPM, Vagrant plugins, Composer and their installed packages
-alias update='sudo softwareupdate -i -a; brew update; brew upgrade; cask-upgrade auto; brew cleanup; brew cask cleanup; fixnpm; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update; sudo gem cleanup; apm update --all -yes; vagrant plugin update; composer global update; linkgit;'
+alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; brew cask cleanup; fixnpm; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update; sudo gem cleanup; apm update --all -yes; vagrant plugin update; composer global update; linkgit;'
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
