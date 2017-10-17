@@ -19,3 +19,5 @@ export PATH=$PATH:/usr/local/Library/Taps/caskroom/homebrew-cask/developer/bin
 export PYTHONPATH=$(brew --prefix)/lib/python2.7/site-packages:$PYTHONPATH
 #yarn
 export PATH="$HOME/.yarn/bin:$PATH"
+#nexus
+export PATH=~/.nexustools:$PATH
