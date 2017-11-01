@@ -24,8 +24,8 @@
   #rollback push
   rollback = !"git push -f origin HEAD^:master"
 
-  #hard reset and clean
-  bleach = !"git fetch origin; git reset --hard origin/master; git clean -fdx"
+  #hard reset and clean current branch
+  bleach = !"git fetch origin; git reset --hard origin/master; git clean -fdx; git pull"
 
   #undo previous commit
   uncommit = !"git revert HEAD^"
