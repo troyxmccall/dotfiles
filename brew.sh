@@ -26,8 +26,6 @@ brew update
 brew upgrade
 
 #taps
-brew tap homebrew/dupes
-brew tap homebrew/versions
 brew tap homebrew/homebrew-php
 
 # Install GNU core utilities (those that come with OS X are outdated).
@@ -57,9 +55,9 @@ brew install wget --with-iri
 
 # Install more recent versions of some OS X tools.
 brew install vim --override-system-vi
-brew install homebrew/dupes/grep
-brew install homebrew/dupes/openssh
-brew install homebrew/dupes/screen
+brew install grep
+brew install openssh
+brew install screen
 
 # Install font tools.
 brew tap bramstein/webfonttools
@@ -71,9 +69,9 @@ brew install woff2
 brew tap homebrew/services
 
 #install current dev/vm version of php
-brew install php56
-brew install php56-mcrypt
-brew install php56-xdebug
+brew install php71
+brew install php71-mcrypt
+brew install php71-xdebug
 
 #install php mods / composer
 brew install composer

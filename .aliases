@@ -174,7 +174,7 @@ alias map="xargs -n1"
 
 # One of @janmoesen’s ProTip™s
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
-  alias "$method"="lwp-request -m '$method'"
+  alias "${method}"="lwp-request -m '${method}'"
 done
 
 # Make Grunt print stack traces by default
@@ -192,7 +192,7 @@ alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v exten
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
 # Reload the shell (i.e. invoke as a login shell)
-alias reload="exec $SHELL -l"
+alias reload="exec ${SHELL} -l"
 
 alias remopidy="launchctl unload ~/Library/LaunchAgents/homebrew.mopidy.mopidy.plist && launchctl load ~/Library/LaunchAgents/homebrew.mopidy.mopidy.plist"
 
