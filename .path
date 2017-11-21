@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 #homebrew
 export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
@@ -9,17 +11,23 @@ export PATH="$PATH:(brew --prefix coreutils)/libexec/gnubin"
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 #go $ brew info go
 # https://gist.github.com/vsouza/77e6b20520d07652ed7d
-export GOPATH=$HOME/golang
-export GOROOT=/usr/local/opt/go/libexec
-export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:$GOROOT/bin
+export GOPATH="$HOME/golang"
+export GOROOT="/usr/local/opt/go/libexec"
+export PATH="$PATH:$GOPATH/bin"
+export PATH="$PATH:$GOROOT/bin"
 # homebrew cask contrib
-export PATH=$PATH:/usr/local/Library/Taps/caskroom/homebrew-cask/developer/bin
+export PATH="$PATH:/usr/local/Library/Taps/caskroom/homebrew-cask/developer/bin"
 #brewed python
-export PATH="$(brew --prefix python)/libexec/bin:$PATH"
+export PATH="$PATH:$(brew --prefix python)/libexec/bin"
 #mopidy
-export PYTHONPATH=$(brew --prefix)/lib/python2.7/site-packages:$PYTHONPATH
+export PYTHONPATH="$(brew --prefix)/lib/python2.7/site-packages:$PYTHONPATH"
 #yarn
-export PATH="$HOME/.yarn/bin:$PATH"
+export PATH="$PATH:$HOME/.yarn/bin"
 #nexus
-export PATH=~/.nexustools:$PATH
+export PATH="$PATH:~/.nexustools"
+#brewed bison
+export PATH="$PATH:/usr/local/opt/bison/bin"
+#brewed curl
+export PATH="$PATH:/usr/local/opt/curl/bin"
+#brewed dirmngr
+export PATH="$PATH:/usr/local/opt/dirmngr/bin"
