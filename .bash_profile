@@ -78,3 +78,6 @@ fi
 if which swiftenv > /dev/null; then eval "$(swiftenv init -)"; fi
 #behat
 export PATH="./vendor/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
