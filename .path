@@ -31,3 +31,8 @@ export PATH="$PATH:/usr/local/opt/bison/bin"
 export PATH="$PATH:/usr/local/opt/curl/bin"
 #brewed dirmngr
 export PATH="$PATH:/usr/local/opt/dirmngr/bin"
+export PATH="/usr/local/opt/curl/bin:$PATH"
+export PATH="/usr/local/opt/icu4c/bin:$PATH"
+export PATH="/usr/local/opt/icu4c/sbin:$PATH"
+export PATH="/usr/local/opt/libxml2/bin:$PATH"
+export PATH="/usr/local/opt/qt/bin:$PATH"
