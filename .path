@@ -36,3 +36,5 @@ export PATH="/usr/local/opt/icu4c/bin:$PATH"
 export PATH="/usr/local/opt/icu4c/sbin:$PATH"
 export PATH="/usr/local/opt/libxml2/bin:$PATH"
 export PATH="/usr/local/opt/qt/bin:$PATH"
+
+export PATH="/Applications/Redis.app/Contents/Resources/Vendor/redis/bin:$PATH"
