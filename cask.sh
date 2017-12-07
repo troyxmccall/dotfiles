@@ -30,6 +30,7 @@ brew upgrade --all
 # Handle dependencies
 brew tap caskroom/cask
 brew tap caskroom/versions
+brew tap buo/cask-upgrade
 
 # dependencies for Formulas and Casks
 dependencies=(
