@@ -155,6 +155,7 @@ brew install speedtest_cli
 brew install the_silver_searcher
 brew install tree
 brew install trash
+brew install unzip
 brew install webkit2png
 brew install zopfli
 brew install z
