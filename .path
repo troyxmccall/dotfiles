@@ -29,12 +29,13 @@ export PATH="$PATH:~/.nexustools"
 export PATH="$PATH:/usr/local/opt/bison/bin"
 #brewed curl
 export PATH="$PATH:/usr/local/opt/curl/bin"
-#brewed dirmngr
+#other brewed formulas
 export PATH="$PATH:/usr/local/opt/dirmngr/bin"
 export PATH="/usr/local/opt/curl/bin:$PATH"
 export PATH="/usr/local/opt/icu4c/bin:$PATH"
 export PATH="/usr/local/opt/icu4c/sbin:$PATH"
 export PATH="/usr/local/opt/libxml2/bin:$PATH"
 export PATH="/usr/local/opt/qt/bin:$PATH"
+export PATH="/usr/local/opt/unzip/bin:$PATH"
 
 export PATH="/Applications/Redis.app/Contents/Resources/Vendor/redis/bin:$PATH"
