@@ -37,7 +37,7 @@ dependencies=(
   java
   java6
   virtualbox
-  vmware-fusion
+  vmware-fusion8
   xquartz
 )
 
@@ -51,10 +51,11 @@ done
 
 # Apps for caskroom
 apps=(
+  1password
   adobe-creative-cloud
   airparrot
+  airserver
   alfred
-  alternote
   appcleaner
   armitage
   atom
@@ -64,22 +65,24 @@ apps=(
   blockblock
   brackets
   charles
-  chitchat
   cloudup
   dash
+  dhs
   disk-inventory-x
   dnscrypt
   docker
   docker-toolbox
   dropbox
   encryptr
+  evernote
   firefox
+  firefoxdeveloperedition
   flux
   geekbench
   geektool
   gmail-notifr
-  goofy
   google-chrome-beta
+  google-hangouts
   handbrake
   hazel
   hosts
@@ -95,7 +98,6 @@ apps=(
   lockdown
   malwarebytes-anti-malware
   max
-  mono-mdk
   onyx
   opera
   ostiarius
@@ -108,12 +110,15 @@ apps=(
   qlmarkdown
   qlprettypatch
   qlstephen
+  qlvideo
+  quicklookase
   quicklook-json
   quicklook-csv
   screenflick
   sequel-pro
   shiori
   shuttle
+  signal
   sketch
   skype
   slack
@@ -134,8 +139,8 @@ apps=(
   vox
   vox-preferences-pane
   webpquicklook
+  whatsapp
   wireshark
-  yakyak
 )
 
 # Install apps to /Applications - default is: /Users/$user/Applications
