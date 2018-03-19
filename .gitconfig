@@ -73,6 +73,10 @@
   delete-merged-local = "!git branch --merged master | grep -v 'master$' | xargs git branch -D"
   #delete branches without remote origins
   delete-locals-with-no-remotes = "!git remote prune origin && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D"
+  # reset development branch off of master
+  reset-dev-branch = "!git checkout master && git push -u origin :dev && git branch -D dev && git go dev && git push -u origin dev"
+  # reset staging branch off of master
+  reset-staging-branch = "!git checkout master && git push -u origin :staging && git branch -D staging && git go staging && git push -u origin staging"
 
   # List contributors with number of commits
   contributors = shortlog --summary --numbered
