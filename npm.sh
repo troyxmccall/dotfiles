@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 
 nvm install stable
+nvm install lts/boron
+nvm install lts/carbon
 
 # front-end web, client and tasks modules
 npm install -g bower
 npm install -g grunt-cli grunt
-npm install -g gulp
+npm install -g gulp-cli gulp
 npm install -g lodash
 npm install -g forever
 npm install -g browserify
