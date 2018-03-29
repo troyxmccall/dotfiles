@@ -160,6 +160,9 @@ brew install webkit2png
 brew install zopfli
 brew install z
 
+# even more additional utils, only listed here bc i added them so much later
+android-platform-tools
+
 # Install Node Version Manager - because we are going to need to run multiple versions of node
 brew install nvm
 # install phantomjs for el capitan
