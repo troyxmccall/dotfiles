@@ -80,6 +80,12 @@ because downloading binaries is so 2009:
 ./cask.sh
 ```
 
+### Virtualbox install on fresh 10.13 (High Sierra)
+
+there's no easy way around this, you're gonna have to manually enable the kernel extensions the first time (and run the package installer twice).
+see: http://matthewpalmer.net/blog/2017/12/10/install-virtualbox-mac-high-sierra/index.html
+After you installing the first time you can run `brew cask install virtualbox --force`
+
 ### Install Node Modules
 the world runs on node
 

@@ -41,6 +41,8 @@ dependencies=(
   xquartz
 )
 
+# if you're running a brand-spanking OS 10.13 (High Sierra) virtualbox cask installation will fail - so install it manually first, see: http://matthewpalmer.net/blog/2017/12/10/install-virtualbox-mac-high-sierra/index.html
+
 # Install dependencies to /Applications - default is: /Users/$user/Applications
 echo "installing dependencies..."
 
