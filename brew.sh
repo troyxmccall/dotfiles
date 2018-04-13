@@ -25,8 +25,18 @@ brew update
 # Upgrade any already-installed formulae.
 brew upgrade
 
-#taps
-brew tap homebrew/homebrew-php
+
+# Uninstall ALL php related Packages (most of them homebrew/php related)
+brew list | grep php | xargs brew uninstall --force
+# Remove deprecated tap
+brew untap homebrew/php
+# Clean cache
+brew cleanup
+# Ensure latest brew repo HEAD
+brew update
+# Install latest php (php 7.2)
+brew install php
+pecl install xdebug
 
 # Install GNU core utilities (those that come with OS X are outdated).
 # Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
@@ -69,9 +79,8 @@ brew install woff2
 brew tap homebrew/services
 
 #install current dev/vm version of php
-brew install php71
-brew install php71-mcrypt
-brew install php71-xdebug
+brew install php@7.1
+
 
 #install php mods / composer
 brew install composer
