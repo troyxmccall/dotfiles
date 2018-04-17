@@ -36,3 +36,5 @@ export HOMEBREW_NO_ANALYTICS=1
 # Avoid issues with `gpg` as installed via Homebrew.
 # https://stackoverflow.com/a/42265848/96656
 export GPG_TTY=$(tty);
+
+export GIT_COMPLETION_CHECKOUT_NO_GUESS=1
