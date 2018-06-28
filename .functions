@@ -178,11 +178,11 @@ function ssl-get-cert-names() {
   echo ""; # newline
 
   local tmp=$(echo -e "GET / HTTP/1.0\nEOT" \
-    | openssl s_client -connect "${domain}:443" -servername "${domain}" 2>&1);
+    | /usr/local/opt/openssl/bin/openssl s_client -connect "${domain}:443" -servername "${domain}" 2>&1);
 
   if [[ "${tmp}" = *"-----BEGIN CERTIFICATE-----"* ]]; then
     local certText=$(echo "${tmp}" \
-      | openssl x509 -text -certopt "no_aux, no_header, no_issuer, no_pubkey, \
+      | /usr/local/opt/openssl/bin/openssl x509 -text -certopt "no_aux, no_header, no_issuer, no_pubkey, \
       no_serial, no_sigdump, no_signame, no_validity, no_version");
     echo "Common Name:";
     echo ""; # newline
@@ -205,7 +205,7 @@ function ssl-show-remote-cert() {
     echo "ERROR: No domain specified.";
     return 1;
   fi;
-  echo -n '' | openssl s_client -showcerts -connect "$1:${2:-443}" -servername "$1"
+  echo -n '' | /usr/local/opt/openssl/bin/openssl s_client -showcerts -connect "$1:${2:-443}" -servername "$1"
 }
 
 # just show me the dates
@@ -214,7 +214,7 @@ function ssl-check-remote-cert-expiration() {
     echo "ERROR: No domain specified.";
     return 1;
   fi;
-  echo -n '' | openssl s_client -connect "$1:${2:-443}" -servername "$1"| openssl x509 -noout -dates
+  echo -n '' | /usr/local/opt/openssl/bin/openssl s_client -connect "$1:${2:-443}" -servername "$1"| openssl x509 -noout -dates
 }
 
 # `s` with no arguments opens the current directory in Sublime Text, otherwise
