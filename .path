@@ -39,3 +39,5 @@ export PATH="/usr/local/opt/qt/bin:$PATH"
 export PATH="/usr/local/opt/unzip/bin:$PATH"
 
 export PATH="/Applications/Redis.app/Contents/Resources/Vendor/redis/bin:$PATH"
+
+export PATH="/usr/local/opt/nss/bin:$PATH"
