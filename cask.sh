@@ -16,11 +16,6 @@ fi
 # Exit if, for some reason, Homebrew is not installed.
 [[ ! "$(type -P brew)" ]] && e_error "Homebrew failed to install." && return 1
 
-#homebrew now includes cask, so let's get rid of the old version
-brew uninstall --force brew-cask
-brew untap phinze/cask
-brew untap caskroom/cask
-
 # Make sure we’re using the latest Homebrew.
 brew update
 
@@ -55,17 +50,14 @@ done
 apps=(
   1password
   adobe-creative-cloud
-  airparrot
   airserver
   alfred
   appcleaner
-  armitage
   atom
   backblaze
   basecamp
   betterzipql
   blockblock
-  brackets
   charles
   cloudup
   dash
@@ -75,10 +67,9 @@ apps=(
   docker
   docker-toolbox
   dropbox
-  encryptr
   evernote
   firefox
-  firefoxdeveloperedition
+  firefox-developer-edition
   flux
   geekbench
   geektool
