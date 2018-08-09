@@ -72,8 +72,6 @@ apps=(
   firefox-developer-edition
   flux
   geekbench
-  geektool
-  gmail-notifr
   google-chrome-beta
   google-hangouts
   handbrake
