@@ -198,3 +198,6 @@ alias remopidy="launchctl unload ~/Library/LaunchAgents/homebrew.mopidy.mopidy.p
 
 # thefuck: https://github.com/nvbn/thefuck
 alias fuck='$(thefuck $(fc -ln -1))'
+
+#don't index node_modules
+alias nodenoindex="find ~/projects -type d \( -name \"node_modules\" -o -name \"bower_modules\" \) -exec touch \"{}/.metadata_never_index\" \;"
