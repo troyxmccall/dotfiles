@@ -30,7 +30,7 @@ alias brwe=brew  #typos
 
 alias hosts='sudo $EDITOR /etc/hosts'   #quick add
 
-# `cat` with beautiful colors. requires: sudo easy_install -U Pygments
+# `cat` with beautiful colors. requires: sudo easy_install -U Pygments // i also like bat (install via homebrew)
 alias ccat='pygmentize -O style=monokai -f console256 -g'
 
 # Fix Homebrew permissions if they get fucked
@@ -51,13 +51,6 @@ alias vu="vagrant up"
 alias vr="vagrant reload"
 alias vd="vagrant suspend"
 alias vh="vagrant halt"
-
-#spotify shortcuts https://github.com/troyxmccall/term-spot
-alias next="spotify next"
-alias stop="spotify pause"
-alias prev="spotify prev"
-alias ct="spotify info"
-alias play="spotify play"
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
@@ -128,6 +121,8 @@ unset jscbin;
 
 # Trim new lines and copy to clipboard
 alias copy="tr -d '\n' | pbcopy"
+
+alias chmox='chmod -x'
 
 # Recursively delete `.DS_Store` files
 alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
