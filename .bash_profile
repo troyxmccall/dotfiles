@@ -55,8 +55,6 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 if which hub > /dev/null; then eval "$(hub alias -s)"; fi
 #iterm2 shell integration https://iterm2.com/shell_integration.html
 test -e ${HOME}/.iterm2_shell_integration.bash && source ${HOME}/.iterm2_shell_integration.bash
-#docker
-# if which docker-machine > /dev/null; then eval "$(docker-machine env default)"; fi
 #autojump
 if which autojump > /dev/null; then [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh; fi
 # https://github.com/rupa/z
@@ -83,3 +81,5 @@ if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+
+
