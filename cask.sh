@@ -32,7 +32,7 @@ dependencies=(
   java
   java6
   virtualbox
-  vmware-fusion8
+  vmware-fusion
   xquartz
 )
 
@@ -55,11 +55,11 @@ apps=(
   appcleaner
   atom
   backblaze
+  bartender
   basecamp
   betterzipql
   blockblock
   charles
-  cloudup
   dash
   dhs
   disk-inventory-x
@@ -70,11 +70,12 @@ apps=(
   evernote
   firefox
   firefox-developer-edition
-  flux
+  gitkraken
   geekbench
   google-chrome-beta
   google-hangouts
   handbrake
+  harvest
   hazel
   hosts
   imageoptim
@@ -95,6 +96,7 @@ apps=(
   paparazzi
   paw
   postman
+  private-internet-access
   provisionql
   qlcolorcode
   qlimagesize
@@ -117,13 +119,14 @@ apps=(
   spotify
   sonarr
   sublime-text
+  surge
   suspicious-package
   telegram
   torbrowser
-  tower
+  tower2
   transmission
-  typora
   transmit
+  typora
   vagrant
   viscosity
   vlc
