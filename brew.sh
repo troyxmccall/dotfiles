@@ -106,6 +106,10 @@ brew install testssl
 brew install ssh-copy-id
 brew install stormssh
 
+# dev env deps
+brew install dnsmasq
+
+
 # Install some more CTF tools; see https://github.com/ctfs/write-ups.
 brew install aircrack-ng
 brew install bfg
@@ -114,7 +118,6 @@ brew install binwalk
 brew install cifer
 brew install cowpatty
 brew install dex2jar
-brew install dnsmasq
 brew install dns2tcp
 brew install fcrackzip
 brew install foremost
@@ -170,7 +173,7 @@ brew install zopfli
 brew install z
 
 # even more additional utils, only listed here bc i added them so much later
-android-platform-tools
+brew install android-platform-tools
 
 # Install Node Version Manager - because we are going to need to run multiple versions of node
 brew install nvm
@@ -212,6 +215,9 @@ brew install python
 brew linkapps python
 pip install Pygments
 pip install requests
+brew install python@2
+brew install pyenv
+
 
 #gowithit
 brew install go
