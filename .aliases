@@ -196,3 +196,6 @@ alias fuck='$(thefuck $(fc -ln -1))'
 
 #don't index node_modules
 alias nodenoindex="find ~/projects -type d \( -name \"node_modules\" -o -name \"bower_modules\" \) -exec touch \"{}/.metadata_never_index\" \;"
+
+#show all installed java versions and paths
+alias javaversions="/usr/libexec/java_home -V"

@@ -60,6 +60,8 @@ if ! fgrep -q '/usr/local/bin/bash' /etc/shells; then
   chsh -s /usr/local/bin/bash;
 fi;
 
+brew install curl
+
 # Install `wget` with IRI support.
 brew install wget --with-iri
 
@@ -92,6 +94,7 @@ brew install php-cs-fixer
 brew install wrk
 brew install siege
 brew install vegeta
+brew install httpie
 
 #install some network benchmarking/testing tools
 brew install iperf3
@@ -108,6 +111,7 @@ brew install stormssh
 
 # dev env deps
 brew install dnsmasq
+brew install mkcert
 
 
 # Install some more CTF tools; see https://github.com/ctfs/write-ups.
@@ -128,6 +132,7 @@ brew install john
 brew install knock
 brew install netpbm
 brew install nmap
+brew install mitmproxy
 brew install pngcheck
 brew install reaver
 brew install snort
@@ -140,6 +145,7 @@ brew install tcpdump
 brew install trafshow
 brew install dhcpdump
 brew install ucspi-tcp # `tcpserver` etc.
+brew install whois
 brew install wireshark
 brew install homebrew/x11/xpdf
 brew install xz
@@ -147,6 +153,7 @@ brew install xz
 # Install other useful binaries.
 brew install ack
 brew install autojump
+brew install bat
 brew install dark-mode
 brew install diff-so-fancy
 brew install exiv2
@@ -169,6 +176,7 @@ brew install tree
 brew install trash
 brew install unzip
 brew install webkit2png
+brew install youtube-dl
 brew install zopfli
 brew install z
 
@@ -221,6 +229,9 @@ brew install pyenv
 
 #gowithit
 brew install go
+
+#java
+brew install jenv
 
 #mopidy
 brew tap mopidy/mopidy

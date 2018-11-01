@@ -31,8 +31,9 @@ brew tap buo/cask-upgrade
 dependencies=(
   java
   java6
+  java8
   virtualbox
-  vmware-fusion
+  vmware-fusion8
   xquartz
 )
 
@@ -55,7 +56,6 @@ apps=(
   appcleaner
   atom
   backblaze
-  bartender
   basecamp
   betterzipql
   blockblock
