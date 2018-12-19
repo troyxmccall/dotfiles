@@ -19,8 +19,6 @@ export PATH="$PATH:$GOROOT/bin"
 export PATH="$PATH:/usr/local/Library/Taps/caskroom/homebrew-cask/developer/bin"
 #brewed python
 export PATH="$PATH:$(brew --prefix python)/libexec/bin"
-#mopidy
-export PYTHONPATH="$(brew --prefix)/lib/python2.7/site-packages:$PYTHONPATH"
 #yarn
 export PATH="$PATH:$HOME/.yarn/bin"
 #brewed bison
@@ -35,9 +33,9 @@ export PATH="/usr/local/opt/icu4c/sbin:$PATH"
 export PATH="/usr/local/opt/libxml2/bin:$PATH"
 export PATH="/usr/local/opt/qt/bin:$PATH"
 export PATH="/usr/local/opt/unzip/bin:$PATH"
-
+#redis
 export PATH="/Applications/Redis.app/Contents/Resources/Vendor/redis/bin:$PATH"
-
+#nss - firefox cert automation
 export PATH="/usr/local/opt/nss/bin:$PATH"
 
 #behat
