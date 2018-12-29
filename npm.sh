@@ -4,6 +4,7 @@ nvm_versions=(
   stable
   lts/boron
   lts/carbon
+  lts/dubnium
 )
 
 echo "installing stable, boron, and carbon lts node versions and all global packages to 'em. this may take a few minutes"
