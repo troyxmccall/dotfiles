@@ -467,30 +467,6 @@ function getkey2 () {
   cat "$HOME/.ssh/${keyname}_rsa.pub"
 }
 
-#toggle xdebug for homebrewed php56
-function php_xdebug() {
-  case $1 in
-  on)
-    sed -i 's/;zend_extension="\/usr\/local\/opt\/php56-xdebug\/xdebug\.so"/zend_extension="\/usr\/local\/opt\/php56-xdebug\/xdebug\.so"/g' /usr/local/etc/php/5.6/conf.d/ext-xdebug.ini
-  ;;
-  off)
-    sed -i 's/zend_extension=\"\/usr\/local\/opt\/php56-xdebug\/xdebug\.so\"/;zend_extension=\"\/usr\/local\/opt\/php56-xdebug\/xdebug\.so\"/g' /usr/local/etc/php/5.6/conf.d/ext-xdebug.ini
-  ;;
-  *)
-    echo "Usage: php_xdebug on|off"
-  ;;
-esac
-}
-
-#disable xdebug for composer on osx command line
-function composer() {
-  COMPOSER="$(which composer)" && php_xdebug off;
-  $COMPOSER "$@";
-  STATUS=$?;
-  php_xdebug on;
-  return $STATUS ;
-}
-
 #auto completion for composer
 _composer()
 {
