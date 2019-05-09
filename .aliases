@@ -45,6 +45,8 @@ alias lockscreen='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/
 # Fix NPM
 alias fixnpm='sudo chown -R $(whoami):admin $(npm config get prefix)'
 
+alias prenpm='pyenv shell 2.7.14 && export LDFLAGS="-L/usr/local/opt/libffi/lib" && export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"'
+
 #vagrant shortcuts
 alias vss='LOCAL_WORKING_DIR=`vagrant_working_dir` vagrant ssh -- -oSendEnv=LOCAL_WORKING_DIR'
 alias vu="vagrant up"

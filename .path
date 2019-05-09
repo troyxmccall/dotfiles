@@ -54,3 +54,7 @@ export PATH="$HOME/.jenv/bin:$PATH"
 #use php@7.1 if we can 
 export PATH="/usr/local/opt/php@7.1/bin:$PATH"
 export PATH="/usr/local/opt/php@7.1/sbin:$PATH"
+
+#libffi 
+export LDFLAGS="-L/usr/local/opt/libffi/lib"
+export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
