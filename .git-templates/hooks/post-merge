@@ -1,0 +1,43 @@
+#/usr/bin/env bash
+
+changed_files="$(git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD)"
+
+check_run() {
+  echo "$changed_files" | grep -E --quiet "$1" && eval "$2"
+}
+
+# `npm install` and `npm prune` if the `package.json` file gets changed
+# to update all the nodejs ( grunt ) dependencies deleting the unused packages (not listed into the  `package.json` file)
+check_run package.json "npm install && npm prune"
+
+# `bower install` and `bower prune` if the `bower.json` file gets changed
+# to install all the frontend dependencies removing the unused packages ( not listed into the  `bower.json` file )
+check_run bower.json "bower install && bower prune"
+
+# `composer install` if the `composer.json` file gets changed
+# to update all the php dependencies
+check_run composer "composer install"
+
+# for the sass files we need a bit more
+if [ -f "config.rb" ]
+then
+  # `compass compile` to compile all the scss files when they get changed
+  check_run ".scss|.sass" "compass compile"
+# check whether there is a gruntfile in the root of the project
+elif [[ -n $(find . -maxdepth 1 -iname "gruntfile.js") ]]
+  then
+  # try to compile just using grunt
+  check_run ".scss|.sass|.js" "grunt"
+
+# check whether there is a gulpfile in the root of the project
+elif [[ -n $(find . -maxdepth 1 -iname "gulpfile.js") ]]
+  then
+  # try to compile just using gulp
+  check_run ".scss|.sass|.js" "gulp"
+# check if package json has any dev scripts for us to run
+elif [[ -n $(find . -maxdepth 1 -iname "package.json") ]]
+  then
+  check_run ".scss|.sass|.js"  "sed -e 's/^\"//' -e 's/\"$//' <<< $(cat package.json | jq '.scripts.dev')"
+fi
+#check for php changes
+check_run ".php" "php artisan optimize:clear"
