@@ -37,7 +37,7 @@ elif [[ -n $(find . -maxdepth 1 -iname "gulpfile.js") ]]
 # check if package json has any dev scripts for us to run
 elif [[ -n $(find . -maxdepth 1 -iname "package.json") ]]
   then
-  check_run ".scss|.sass|.js"  "sed -e 's/^\"//' -e 's/\"$//' <<< $(cat package.json | jq '.scripts.dev')"
+  check_run ".scss|.sass|.js"  "$(sed -e 's/^\"//' -e 's/\"$//' <<< $(cat package.json | jq '.scripts.dev'))"
 fi
 #check for php changes
 check_run ".php" "php artisan optimize:clear"
