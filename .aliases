@@ -36,7 +36,7 @@ alias ccat='pygmentize -O style=monokai -f console256 -g'
 # Fix Homebrew permissions if they get fucked
 alias fixbrew='sudo chown -R $(whoami):admin $(brew --prefix) && sudo chown -R $(whoami):admin /usr/local/Caskroom/'
 #force linking to make sure we override pre-installed binaries from OSX
-alias linkbrew='brew list -1 | while read line; do brew unlink $line --force; brew link --overwrite $line; done'
+alias linkbrew='brew list -1 | while read line; do brew unlink $line; brew link --overwrite $line; done'
 #fix git linking because it gets messed up all the time
 alias linkgit='brew unlink git && brew link git --overwrite'
 
