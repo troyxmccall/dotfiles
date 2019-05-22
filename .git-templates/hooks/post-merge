@@ -1,4 +1,4 @@
-#/usr/bin/env bash
+#!/usr/bin/env bash
 
 changed_files="$(git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD)"
 
@@ -39,5 +39,9 @@ elif [[ -n $(find . -maxdepth 1 -iname "package.json") ]]
   then
   check_run ".scss|.sass|.js"  "$(sed -e 's/^\"//' -e 's/\"$//' <<< $(cat package.json | jq '.scripts.dev'))"
 fi
-#check for php changes
-check_run ".php" "php artisan optimize:clear"
+
+#check for php changes for laravel apps
+if [ -f "artisan" ]
+then
+  check_run ".php" "php artisan optimize:clear"
+fi
