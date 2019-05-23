@@ -4,7 +4,7 @@
 
 source ~/.bash_profile;
 
-if [[ -f .nvmrc && -s .nvmrc && -r .nvmrc ]]; then <.nvmrc nvm install; elif [[ $(nvm current) != $(nvm version default) ]]; then nvm use default;
+if [[ -f .nvmrc && -s .nvmrc && -r .nvmrc ]]; then <.nvmrc nvm use; elif [[ $(nvm current) != $(nvm version default) ]]; then nvm use default; fi
 
 #use local python version - this depends on pyenv
 npm config set python ~/.pyenv/shims/python
