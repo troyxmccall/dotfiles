@@ -495,5 +495,8 @@ function nvm_auto_switch() {
     NVM_VERSION=$(cat "$NVM_RC_FILE")
   fi
 
+  #use whatever .python_version in local dir for npm installs
+  npm config set python ~/.pyenv/shims/python
+
   [ "$(nvm_version_path "$NVM_VERSION")/bin" == "$NVM_BIN" ] || nvm use "$NVM_VERSION"
 }

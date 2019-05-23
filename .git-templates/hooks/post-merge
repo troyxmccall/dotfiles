@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
-source ~/.bash_profile
+#brew install pyenv, jq
+
+source ~/.bash_profile;
+
+#use local python version - this depends on pyenv
+npm config set python ~/.pyenv/shims/python
 
 changed_files="$(git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD)"
 
@@ -30,7 +35,6 @@ elif [[ -n $(find . -maxdepth 1 -iname "gruntfile.js") ]]
   then
   # try to compile just using grunt
   check_run ".scss|.sass|.js" "grunt"
-
 # check whether there is a gulpfile in the root of the project
 elif [[ -n $(find . -maxdepth 1 -iname "gulpfile.js") ]]
   then
