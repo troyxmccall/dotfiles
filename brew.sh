@@ -82,6 +82,9 @@ brew tap homebrew/services
 
 #install current dev/vm version of php
 brew install php@7.1
+brew install php@7.2
+
+brew install brew-php-switcher
 
 
 #install php mods / composer
@@ -234,7 +237,7 @@ brew install go
 brew install jenv
 
 #mopidy
-brew tap mopidy/mopidy
+brew tap troyxmccall/mopidy
 brew install mopidy
 brew install mopidy-spotify
 
