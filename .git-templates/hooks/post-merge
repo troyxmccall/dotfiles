@@ -2,14 +2,13 @@
 
 #brew install pyenv, jq
 
+source ~/.bash_profile;
 
 if read -r -s -n 1 -t 5 -p "Press any key to abort autobuild in the next 5 secs:" key #key in a sense has no use at all
 then
     echo "aborted autobuild"
 else
     echo "autobuild in progress"
-
-  source ~/.bash_profile;
 
   if [[ -f .nvmrc && -s .nvmrc && -r .nvmrc ]]; then <.nvmrc nvm use; elif [[ $(nvm current) != $(nvm version default) ]]; then nvm use default; fi
 
