@@ -1,18 +1,16 @@
 module.exports = {
   defaultBrowser: "Firefox Developer Edition",
   handlers: [{
-      // Open apple.com and example.org urls in Safari
-      match: finicky.matchDomains(["apple.com", "example.org"]),
+      // Open apple.com urls in Safari
+      match: finicky.matchDomains(["apple.com"]),
       browser: "Safari"
   }, {
-      // Open any url including the string "workplace" in Firefox
-      match: ".vm",
-      browser: "Firefox Developer Edition"
+      match: finicky.matchDomains(["google.com"]),
+      browser: "Google Chrome"
   },
     {
-      // Open any url including the string "workplace" in Firefox
-      match: finicky.matchDomains(["reddit.com"]),
+      match: finicky.matchDomains(["reddit.com", "twitter.com", "instagram.com", "tumblr.com", "amazon.com"]),
       browser: "Brave Browser"
   }
-  ];
-}
+  ]
+};
