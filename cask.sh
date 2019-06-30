@@ -87,14 +87,12 @@ apps=(
   launchrocket
   licecap
   little-snitch
-  lockdown
   malwarebytes-anti-malware
   max
   onyx
   opera
   ostiarius
   paparazzi
-  paw
   postman
   private-internet-access
   provisionql
@@ -108,6 +106,7 @@ apps=(
   quicklook-json
   quicklook-csv
   screenflick
+  setapp
   sequel-pro
   shiori
   shuttle
@@ -130,8 +129,6 @@ apps=(
   vagrant
   viscosity
   vlc
-  vox
-  vox-preferences-pane
   webpquicklook
   whatsapp
   wireshark
