@@ -62,8 +62,8 @@ fi;
 
 brew install curl
 
-# Install `wget` with IRI support.
-brew install wget --with-iri
+# Install `wget`
+brew install wget
 
 # Install more recent versions of some OS X tools.
 brew install vim --override-system-vi
@@ -164,7 +164,7 @@ brew install git
 brew install git-lfs
 brew install hub
 brew install htop
-brew install imagemagick --with-webp
+brew install imagemagick
 brew install lua
 brew install lynx
 brew install ngrep
@@ -249,7 +249,7 @@ brew install packer
 brew install ansible
 
 #sharp
-brew install homebrew/science/vips --with-webp --with-graphicsmagick
+brew install homebrew/science/vips
 
 #yarn - smell ya later npm
 brew install yarn
