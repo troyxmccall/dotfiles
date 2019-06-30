@@ -42,6 +42,12 @@ pecl install xdebug
 # Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
 brew install coreutils
 
+
+# SIP blocks this symbolic link - let's trust apple for now
+
+#ln -s "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum"
+
+
 # Install some other useful utilities like `sponge`.
 brew install moreutils
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
@@ -66,7 +72,7 @@ brew install curl
 brew install wget
 
 # Install more recent versions of some OS X tools.
-brew install vim --override-system-vi
+brew install vim
 brew install grep
 brew install openssh
 brew install screen
@@ -83,6 +89,7 @@ brew tap homebrew/services
 #install current dev/vm version of php
 brew install php@7.1
 brew install php@7.2
+brew install php@7.3
 
 brew install brew-php-switcher
 
@@ -150,7 +157,7 @@ brew install dhcpdump
 brew install ucspi-tcp # `tcpserver` etc.
 brew install whois
 brew install wireshark
-brew install homebrew/x11/xpdf
+brew install xpdf
 brew install xz
 
 # Install other useful binaries.
@@ -249,7 +256,7 @@ brew install packer
 brew install ansible
 
 #sharp
-brew install homebrew/science/vips
+brew install vips
 
 #yarn - smell ya later npm
 brew install yarn
