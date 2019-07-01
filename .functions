@@ -500,3 +500,23 @@ function nvm_auto_switch() {
 
   [ "$(nvm_version_path "$NVM_VERSION")/bin" == "$NVM_BIN" ] || nvm use "$NVM_VERSION"
 }
+
+#docker functions
+if which docker > /dev/null;
+then
+docker_state=$(docker info >/dev/null 2>&1)
+if [[ $? -eq 0 ]]; then
+  function docker-stop-all() {
+      docker stop $(docker ps -q)
+  }
+  function docker-kill-all() {
+    docker kill $(docker ps -q)
+  }
+  function docker-remove-all-containers() {
+    docker rm $(docker ps -a -q)
+  }
+  function docker-remove-all-images() {
+    docker rmi $(docker images -q)
+  }
+fi
+fi;

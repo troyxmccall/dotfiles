@@ -206,15 +206,3 @@ alias nodenoindex="find ~/projects -type d \( -name \"node_modules\" -o -name \"
 alias javaversions="/usr/libexec/java_home -V"
 
 alias mopidy="PYTHONPATH=$(brew --prefix)/lib/python2.7/site-packages /usr/local/bin/mopidy"
-
-#docker aliases
-if which docker > /dev/null;
-then
-docker_state=$(docker info >/dev/null 2>&1)
-if [[ $? -eq 0 ]]; then
-  alias docker-stop-all="docker stop $(docker ps -q)"
-  alias docker-kill-all="docker kill $(docker ps -q)"
-  alias docker-remove-all-containers="docker rm $(docker ps -a -q)"
-  alias docker-remove-all-images="docker rmi $(docker images -q)"
-fi
-fi;
