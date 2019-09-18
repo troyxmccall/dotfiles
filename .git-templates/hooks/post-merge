@@ -47,7 +47,7 @@ else
   elif [[ -n $(find . -maxdepth 1 -iname "gulpfile.js") ]]
     then
     # try to compile just using gulp
-    check_run ".scss|.sass|.js" "gulp"
+    check_run ".scss|.sass|.js" "gulp sass"
   # check if package json has any dev scripts for us to run
   elif [[ -n $(find . -maxdepth 1 -iname "package.json") ]]
     then

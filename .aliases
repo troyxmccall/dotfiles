@@ -205,4 +205,4 @@ alias nodenoindex="find ~/projects -type d \( -name \"node_modules\" -o -name \"
 #show all installed java versions and paths
 alias javaversions="/usr/libexec/java_home -V"
 
-alias mopidy="PYTHONPATH=$(brew --prefix)/lib/python2.7/site-packages /usr/local/bin/mopidy"
+#alias mopidy="PYTHONPATH=$(brew --prefix)/lib/python2.7/site-packages /usr/local/bin/mopidy"
