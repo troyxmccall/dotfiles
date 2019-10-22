@@ -63,6 +63,7 @@ fi
 if [ -f "$(brew --prefix nvm)/nvm.sh" ]; then
   export NVM_DIR="$HOME/.nvm"
   . "$(brew --prefix nvm)/nvm.sh"
+  [[ -r $NVM_DIR/bash_completion ]] && \. $NVM_DIR/bash_completion
   #alias builtin cd function to call nvm_auto_switch everytime
   function cd() { builtin cd "$@"; nvm_auto_switch; }
 fi
