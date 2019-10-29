@@ -23,8 +23,6 @@ brew update
 brew upgrade --all
 
 # Handle dependencies
-brew tap caskroom/cask
-brew tap caskroom/versions
 brew tap buo/cask-upgrade
 
 # dependencies for Formulas and Casks
@@ -33,7 +31,7 @@ dependencies=(
   java6
   java8
   virtualbox
-  vmware-fusion8
+  vmware-fusion
   xquartz
 )
 
