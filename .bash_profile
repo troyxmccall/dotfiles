@@ -79,3 +79,5 @@ if command -v pyenv 1>/dev/null 2>&1; then eval "$(pyenv init -)"; fi
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 #jenv
 if which jenv > /dev/null; then eval "$(jenv init -)"; fi
+#starship
+if which starship > /dev/null; then eval "$(starship init bash)"; fi
