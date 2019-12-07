@@ -28,8 +28,6 @@ brew upgrade
 
 # Uninstall ALL php related Packages (most of them homebrew/php related)
 brew list | grep php | xargs brew uninstall --force
-# Remove deprecated tap
-brew untap homebrew/php
 # Clean cache
 brew cleanup
 # Ensure latest brew repo HEAD
@@ -260,6 +258,11 @@ brew install vips
 
 #yarn - smell ya later npm
 brew install yarn
+
+#docker machine
+brew install docker
+brew install docker-machine
+brew install docker-machine-nfs
 
 # Remove outdated versions from the cellar.
 brew cleanup
