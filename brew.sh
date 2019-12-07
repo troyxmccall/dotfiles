@@ -134,7 +134,6 @@ brew install dns2tcp
 brew install fcrackzip
 brew install foremost
 brew install hashpump
-brew install homebrew/python/pyrit
 brew install hydra
 brew install john
 brew install knock
