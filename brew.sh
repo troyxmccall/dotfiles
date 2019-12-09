@@ -84,8 +84,7 @@ brew install woff2
 #tap services - see: https://github.com/Homebrew/homebrew-services
 brew tap homebrew/services
 
-#install current dev/vm version of php
-brew install php@7.1
+#install olders verions of php
 brew install php@7.2
 brew install php@7.3
 
