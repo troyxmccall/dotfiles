@@ -81,3 +81,6 @@ if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -
 if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 #starship
 if which starship > /dev/null; then eval "$(starship init bash)"; fi
+#bash completion for docker-machine-pf
+#/usr/bin/env bash
+complete -W "start stop view" docker-machine-pf
