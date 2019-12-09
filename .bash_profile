@@ -27,15 +27,17 @@ for option in autocd globstar; do
   shopt -s "$option" 2> /dev/null;
 done;
 
-# Add tab completion for bash completion 2
-if which brew > /dev/null && [ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]; then
-  source "$(brew --prefix)/share/bash-completion/bash_completion";
+# Add tab completion for many Bash commands
+if which brew &> /dev/null && [ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]; then
+  # Ensure existing Homebrew v1 completions continue to work
+  export BASH_COMPLETION_COMPAT_DIR="$(brew --prefix)/etc/bash_completion.d";
+  source "$(brew --prefix)/etc/profile.d/bash_completion.sh";
 elif [ -f /etc/bash_completion ]; then
   source /etc/bash_completion;
 fi;
 
 # Enable tab completion for `g` by marking it as an alias for `git`
-if type _git &> /dev/null && [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
+if type _git &> /dev/null; then
   complete -o default -o nospace -F _git g;
 fi;
 
@@ -82,5 +84,6 @@ if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 #starship
 if which starship > /dev/null; then eval "$(starship init bash)"; fi
 #bash completion for docker-machine-pf
-#/usr/bin/env bash
 complete -W "start stop view" docker-machine-pf
+
+
