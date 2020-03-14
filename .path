@@ -12,7 +12,8 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 #go $ brew info go
 # https://gist.github.com/vsouza/77e6b20520d07652ed7d
 export GOPATH="$HOME/golang"
-export GOROOT="/usr/local/opt/go/libexec"
+# temp fix for go 1.14 procesor issues
+export GOROOT="/usr/local/opt/go@1.13/libexec"
 export PATH="$PATH:$GOPATH/bin"
 export PATH="$PATH:$GOROOT/bin"
 # homebrew cask contrib
@@ -51,10 +52,10 @@ export PATH="$PATH:~/golang/src/github.com/troyxmccall/hermes/dist"
 #jenv
 export PATH="$HOME/.jenv/bin:$PATH"
 
-#use php@7.1 if we can 
+#use php@7.1 if we can
 export PATH="/usr/local/opt/php@7.1/bin:$PATH"
 export PATH="/usr/local/opt/php@7.1/sbin:$PATH"
 
-#libffi 
+#libffi
 export LDFLAGS="-L/usr/local/opt/libffi/lib"
 export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
