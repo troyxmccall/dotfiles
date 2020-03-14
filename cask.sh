@@ -104,6 +104,7 @@ apps=(
   quicklook-json
   quicklook-csv
   screenflick
+  rectangle
   setapp
   sequel-pro
   shiori
@@ -112,7 +113,6 @@ apps=(
   sketch
   skype
   slack
-  spectacle
   spotify
   sonarr
   sublime-text
