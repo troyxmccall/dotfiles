@@ -47,6 +47,20 @@ alias fixnpm='sudo chown -R $(whoami):admin $(npm config get prefix)'
 
 alias prenpm='pyenv shell 2.7.14 && export LDFLAGS="-L/usr/local/opt/libffi/lib" && export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"'
 
+alias ni='npm install'
+alias nid='npm install --save-dev'
+alias nig='npm install --global'
+alias nt='npm test'
+alias nit='npm install && npm test'
+alias nk='npm link'
+alias nr='npm run'
+alias ns='npm start'
+alias nf='npm cache clean && rm -rf node_modules && npm install'
+alias nlg='npm list --global --depth=0'
+
+alias nvm-update-current='nvm install $(nvm current | sed -rn "s/v([[:digit:]]+).*/\1/p") --reinstall-packages-from=$(nvm current)'
+
+
 #vagrant shortcuts
 alias vss='LOCAL_WORKING_DIR=`vagrant_working_dir` vagrant ssh -- -oSendEnv=LOCAL_WORKING_DIR'
 alias vu="vagrant up"
