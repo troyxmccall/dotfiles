@@ -235,8 +235,6 @@ brew install pyenv
 
 #gowithit
 brew install go
-#beta goenv
-brew install --HEAD goenv
 
 #java
 brew install jenv
