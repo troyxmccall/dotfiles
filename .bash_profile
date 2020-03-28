@@ -85,5 +85,8 @@ if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 if which starship > /dev/null; then eval "$(starship init bash)"; fi
 #bash completion for docker-machine-pf
 complete -W "start stop view" docker-machine-pf
+#goenv
+if which goenv > /dev/null; then eval "$(goenv init -)"; fi
+
 
 
