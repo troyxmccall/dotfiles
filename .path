@@ -12,8 +12,7 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 #go $ brew info go
 # https://gist.github.com/vsouza/77e6b20520d07652ed7d
 export GOPATH="$HOME/golang"
-# temp fix for go 1.14 procesor issues
-export GOROOT="/usr/local/opt/go@1.13/libexec"
+export GOROOT="/usr/local/opt/go/libexec"
 export PATH="$PATH:$GOPATH/bin"
 export PATH="$PATH:$GOROOT/bin"
 # homebrew cask contrib
