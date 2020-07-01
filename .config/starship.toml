@@ -1,2 +1,16 @@
 [hg_branch]
 disabled=true
+
+[cmd_duration]
+min_time = 500
+prefix = "underwent "
+
+[docker_context]
+only_with_files = false
+disabled = false
+
+[directory]
+truncate_to_repo = true
+
+[directory.substitutions]
+"/Volumes/hermes/projects" = "~/projects"
