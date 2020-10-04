@@ -3,7 +3,7 @@ disabled=true
 
 [cmd_duration]
 min_time = 500
-prefix = "underwent "
+format = "took [$duration]($style) "
 
 [docker_context]
 only_with_files = false
