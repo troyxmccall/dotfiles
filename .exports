@@ -39,5 +39,8 @@ export GPG_TTY=$(tty);
 
 export GIT_COMPLETION_CHECKOUT_NO_GUESS=1
 
-#mkcert 
+#mkcert
 export CAROOT=~/projects/vhosts/certs/
+
+#dracula for bat
+export BAT_THEME="Dracula"
