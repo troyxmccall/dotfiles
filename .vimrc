@@ -32,13 +32,12 @@ if exists("&undodir")
 endif
 
 " Don’t create backups when editing files in certain directories
-set backupskip=/tmp/*,/private/tmp/*
+set backupskip=/tmp/*,/private/tmp/*,/etc/*
 
 " Respect modeline in files
 set modeline
 set modelines=4
-" Enable per-directory .vimrc files and disable unsafe commands in them
-set exrc
+" disable unsafe commands
 set secure
 " Enable line numbers
 set number
