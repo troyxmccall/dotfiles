@@ -3,9 +3,10 @@
 #only load if we don't have statship
 
 if which starship > /dev/null; then
-  echo "loading starship";
+  # do nothing basically
+  echo "loading starship" 1> /dev/null;
 else
-  echo "loading backup promt";
+  #echo "loading backup promt";
 
   # Shell prompt based on the Solarized Dark theme.
   # Screenshot: http://i.imgur.com/EkEtphC.png
