@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+#only load if we don't have statship
+
+if which starship > /dev/null;
+
+#do nothing
+
+else
+
+echo "loading backup promt"
+
 # Shell prompt based on the Solarized Dark theme.
 # Screenshot: http://i.imgur.com/EkEtphC.png
 # Heavily inspired by @necolas’s prompt: https://github.com/necolas/dotfiles
@@ -118,3 +128,5 @@ export PS1;
 
 PS2="\[${yellow}\]→ \[${reset}\]";
 export PS2;
+
+fi;
