@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+input="$@";X=${input##*.};output=${input%.*}_zoomed.${X};
+f=$(which ffmpeg 2>/dev/null)
+if [ ! "$f" ]||[ "$f" = '' ];then echo "inputnstall ffmpeg";exit 1;fi
+cropped=$($f -i "$input" -t 1 -vf cropdetect -f null - 2>&1|awk '/crop/{print $NF}'|tail -n1)
+echo $f -i "$input" -vf "$cropped" "$output"; $f -i "$input" -vf "$cropped" "$output"
