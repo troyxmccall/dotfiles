@@ -52,10 +52,10 @@ export PATH="$PATH:~/golang/src/github.com/troyxmccall/hermes/dist"
 export PATH="$HOME/.jenv/bin:$PATH"
 
 #php
-export PATH="/usr/local/opt/php@7.3/bin:$PATH"
-export PATH="/usr/local/opt/php@7.3/sbin:$PATH"
-export LDFLAGS="-L/usr/local/opt/php@7.3/lib"
-export CPPFLAGS="-I/usr/local/opt/php@7.3/include"
+export PATH="/usr/local/opt/php@7.4/bin:$PATH"
+export PATH="/usr/local/opt/php@7.4/sbin:$PATH"
+export LDFLAGS="-L/usr/local/opt/php@7.4/lib"
+export CPPFLAGS="-I/usr/local/opt/php@7.4/include"
 
 #libffi
 export LDFLAGS="-L/usr/local/opt/libffi/lib"
