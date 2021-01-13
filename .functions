@@ -268,6 +268,17 @@ function o() {
   fi;
 }
 
+# `phpstorm` with no arguments opens the current directory in Sublime Text, otherwise
+# opens the given location
+function phpstorm() {
+  if [ $# -eq 0 ]; then
+    open -na "PhpStorm.app" --args .;
+  else
+    open -na "PhpStorm.app" --args "$@";
+  fi;
+}
+
+
 # list top level npm packages
 function npml() {
   npm list $@ | grep ^[├└]
