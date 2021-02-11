@@ -268,9 +268,9 @@ function o() {
   fi;
 }
 
-# `phpstorm` with no arguments opens the current directory in Sublime Text, otherwise
+# `e` with no arguments opens the current directory in PHP Storm, otherwise
 # opens the given location
-function phpstorm() {
+function e() {
   if [ $# -eq 0 ]; then
     open -na "PhpStorm.app" --args .;
   else
