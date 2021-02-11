@@ -20,7 +20,7 @@ fi
 brew update
 
 # Upgrade any already-installed formulae.
-brew upgrade --all
+brew upgrade
 
 # Handle dependencies
 brew tap buo/cask-upgrade
@@ -42,7 +42,7 @@ echo "installing dependencies..."
 
 for app in "${dependencies[@]}"
 do
-  brew cask install --appdir="/Applications" $app
+  brew install $app --cask
 done
 
 # Apps for caskroom
@@ -55,7 +55,6 @@ apps=(
   atom
   backblaze
   basecamp
-  betterzipql
   blockblock
   charles
   dash
@@ -70,22 +69,20 @@ apps=(
   firefox-developer-edition
   gitkraken
   geekbench
-  google-chrome-beta
+  google-chrome
   google-hangouts
   handbrake
   harvest
   hazel
-  hosts
   imageoptim
-  iterm2-beta
+  iterm2
+  jetbrains-toolbox
   keepingyouawake
   knockknock
   ksdiff
-  lastpass
   launchrocket
   licecap
   little-snitch
-  malwarebytes-anti-malware
   max
   onyx
   opera
@@ -106,7 +103,7 @@ apps=(
   screenflick
   rectangle
   setapp
-  sequel-pro
+  sequel-ace
   shiori
   shuttle
   signal
@@ -119,7 +116,7 @@ apps=(
   surge
   suspicious-package
   telegram
-  torbrowser
+  tor-browser
   tower2
   transmission
   transmit
@@ -137,7 +134,7 @@ echo "installing cask apps..."
 
 for app in "${apps[@]}"
 do
-  brew cask install --appdir="/Applications" $app --force
+  brew install $app --cask
 done
 
-brew cask cleanup
+brew cleanup
