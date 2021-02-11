@@ -16,11 +16,8 @@ fi
 # Exit if, for some reason, Homebrew is not installed.
 [[ ! "$(type -P brew)" ]] && e_error "Homebrew failed to install." && return 1
 
-#uninstall old bash-completions
-brew uninstall bash-completion
 brew tap homebrew/versions
 brew install bash
-brew install bash-completion2
 
 # Switch to using brew-installed bash as default shell
 if ! fgrep -q '/usr/local/bin/bash' /etc/shells; then

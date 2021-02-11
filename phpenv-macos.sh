@@ -37,7 +37,7 @@ php_install() {
   local PHP_EXT;
 
   # Install PHP versions.
-  for PHP_VER in "7.2" "7.3" "7.4" ; do
+  for PHP_VER in "7.2" "7.3" "7.4" "8.0"; do
     # Do not overwrite existing php install.
     if brew list --versions "php@${PHP_VER}" 1>/dev/null; then
       (>&2 echo "PHP ${PHP_VER} already installed.")
