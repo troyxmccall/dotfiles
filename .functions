@@ -516,6 +516,18 @@ function nvm_auto_switch() {
   [ "$(nvm_version_path "$NVM_VERSION")/bin" == "$NVM_BIN" ] || nvm use "$NVM_VERSION"
 }
 
+#upgrade current version of node to it's latest lts
+function nvm-upgrade {
+  local prev_ver=$(nvm current)
+  nvm install --lts --latest-npm
+  if [ "$prev_ver" != "$(nvm current)" ]
+  then
+    nvm reinstall-packages $prev_ver
+    nvm uninstall $prev_ver
+  fi
+  nvm cache clear
+}
+
 #docker functions
 if which docker > /dev/null;
 then
