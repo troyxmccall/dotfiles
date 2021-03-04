@@ -332,6 +332,10 @@ function git-ag () {
   fi
 }
 
+function mat () {
+  pandoc $1 | lynx -stdin
+}
+
 # keep host working directory in vagrant
 function vagrant_working_dir {
     current_dir=`pwd`
