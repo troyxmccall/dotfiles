@@ -1,16 +1,19 @@
 [hg_branch]
 disabled=true
 
-[cmd_duration]
-min_time = 500
-format = "took [$duration]($style) "
-
 [docker_context]
-only_with_files = false
-disabled = false
+only_with_files = true
+detect_files =  ["docker-compose.machine.yml", "docker-compose.machine.override.yml", "Dockerfile"]
 
 [directory]
 truncate_to_repo = true
 
 [directory.substitutions]
 "/Volumes/hermes/projects" = "~/projects"
+
+[gcloud]
+disabled=true
+
+[cmd_duration]
+min_time = 500
+format = "took [$duration]($style) "
