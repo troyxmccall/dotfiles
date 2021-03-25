@@ -17,6 +17,7 @@ alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias p="cd ~/projects"
 alias g="git"
+__git_complete g __git_main
 alias gti="git"
 alias h="history"
 alias j="jobs"

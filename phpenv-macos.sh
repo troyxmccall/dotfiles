@@ -78,6 +78,10 @@ phpenv_install() {
     (>&2 echo "Updating phpenv.")
     phpenv update
   fi
+
+  #install 7.1.x from source
+  brew install autoconf bison bzip2 curl icu4c libedit libjpeg libiconv libpng libxml2 libzip openssl re2c tidy-html5 zlib mcrypt
+  CFLAGS=-DU_DEFINE_FALSE_AND_TRUE=1 CONFIGURE_OPTS="--with-zlib-dir=$(brew --prefix zlib) --with-bz2=$(brew --prefix bzip2) --with-curl=$(brew --prefix curl) --with-iconv=$(brew --prefix libiconv) --with-libedit=$(brew --prefix libedit) --with-readline=$(brew --prefix readline) --with-tidy=$(brew --prefix tidy-html5)" phpenv install 7.1.9
 }
 
 phpenv_versions_cleanup() {
