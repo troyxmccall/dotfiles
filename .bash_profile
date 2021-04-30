@@ -6,7 +6,7 @@ export PATH="$HOME/bin:$PATH";
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
 # * ~/.extra can be used for other settings you don’t want to commit.
-for file in ~/.{path,bash_prompt,exports,aliases,functions,extra,wd}; do
+for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
   [ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
@@ -77,4 +77,109 @@ if which starship > /dev/null; then eval "$(starship init bash)"; fi
 #bash completion for docker-machine-pf
 complete -W "start stop view" docker-machine-pf
 
+#let's override __git_refs from /usr/local/etc/bash_completion.d/git-completion.bash
+# this override removes tags from tab completion for git checkout, so it's just remotes and locals
+# we want this to load at the very end after all functions/bash_completion so it's the final override. hence it's place in this file vs functions
+__git_refs ()
+{
+  local i hash dir track="${2-}"
+  local list_refs_from=path remote="${1-}"
+  local format refs
+  local pfx="${3-}" cur_="${4-$cur}" sfx="${5-}"
+  local match="${4-}"
+  local fer_pfx="${pfx//\%/%%}" # "escape" for-each-ref format specifiers
+
+  __git_find_repo_path
+  dir="$__git_repo_path"
+
+  if [ -z "$remote" ]; then
+    if [ -z "$dir" ]; then
+      return
+    fi
+  else
+    if __git_is_configured_remote "$remote"; then
+      # configured remote takes precedence over a
+      # local directory with the same name
+      list_refs_from=remote
+    elif [ -d "$remote/.git" ]; then
+      dir="$remote/.git"
+    elif [ -d "$remote" ]; then
+      dir="$remote"
+    else
+      list_refs_from=url
+    fi
+  fi
+
+  if [ "$list_refs_from" = path ]; then
+    if [[ "$cur_" == ^* ]]; then
+      pfx="$pfx^"
+      fer_pfx="$fer_pfx^"
+      cur_=${cur_#^}
+      match=${match#^}
+    fi
+    case "$cur_" in
+    refs|refs/*)
+      format="refname"
+      refs=("$match*" "$match*/**")
+      track=""
+      ;;
+    *)
+      for i in HEAD FETCH_HEAD ORIG_HEAD MERGE_HEAD REBASE_HEAD; do
+        case "$i" in
+        $match*)
+          if [ -e "$dir/$i" ]; then
+            echo "$pfx$i$sfx"
+          fi
+          ;;
+        esac
+      done
+      format="refname:strip=2"
+      refs=("refs/heads/$match*" "refs/heads/$match*/**"
+        "refs/remotes/$match*" "refs/remotes/$match*/**")
+      ;;
+    esac
+    __git_dir="$dir" __git for-each-ref --format="$fer_pfx%($format)$sfx" \
+      "${refs[@]}"
+    if [ -n "$track" ]; then
+      __git_dwim_remote_heads "$pfx" "$match" "$sfx"
+    fi
+    return
+  fi
+  case "$cur_" in
+  refs|refs/*)
+    __git ls-remote "$remote" "$match*" | \
+    while read -r hash i; do
+      case "$i" in
+      *^{}) ;;
+      *) echo "$pfx$i$sfx" ;;
+      esac
+    done
+    ;;
+  *)
+    if [ "$list_refs_from" = remote ]; then
+      case "HEAD" in
+      $match*)  echo "${pfx}HEAD$sfx" ;;
+      esac
+      __git for-each-ref --format="$fer_pfx%(refname:strip=3)$sfx" \
+        "refs/remotes/$remote/$match*" \
+        "refs/remotes/$remote/$match*/**"
+    else
+      local query_symref
+      case "HEAD" in
+      $match*)  query_symref="HEAD" ;;
+      esac
+      __git ls-remote "$remote" $query_symref \
+        "refs/tags/$match*" "refs/heads/$match*" \
+        "refs/remotes/$match*" |
+      while read -r hash i; do
+        case "$i" in
+        *^{}) ;;
+        refs/*) echo "$pfx${i#refs/*/}$sfx" ;;
+        *)  echo "$pfx$i$sfx" ;;  # symbolic refs
+        esac
+      done
+    fi
+    ;;
+  esac
+}
 

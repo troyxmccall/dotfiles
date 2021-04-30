@@ -109,27 +109,29 @@
   aliases = config --get-regexp alias
 
 
+
 [apply]
 
-  # Detect whitespace errors when applying a patch
+  # Detect whitespace errors when applying a patch.
   whitespace = fix
 
-[credential]
-  #use osx keychain to store git creditials
-  helper = osxkeychain
+[branch]
+
+  # Show most recently changed branches first.
+  sort = -committerdate
 
 [core]
 
-  # Use custom `.gitignore` and `.gitattributes`
+  # Use custom `.gitignore` and `.gitattributes`.
   excludesfile = ~/.gitignore
   attributesfile = ~/.gitattributes
 
-  # Treat spaces before tabs and all kinds of trailing whitespace as an error
+  # Treat spaces before tabs and all kinds of trailing whitespace as an error.
   # [default] trailing-space: looks for spaces at the end of a line
   # [default] space-before-tab: looks for spaces before tabs at the beginning of a line
   whitespace = space-before-tab,-indent-with-non-tab,trailing-space
 
-  # Make `git rebase` safer on OS X
+  # Make `git rebase` safer on macOS.
   # More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
   trustctime = false
 
@@ -140,8 +142,6 @@
   # Speed up commands involving untracked files such as `git status`.
   # https://git-scm.com/docs/git-update-index#_untracked_cache
   untrackedCache = true
-
-  hookspath= ~/.git-templates/hooks/
 
 [color]
 
@@ -157,21 +157,10 @@
 
 [color "diff"]
 
-  meta = yellow
+  meta = yellow bold
   frag = magenta bold # line info
-  commit = yellow bold
-  old = red bold # deletions
-  new = green bold # additions
-  whitespace = red reverse
-
-
-[color "diff-highlight"]
-
-  oldNormal = "red bold"
-  oldHighlight = "red bold 52"
-  newNormal = "green bold"
-  newHighlight = "green bold 22"
-
+  old = red # deletions
+  new = green # additions
 
 [color "status"]
 
@@ -186,21 +175,17 @@
 
 [diff]
 
-  # Detect copies as well as renames
+  # Detect copies as well as renames.
   renames = copies
-
-  # Enable an experimental heuristic that shifts the hunk boundary in an
-  # attempt to make the resulting patch easier to read.
-  indentHeuristic = true
 
 [diff "bin"]
 
-  # Use `hexdump` to diff binary files
+  # Use `hexdump` to diff binary files.
   textconv = hexdump -v -C
 
 [help]
 
-  # Automatically correct and execute mistyped commands
+  # Automatically correct and execute mistyped commands.
   autocorrect = 1
 
 [merge]
@@ -208,17 +193,10 @@
   # Include summaries of merged commits in newly created merge commit messages
   log = true
 
-[pager]
-
-  diff = diff-so-fancy | less --tabs=4 -RFX
-  show = diff-so-fancy | less --tabs=4 -RFX
-
 [push]
 
-  # Use the Git 1.x.x default to avoid errors on machines with old Git
-  # installations. To use `simple` instead, add this to your `~/.extra` file:
-  # `git config --global push.default simple`. See http://git.io/mMah-w.
-  default = matching
+  # https://git-scm.com/docs/git-config#git-config-pushdefault
+  default = simple
   # Make `git push` push relevant annotated tags when pushing branches out.
   followTags = true
 
@@ -243,3 +221,7 @@
 [url "git://gist.github.com/"]
 
   insteadOf = "gist:"
+
+[init]
+
+  defaultBranch = master
