@@ -57,9 +57,7 @@ apps=(
   basecamp
   blockblock
   charles
-  dash
   dhs
-  disk-inventory-x
   dnscrypt
   docker
   docker-toolbox
@@ -70,7 +68,6 @@ apps=(
   gitkraken
   geekbench
   google-chrome
-  google-hangouts
   handbrake
   harvest
   hazel
@@ -82,11 +79,9 @@ apps=(
   ksdiff
   launchrocket
   licecap
-  little-snitch
+  lulu
   max
   onyx
-  opera
-  ostiarius
   paparazzi
   postman
   private-internet-access
@@ -104,20 +99,16 @@ apps=(
   rectangle
   setapp
   sequel-ace
-  shiori
-  shuttle
   signal
   sketch
   skype
   slack
   spotify
-  sonarr
   sublime-text
   surge
   suspicious-package
   telegram
   tor-browser
-  tower2
   transmission
   transmit
   typora
