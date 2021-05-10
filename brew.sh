@@ -257,8 +257,9 @@ brew install vips
 #yarn - smell ya later npm
 brew install yarn
 
-#docker machine
+#docker
 brew install docker
+brew install docker-compose
 brew install docker-machine
 brew install docker-machine-nfs
 

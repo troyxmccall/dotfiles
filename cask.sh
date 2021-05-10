@@ -56,15 +56,25 @@ apps=(
   backblaze
   basecamp
   blockblock
+  brave-browser
+  calibre
+  carbon-copy-cloner
   charles
+  chromedriver
+  data-rescue
   dhs
+  discord
   dnscrypt
   docker
-  docker-toolbox
+  dockstation
   dropbox
+  edex-ui
   evernote
+  finicky
   firefox
   firefox-developer-edition
+  font-roboto-mono-for-powerline
+  font-roboto-mono-nerd-font
   gitkraken
   geekbench
   google-chrome
@@ -107,6 +117,7 @@ apps=(
   sublime-text
   surge
   suspicious-package
+  taskexplorer
   telegram
   tor-browser
   transmission
