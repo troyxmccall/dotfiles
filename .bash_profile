@@ -78,6 +78,10 @@ if which starship > /dev/null; then eval "$(starship init bash)"; fi
 #bash completion for docker-machine-pf
 complete -W "start stop view" docker-machine-pf
 
+#aritsan completion
+complete -F _artisan art
+complete -F _artisan artisan
+
 #let's override __git_refs from /usr/local/etc/bash_completion.d/git-completion.bash
 # this override removes tags from tab completion for git checkout, so it's just remotes and locals
 # we want this to load at the very end after all functions/bash_completion so it's the final override. hence it's place in this file vs functions

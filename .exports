@@ -44,3 +44,6 @@ export CAROOT=~/projects/vhosts/certs/
 
 #dracula for bat
 export BAT_THEME="Dracula"
+
+#cache aritsan autocompletes
+export ARTISAN_CMDS_FILE=~/.cache/artisan_list.txt
