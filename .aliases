@@ -224,9 +224,6 @@ alias artisan='php artisan'
 
 #alias mopidy="PYTHONPATH=$(brew --prefix)/lib/python2.7/site-packages /usr/local/bin/mopidy"
 
-#get better times
-alias curltime="curl -w \"@$HOME/.curl-format.txt\" -o /dev/null -s "
-
 # Automatically add completion for all aliases to commands having completion functions
 function alias_completion {
     local namespace="alias_completion"
