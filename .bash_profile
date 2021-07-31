@@ -70,6 +70,8 @@ fi
 if which swiftenv > /dev/null; then eval "$(swiftenv init -)"; fi
 #pyenv
 if command -v pyenv 1>/dev/null 2>&1; then eval "$(pyenv init --path)"; fi
+if command -v pyenv 1>/dev/null 2>&1; then eval "$(pyenv init -)"; fi
+
 #pyenv virtualenv
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 #jenv
@@ -77,7 +79,7 @@ if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 #rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
-#### END LANG ENVS
+#### END LANG ENV
 
 #starship
 if which starship > /dev/null; then eval "$(starship init bash)"; fi
