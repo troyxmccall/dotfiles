@@ -18,6 +18,7 @@ do
   npm install -g bower
   npm install -g grunt-cli grunt
   npm install -g gulp-cli gulp
+  npm install -g webpack
   # npm install -g lodash
   # npm install -g forever
   # npm install -g browserify
@@ -32,13 +33,19 @@ do
   # npm install -g q
   # npm install -g passport
   #packages
-  npm install -g coffee-script
+  # npm install -g coffee-script
   # hubot
   # npm install -g yo generator-hubot
   # other utilities
   npm install -g debug
   npm install -g jshint
-  npm install -g npm-install-missing
-  npm install -g webtorrent
-  npm install -g vtop
+  # npm install -g npm-install-missing
+  # npm install -g webtorrent
+  # npm install -g vtop
+
+  # alfred deps
+  npm install -g @bchatard/alfred-jetbrains
+
+  #updates
+  npm install -g npm-check-update
 done

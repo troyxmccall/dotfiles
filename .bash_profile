@@ -57,7 +57,7 @@ fi
 
 ### ALL THE LANG ENVS
 
-#nvm because node is just as fucked as ruby
+#nvm
 if [ -f "$(brew --prefix nvm)/nvm.sh" ]; then
   export NVM_DIR="$HOME/.nvm"
   . "$(brew --prefix nvm)/nvm.sh"
@@ -68,14 +68,17 @@ fi
 
 #swift env
 if which swiftenv > /dev/null; then eval "$(swiftenv init -)"; fi
+
 #pyenv
 if command -v pyenv 1>/dev/null 2>&1; then eval "$(pyenv init --path)"; fi
-if command -v pyenv 1>/dev/null 2>&1; then eval "$(pyenv init -)"; fi
+if command -v pyenv 1>/dev/null 2>&1; then eval "$(pyenv init -)"goen; fi
 
 #pyenv virtualenv
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+
 #jenv
 if which jenv > /dev/null; then eval "$(jenv init -)"; fi
+
 #rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
