@@ -84,10 +84,8 @@ brew install woff2
 #tap services - see: https://github.com/Homebrew/homebrew-services
 brew tap homebrew/services
 
-#install olders verions of php
-brew install php@7.2
-brew install php@7.3
-
+#install older verion of php
+brew install php@7.4
 brew install brew-php-switcher
 
 
@@ -229,7 +227,6 @@ brew install python
 brew linkapps python
 pip install Pygments
 pip install requests
-brew install python@2
 brew install pyenv
 
 
@@ -240,7 +237,7 @@ brew install go
 brew install jenv
 
 #mopidy
-brew tap troyxmccall/mopidy
+brew tap mopidy/mopidy
 brew install mopidy
 brew install mopidy-spotify
 
@@ -256,6 +253,7 @@ brew install vips
 
 #yarn - smell ya later npm
 brew install yarn
+brew install yarn-completion
 
 #docker
 brew install docker
