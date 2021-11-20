@@ -1,14 +1,11 @@
 #!/usr/bin/env bash
 
 nvm_versions=(
-  stable
-  lts/boron
-  lts/carbon
-  lts/dubnium
-  lts/erbium
+  lts/fermium,
+  lts/gallium
 )
 
-echo "installing stable, boron, and carbon lts node versions and all global packages to 'em. this may take a few minutes"
+echo "installing v14, and v16 lts node versions and all global packages to 'em. this may take a few minutes"
 
 for nvm_version in "${nvm_versions[@]}"
 do
