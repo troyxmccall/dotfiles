@@ -48,6 +48,7 @@ done
 # Apps for caskroom
 apps=(
   1password
+  1password-cli
   adobe-creative-cloud
   airserver
   alfred
@@ -60,13 +61,13 @@ apps=(
   calibre
   carbon-copy-cloner
   charles
+  cheatsheet
   chromedriver
   data-rescue
   dhs
   discord
   dnscrypt
   docker
-  dockstation
   dropbox
   edex-ui
   evernote
@@ -86,12 +87,16 @@ apps=(
   jetbrains-toolbox
   keepingyouawake
   knockknock
+  krisp
   ksdiff
   launchrocket
   licecap
+  loopback
   lulu
   max
+  monitorcontrol
   onyx
+  oversight
   paparazzi
   postman
   private-internet-access
@@ -115,7 +120,7 @@ apps=(
   slack
   spotify
   sublime-text
-  surge
+  sublime-merge
   suspicious-package
   taskexplorer
   telegram

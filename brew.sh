@@ -99,6 +99,7 @@ brew install php-cs-fixer
 brew install wrk
 brew install siege
 brew install vegeta
+#install some other http tools
 brew install httpie
 
 #install some network benchmarking/testing tools
