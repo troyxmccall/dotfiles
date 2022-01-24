@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# Homebrew for M1s - needed before other sourcing
+if [[ -f /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 # Add `~/bin` to the `$PATH`
 export PATH="$HOME/bin:$PATH";
 
@@ -26,13 +31,6 @@ shopt -s cdspell;
 for option in autocd globstar; do
   shopt -s "$option" 2> /dev/null;
 done;
-
-
-# Homebrew for M1s
-if [[ -f /opt/homebrew/bin/brew ]]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
-
 
 # Add tab completion for many Bash commands
 if which brew &> /dev/null && [ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]; then
