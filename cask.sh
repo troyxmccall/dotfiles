@@ -24,11 +24,12 @@ brew upgrade
 
 # Handle dependencies
 brew tap buo/cask-upgrade
+brew tap homebrew/cask-fonts
+brew tap homebrew/cask-versions
 
 # dependencies for Formulas and Casks
 dependencies=(
   java
-  java6
   java8
   virtualbox
   vmware-fusion
@@ -56,6 +57,7 @@ apps=(
   atom
   backblaze
   basecamp
+  beeper
   blockblock
   brave-browser
   calibre
@@ -66,10 +68,8 @@ apps=(
   data-rescue
   dhs
   discord
-  dnscrypt
   docker
   dropbox
-  edex-ui
   evernote
   finicky
   firefox
@@ -90,7 +90,6 @@ apps=(
   krisp
   ksdiff
   launchrocket
-  licecap
   loopback
   lulu
   max
@@ -128,7 +127,6 @@ apps=(
   transmission
   transmit
   typora
-  vagrant
   viscosity
   vlc
   webpquicklook
