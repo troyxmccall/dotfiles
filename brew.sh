@@ -25,6 +25,10 @@ brew update
 # Upgrade any already-installed formulae.
 brew upgrade
 
+# autoupdate - https://github.com/Homebrew/homebrew-autoupdate
+brew tap homebrew/autoupdate
+brew autoupdate start
+
 
 # Uninstall ALL php related Packages (most of them homebrew/php related)
 brew list | grep php | xargs brew uninstall --force
@@ -32,7 +36,7 @@ brew list | grep php | xargs brew uninstall --force
 brew cleanup
 # Ensure latest brew repo HEAD
 brew update
-# Install latest php (php 7.2)
+# Install latest php
 brew install php
 pecl install xdebug
 
@@ -89,6 +93,9 @@ brew install php@7.4
 brew install brew-php-switcher
 
 
+#mariadb
+brew install mariadb
+
 #install php mods / composer
 brew install composer
 brew install phpmd
@@ -119,41 +126,6 @@ brew install stormssh
 brew install dnsmasq
 brew install mkcert
 
-
-# Install some more CTF tools; see https://github.com/ctfs/write-ups.
-brew install aircrack-ng
-brew install bfg
-brew install binutils
-brew install binwalk
-brew install cifer
-brew install cowpatty
-brew install dex2jar
-brew install dns2tcp
-brew install fcrackzip
-brew install foremost
-brew install hashpump
-brew install hydra
-brew install john
-brew install knock
-brew install netpbm
-brew install nmap
-brew install mitmproxy
-brew install pngcheck
-brew install reaver
-brew install snort
-brew install socat
-brew install sqlmap
-brew install tcpflow
-brew install tcpreplay
-brew install tcptrace
-brew install tcpdump
-brew install trafshow
-brew install dhcpdump
-brew install ucspi-tcp # `tcpserver` etc.
-brew install whois
-brew install wireshark
-brew install xpdf
-brew install xz
 
 # Install other useful binaries.
 brew install ack
@@ -238,29 +210,30 @@ brew install go
 brew install jenv
 
 #mopidy
-brew tap mopidy/mopidy
-brew install mopidy
-brew install mopidy-spotify
+# brew tap mopidy/mopidy
+# brew install mopidy
+# brew install mopidy-spotify
 
 #thefuck: https://github.com/nvbn/thefuck
 brew install thefuck
 
 #vm builder tools
-brew install packer
-brew install ansible
+# brew install packer
+# brew install ansible
 
 #sharp
 brew install vips
 
 #yarn - smell ya later npm
 brew install yarn
+brew install node
 brew install yarn-completion
 
 #docker
 brew install docker
 brew install docker-compose
-brew install docker-machine
-brew install docker-machine-nfs
+# brew install docker-machine
+# brew install docker-machine-nfs
 
 # Remove outdated versions from the cellar.
 brew cleanup

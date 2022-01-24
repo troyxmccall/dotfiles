@@ -29,9 +29,6 @@ brew tap homebrew/cask-versions
 
 # dependencies for Formulas and Casks
 dependencies=(
-  java
-  java8
-  virtualbox
   vmware-fusion
   xquartz
 )
