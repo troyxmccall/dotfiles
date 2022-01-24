@@ -17,16 +17,16 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ###############################################################################
 
 # Set computer name (as done via System Preferences → Sharing)
-sudo scutil --set ComputerName "the-mechanic"
-sudo scutil --set HostName "the-mechanic"
-sudo scutil --set LocalHostName "the-mechanic"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "the-mechanic"
+# sudo scutil --set ComputerName "the-mechanic"
+# sudo scutil --set HostName "the-mechanic"
+# sudo scutil --set LocalHostName "the-mechanic"
+# sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "the-mechanic"
 
 # Set standby delay to 2 hours (default is 1 hour) - in seconds
-sudo pmset -a standbydelay 7200
+# sudo pmset -a standbydelay 7200
 
 # Disable transparency in the menu bar and elsewhere on Yosemite
-defaults write com.apple.universalaccess reduceTransparency -bool true
+# defaults write com.apple.universalaccess reduceTransparency -bool true
 
 # Menu bar: hide the Time Machine and User icons
 for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
