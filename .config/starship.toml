@@ -1,3 +1,5 @@
+command_timeout = 1000
+
 [hg_branch]
 disabled=true
 

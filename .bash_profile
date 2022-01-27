@@ -32,9 +32,11 @@ for option in autocd globstar; do
   shopt -s "$option" 2> /dev/null;
 done;
 
+
+
 # Add tab completion for many Bash commands
 if which brew &> /dev/null && [ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]; then
-  [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+  [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
 fi;
 
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
@@ -95,7 +97,7 @@ complete -W "start stop view" docker-machine-pf
 complete -F _artisan art
 complete -F _artisan artisan
 
-#let's override __git_refs from /usr/local/etc/bash_completion.d/git-completion.bash
+#let's override __git_refs from $(brew --prefix)/etc/bash_completion.d/git-completion.bash
 # this override removes tags from tab completion for git checkout, so it's just remotes and locals
 # we want this to load at the very end after all functions/bash_completion so it's the final override. hence it's place in this file vs functions
 __git_refs ()
