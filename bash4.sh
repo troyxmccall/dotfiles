@@ -20,9 +20,9 @@ brew tap homebrew/versions
 brew install bash
 
 # Switch to using brew-installed bash as default shell
-if ! fgrep -q '/usr/local/bin/bash' /etc/shells; then
-  echo '/usr/local/bin/bash' | sudo tee -a /etc/shells;
-  chsh -s /usr/local/bin/bash;
+if ! fgrep -q '$(brew --prefix)/bin/bash' /etc/shells; then
+  echo '$(brew --prefix)/bin/bash' | sudo tee -a /etc/shells;
+  chsh -s $(brew --prefix)/bin/bash;
 fi;
 
 # Remove outdated versions from the cellar.

@@ -35,7 +35,7 @@ alias hosts='sudo $EDITOR /etc/hosts'   #quick add
 alias ccat='pygmentize -O style=monokai -f console256 -g'
 
 # Fix Homebrew permissions if they get fucked
-alias fixbrew='sudo chown -R $(whoami):admin $(brew --prefix) && sudo chown -R $(whoami):admin /usr/local/Caskroom/'
+alias fixbrew='sudo chown -R $(whoami):admin $(brew --prefix) && sudo chown -R $(whoami):admin $(brew --prefix)/Caskroom/'
 #force linking to make sure we override pre-installed binaries from OSX
 alias linkbrew='brew list -1 | while read line; do brew unlink $line; brew link --overwrite $line; done'
 #fix git linking because it gets messed up all the time
@@ -46,7 +46,7 @@ alias lockscreen='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/
 # Fix NPM
 alias fixnpm='sudo chown -R $(whoami):admin $(npm config get prefix)'
 
-alias prenpm='pyenv shell 2.7.14 && export LDFLAGS="-L/usr/local/opt/libffi/lib" && export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"'
+alias prenpm='pyenv shell 2.7.14 && export LDFLAGS="-L$(brew --prefix)/opt/libffi/lib" && export PKG_CONFIG_PATH="$(brew --prefix)/opt/libffi/lib/pkgconfig"'
 
 alias ni='npm install'
 alias nid='npm install --save-dev'
@@ -222,7 +222,7 @@ alias javaversions="/usr/libexec/java_home -V"
 #aritsan for completion
 alias artisan='php artisan'
 
-#alias mopidy="PYTHONPATH=$(brew --prefix)/lib/python2.7/site-packages /usr/local/bin/mopidy"
+#alias mopidy="PYTHONPATH=$(brew --prefix)/lib/python2.7/site-packages $(brew --prefix)/bin/mopidy"
 
 # Automatically add completion for all aliases to commands having completion functions
 function alias_completion {
