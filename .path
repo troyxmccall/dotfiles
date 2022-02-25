@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 #homebrew
-export PATH="/usr/local/bin:$PATH"
-export PATH="/usr/local/sbin:$PATH"
+export PATH="$(brew --prefix)/bin:$PATH"
+export PATH="$(brew --prefix)/sbin:$PATH"
 #composer
 export PATH="$PATH:~/.composer/vendor/bin"
 #gnu utils
@@ -12,31 +12,31 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 #go $ brew info go
 # https://gist.github.com/vsouza/77e6b20520d07652ed7d
 export GOPATH="$HOME/golang"
-export GOROOT="/usr/local/opt/go/libexec"
+export GOROOT="$(brew --prefix)/opt/go/libexec"
 export PATH="$PATH:$GOPATH/bin"
 export PATH="$PATH:$GOROOT/bin"
 # homebrew cask contrib
-export PATH="$PATH:/usr/local/Library/Taps/caskroom/homebrew-cask/developer/bin"
+export PATH="$PATH:$(brew --prefix)/Library/Taps/caskroom/homebrew-cask/developer/bin"
 #brewed python
 export PATH="$PATH:$(brew --prefix python)/libexec/bin"
 #yarn
 export PATH="$PATH:$HOME/.yarn/bin"
 #brewed bison
-export PATH="$PATH:/usr/local/opt/bison/bin"
+export PATH="$PATH:$(brew --prefix)/opt/bison/bin"
 #brewed curl
-export PATH="$PATH:/usr/local/opt/curl/bin"
+export PATH="$PATH:$(brew --prefix)/opt/curl/bin"
 #other brewed formulas
-export PATH="$PATH:/usr/local/opt/dirmngr/bin"
-export PATH="/usr/local/opt/curl/bin:$PATH"
-export PATH="/usr/local/opt/icu4c/bin:$PATH"
-export PATH="/usr/local/opt/icu4c/sbin:$PATH"
-export PATH="/usr/local/opt/libxml2/bin:$PATH"
-export PATH="/usr/local/opt/qt/bin:$PATH"
-export PATH="/usr/local/opt/unzip/bin:$PATH"
+export PATH="$PATH:$(brew --prefix)/opt/dirmngr/bin"
+export PATH="$(brew --prefix)/opt/curl/bin:$PATH"
+export PATH="$(brew --prefix)/opt/icu4c/bin:$PATH"
+export PATH="$(brew --prefix)/opt/icu4c/sbin:$PATH"
+export PATH="$(brew --prefix)/opt/libxml2/bin:$PATH"
+export PATH="$(brew --prefix)/opt/qt/bin:$PATH"
+export PATH="$(brew --prefix)/opt/unzip/bin:$PATH"
 #redis
 export PATH="/Applications/Redis.app/Contents/Resources/Vendor/redis/bin:$PATH"
 #nss - firefox cert automation
-export PATH="/usr/local/opt/nss/bin:$PATH"
+export PATH="$(brew --prefix)/opt/nss/bin:$PATH"
 
 #behat
 export PATH="./vendor/bin:$PATH"
@@ -52,11 +52,11 @@ export PATH="$PATH:~/golang/src/github.com/troyxmccall/hermes/dist"
 export PATH="$HOME/.jenv/bin:$PATH"
 
 #php
-export PATH="/usr/local/opt/php@7.4/bin:$PATH"
-export PATH="/usr/local/opt/php@7.4/sbin:$PATH"
-export LDFLAGS="-L/usr/local/opt/php@7.4/lib"
-export CPPFLAGS="-I/usr/local/opt/php@7.4/include"
+export PATH="$(brew --prefix)/opt/php@7.4/bin:$PATH"
+export PATH="$(brew --prefix)/opt/php@7.4/sbin:$PATH"
+export LDFLAGS="-L$(brew --prefix)/opt/php@7.4/lib"
+export CPPFLAGS="-I$(brew --prefix)/opt/php@7.4/include"
 
 #libffi
-export LDFLAGS="-L/usr/local/opt/libffi/lib"
-export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
+export LDFLAGS="-L$(brew --prefix)/opt/libffi/lib"
+export PKG_CONFIG_PATH="$(brew --prefix)/opt/libffi/lib/pkgconfig"
