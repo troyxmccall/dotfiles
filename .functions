@@ -446,7 +446,7 @@ complete -o default -F _gulp_completions gulp
 
 #keep casks up to date the right way
 function witches-brew() {
-  brew update && brew upgrade && brew cu -fa && brew cleanup && brew doctor && brew cask doctor
+  brew update && brew upgrade && brew cu -fa && brew cleanup && brew doctor
 }
 
 function keyme () {
