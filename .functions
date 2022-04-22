@@ -540,10 +540,10 @@ if [[ $? -eq 0 ]]; then
     docker kill $(docker ps -q)
   }
   function docker-remove-all-containers() {
-    docker rm $(docker ps -a -q)
+    docker rm $(docker ps -a -q) --force
   }
   function docker-remove-all-images() {
-    docker rmi $(docker images -q)
+    docker rmi $(docker images -q) --force
   }
 fi
 fi;

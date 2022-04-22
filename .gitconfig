@@ -74,6 +74,8 @@
   delete-merged-local = "!git branch --merged master | grep -v 'master$' | xargs git branch -D"
   #delete branches without remote origins
   delete-locals-with-no-remotes = "!git remote prune origin && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D"
+  #delete all local branches except master
+  delete-all-local-branches-except-master = "!git branch | grep -v \"master\" | xargs git branch -D"
 
   #resets
 
