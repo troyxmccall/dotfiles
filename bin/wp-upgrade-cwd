@@ -14,12 +14,12 @@ if [ -e wp-config.php ]; then
   wp eval 'acf_pro_update_license("${ACF_PRO_UPDATE_LICENSE}");'
   echo "\`\`\`" >> autoupdate.log
   echo "" >> autoupdate.log
-  wp core update | sed '/^#/ d' >> autoupdate.log
+  wp core update >> autoupdate.log
   echo "\`\`\`" >> autoupdate.log
   echo "" >> autoupdate.log
   echo "\`\`\`" >> autoupdate.log
   echo "" >> autoupdate.log
-  wp plugin update-all | sed '/^#/ d' >> autoupdate.log
+  wp plugin update-all >> autoupdate.log
   echo "\`\`\`" >> autoupdate.log
   echo "" >> autoupdate.log
 
