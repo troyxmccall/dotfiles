@@ -23,6 +23,11 @@ function mkd() {
   mkdir -p "$@" && cd "$_";
 }
 
+#find text|no-binary files with dir path as stdin
+function find-nb(){
+  find $1 -type f -not -path '*/\.*' -exec grep -Il '.' {} \; | xargs -L 1 echo
+}
+
 # Change working directory to the top-most Finder window location
 function cdf() { # short for `cdfinder`
   cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')";
