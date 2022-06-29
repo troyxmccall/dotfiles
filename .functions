@@ -23,9 +23,9 @@ function mkd() {
   mkdir -p "$@" && cd "$_";
 }
 
-#find text|no-binary files with dir path as stdin
+#find text|no-binary files with dir path as stdin or cwd
 function find-nb(){
-  find $1 -type f -not -path '*/\.*' -exec grep -Il '.' {} \; | xargs -L 1 echo
+  find ${1:-.} -type f -not -path '*/\.*' -exec grep -Il '.' {} \; | xargs -L 1 echo
 }
 
 # Change working directory to the top-most Finder window location
