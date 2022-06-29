@@ -89,7 +89,7 @@ brew install woff2
 brew tap homebrew/services
 
 #install older verion of php
-brew install php@7.4
+brew install php
 brew install brew-php-switcher
 
 
@@ -134,6 +134,8 @@ brew install bat
 brew install dark-mode
 brew install diff-so-fancy
 brew install exiv2
+brew install fzf
+brew install gh
 brew install git
 brew install git-lfs
 brew install hub
