@@ -1,5 +1,5 @@
 module.exports = {
-  defaultBrowser: "Firefox Developer Edition",
+  defaultBrowser: "Firefox",
   handlers: [{
       // Open apple.com urls in Safari
       match: finicky.matchHostnames(["apple.com"]),
@@ -9,8 +9,8 @@ module.exports = {
       browser: "Google Chrome"
   },
     {
-      match: finicky.matchHostnames(["reddit.com", "twitter.com", "instagram.com", "tumblr.com", "amazon.com","mega.nz"]),
-      browser: "Brave Browser"
+      match: finicky.matchHostnames([/.*\.docker.localhost$/, /.*\.dev$/, /.*\.github.com$/, "github.com"]),
+      browser: "Firefox Developer Edition"
   }
   ]
 };
