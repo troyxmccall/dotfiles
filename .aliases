@@ -222,6 +222,7 @@ alias javaversions="/usr/libexec/java_home -V"
 #aritsan for completion
 alias artisan='php artisan'
 
+
 #alias mopidy="PYTHONPATH=$(brew --prefix)/lib/python2.7/site-packages $(brew --prefix)/bin/mopidy"
 
 # Automatically add completion for all aliases to commands having completion functions

@@ -55,6 +55,11 @@ git config --global user.name "$GIT_AUTHOR_NAME"
 GIT_AUTHOR_EMAIL="troyxmccall@github.com"
 GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
 git config --global user.email "$GIT_AUTHOR_EMAIL"
+
+#personal globals
+export COMPOSER_AUTH=$(jq -c . < ~/.composer/auth.json)
+#command line alias for opening projects with `e .`
+export PROJECT_EDITOR=phpstorm
 ```
 
 You could also use `~/.extra` to override settings, functions and aliases from my dotfiles repository. It's probably better to [fork this repository](https://github.com/mathiasbynens/dotfiles/fork) instead, though.

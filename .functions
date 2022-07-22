@@ -277,10 +277,15 @@ function o() {
 # opens the given location
 function e() {
   if [ $# -eq 0 ]; then
-    open -na "PhpStorm.app" --args .;
+    open -na "${PROJECT_EDITOR}" --args .;
   else
-    open -na "PhpStorm.app" --args "$@";
+    open -na "${PROJECT_EDITOR}" --args "$@";
   fi;
+}
+
+# open last files from commit to default editor or stdin
+function orc(){
+  echo  $(git diff-tree --no-commit-id --name-only -r $(git rev-parse HEAD)) | xargs -L1 ${1:-$(e)}
 }
 
 
