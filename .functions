@@ -288,6 +288,11 @@ function orc(){
    ${1:-${PROJECT_EDITOR}} . && echo  $(git diff-tree --no-commit-id --name-only -r $(git rev-parse HEAD)) | xargs -L1 ${1:-${PROJECT_EDITOR}}
 }
 
+# open all the files i've worked on in the last 24hrs
+function oy(){
+  ${1:-${PROJECT_EDITOR}} . && echo  $(git log --since=1.days --author="$(git config user.name)" --pretty=format:"%h" | xargs -L1  git diff-tree --no-commit-id --name-only -r --stdin) | xargs -L1 ${1:-${PROJECT_EDITOR}}
+}
+
 
 # list top level npm packages
 function npml() {
