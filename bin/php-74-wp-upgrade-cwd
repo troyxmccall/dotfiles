@@ -1,0 +1,52 @@
+#!/usr/bin/env sh
+
+
+if [ -z ${ACF_PRO_UPDATE_LICENSE+x} ]; then echo "Error: Please configure and export ACF_PRO_UPDATE_LICENSE environment variable.";  exit 1; fi
+
+
+if [ -e wp-config.php ]; then
+  echo "found an install at $pwd"
+  rm -rf autoupdate.log
+  git checkout master --force
+  git pull
+  git branch -D update-wp
+  git checkout -b update-wp
+  if [ -z ${DOCKER_HOST_IP+x} ];
+  then
+    docker run -e ACF_PRO_UPDATE_LICENSE=${ACF_PRO_UPDATE_LICENSE} -v `pwd`:/var/www/html  -i -t wordpress:cli-php7.4   /bin/bash  -c "wp eval 'acf_pro_update_license(\"${ACF_PRO_UPDATE_LICENSE}\");'"
+  else
+    docker run -e ACF_PRO_UPDATE_LICENSE=${ACF_PRO_UPDATE_LICENSE} --add-host="host.docker.internal:${DOCKER_HOST_IP}" -v `pwd`:/var/www/html  -i -t wordpress:cli-php7.4   /bin/bash  -c "wp eval 'acf_pro_update_license(\"${ACF_PRO_UPDATE_LICENSE}\");'"
+  fi
+  echo "\`\`\`" >> autoupdate.log
+  echo "" >> autoupdate.log
+  if [ -z ${DOCKER_HOST_IP+x} ];
+  then
+    docker run -v `pwd`:/var/www/html  -i -t wordpress:cli-php7.4   /bin/bash  -c "wp core update" >> autoupdate.log
+  else
+    docker run --add-host="host.docker.internal:${DOCKER_HOST_IP}" -v `pwd`:/var/www/html  -i -t wordpress:cli-php7.4   /bin/bash  -c "wp core update" >> autoupdate.log
+  fi
+  echo "\`\`\`" >> autoupdate.log
+  echo "" >> autoupdate.log
+  echo "\`\`\`" >> autoupdate.log
+  echo "" >> autoupdate.log
+  if [ -z ${DOCKER_HOST_IP+x} ];
+  then
+    docker run -v `pwd`:/var/www/html  -i -t wordpress:cli-php7.4   /bin/bash  -c "wp plugin update --all" >> autoupdate.log
+  else
+    docker run --add-host="host.docker.internal:${DOCKER_HOST_IP}" -v `pwd`:/var/www/html  -i -t wordpress:cli-php7.4   /bin/bash  -c "wp plugin update --all" >> autoupdate.log
+  fi
+  echo "\`\`\`" >> autoupdate.log
+  echo "" >> autoupdate.log
+
+  if [[ -z $(git status -s) ]]
+  then
+    echo "tree is clean"
+  else
+    git add -A
+    cat autoupdate.log | sed '/^```/ d' | sed '/^$/d'  | git commit -F -
+    git push -u origin update-wp
+    gh pr create --title "Automatic Wordpress Updates" --body "$(cat autoupdate.log)"
+  fi
+fi
+
+echo "Complete!"

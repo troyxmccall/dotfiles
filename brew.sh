@@ -138,9 +138,12 @@ brew install fzf
 brew install gh
 brew install git
 brew install git-lfs
+brew install glances
+brew install graphicsmagick
 brew install hub
 brew install htop
 brew install imagemagick
+brew install jq
 brew install lua
 brew install lynx
 brew install ngrep
