@@ -43,9 +43,12 @@ do
   brew install $app --cask
 done
 
+# fonts
+brew install svn
+
 # Apps for caskroom
 apps=(
-  1password
+  1password7
   1password-cli
   adobe-creative-cloud
   airserver
