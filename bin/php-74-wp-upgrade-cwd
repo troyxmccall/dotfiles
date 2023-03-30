@@ -44,7 +44,7 @@ if [ -e wp-config.php ]; then
   else
     git add -A
     cat autoupdate.log | sed '/^```/ d' | sed '/^$/d'  | git commit -F -
-    git push -u origin update-wp
+    git push -u origin update-wp --verbose
     gh pr create --title "Automatic Wordpress Updates" --body "$(cat autoupdate.log)"
   fi
 fi
