@@ -79,6 +79,10 @@ brew install grep
 brew install openssh
 brew install screen
 
+# other utils
+brew install tmux
+brew install gnutls
+
 # Install font tools.
 brew tap bramstein/webfonttools
 brew install sfnt2woff
@@ -131,6 +135,7 @@ brew install mkcert
 brew install ack
 brew install autojump
 brew install bat
+brew install ccat
 brew install dark-mode
 brew install diff-so-fancy
 brew install exiv2
@@ -144,6 +149,7 @@ brew install hub
 brew install htop
 brew install imagemagick
 brew install jq
+brew install lnav
 brew install lua
 brew install lynx
 brew install ngrep
@@ -163,13 +169,13 @@ brew install zopfli
 brew install z
 
 # even more additional utils, only listed here bc i added them so much later
-brew install android-platform-tools
+# brew install android-platform-tools
 
 # Install Node Version Manager - because we are going to need to run multiple versions of node
 brew install nvm
 # install phantomjs for el capitan
-brew install phantomjs
-brew link --overwrite phantomjs
+# brew install phantomjs
+# brew link --overwrite phantomjs
 
 #install rbenv and ruby build
 brew install rbenv
@@ -206,10 +212,12 @@ brew linkapps python
 pip install Pygments
 pip install requests
 brew install pyenv
+brew install pyenv-virtualenv
 
 
 #gowithit
 brew install go
+brew install goenv
 
 #java
 brew install jenv
@@ -237,8 +245,11 @@ brew install yarn-completion
 #docker
 brew install docker
 brew install docker-compose
+brew install docker-credential-helper
+brew install docker-buildx
 # brew install docker-machine
 # brew install docker-machine-nfs
+
 
 # Remove outdated versions from the cellar.
 brew cleanup

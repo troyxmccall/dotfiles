@@ -32,7 +32,7 @@ alias brwe=brew  #typos
 alias hosts='sudo $EDITOR /etc/hosts'   #quick add
 
 # `cat` with beautiful colors. requires: sudo easy_install -U Pygments // i also like bat (install via homebrew)
-alias ccat='pygmentize -O style=monokai -f console256 -g'
+alias bcat='pygmentize -O style=monokai -f console256 -g'
 
 # Fix Homebrew permissions if they get fucked
 alias fixbrew='sudo chown -R $(whoami):admin $(brew --prefix)/*'
