@@ -61,6 +61,8 @@ brew install gnu-sed --with-default-names
 # running `chsh`.
 brew install bash
 brew install bash-completion
+# we like colors
+brew install grc
 
 # Switch to using brew-installed bash as default shell
 if ! fgrep -q '$(brew --prefix)/bin/bash' /etc/shells; then

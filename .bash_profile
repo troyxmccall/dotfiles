@@ -90,8 +90,10 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 #starship
 if which starship > /dev/null; then eval "$(starship init bash)"; fi
-#bash completion for docker-machine-pf
-complete -W "start stop view" docker-machine-pf
+
+# grc
+GRC_ALIASES=true
+[[ -f " $(brew --prefix)/etc/grc.bashrc" ]] && source  $(brew --prefix)/etc/grc.bashrc
 
 #aritsan completion
 complete -F _artisan art
