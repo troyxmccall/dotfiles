@@ -9,7 +9,7 @@ module.exports = {
       browser: "Google Chrome"
   },
     {
-      match: finicky.matchHostnames([/.*\.docker.localhost$/, /.*\.dev$/, /.*\.github.com$/, "github.com"]),
+      match: finicky.matchHostnames([/.*\.docker.localhost$/, /.*\.dev$/]),
       browser: "Firefox Developer Edition"
   }
   ]
