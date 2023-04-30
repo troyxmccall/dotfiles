@@ -93,7 +93,7 @@ if which starship > /dev/null; then eval "$(starship init bash)"; fi
 
 # grc
 GRC_ALIASES=true
-[[ -f "$(brew --prefix)/etc/grc.bashrc" ]] && source  $(brew --prefix)/etc/grc.bashrc
+[[ -f "$(brew --prefix)/etc/grc.sh" ]] && source  $(brew --prefix)/etc/grc.sh
 
 #aritsan completion
 complete -F _artisan art
