@@ -8,7 +8,7 @@
 You can clone the repository wherever you want. (I like to keep it in `~/Projects/dotfiles`, with `~/dotfiles` as a symlink.) The bootstrapper script will pull in the latest version and copy the files to your home folder.
 
 ```bash
-git clone https://github.com/troyxmccall/dotfiles.git && cd dotfiles && source bootstrap.sh
+git clone https://github.com/troyxmccall/dotfiles.git && cd dotfiles && bash bootstrap.sh
 ```
 
 To update, `cd` into your local `dotfiles` repository and then:
@@ -23,12 +23,6 @@ Alternatively, to update while avoiding the confirmation prompt:
 set -- -f; source bootstrap.sh
 ```
 
-### Git-free install
-To install these dotfiles without Git:
-
-```bash
-cd; curl -#L https://github.com/troyxmccall/dotfiles/tarball/master | tar -xzv --strip-components 1 --exclude={README.md,bootstrap.sh,LICENSE-MIT.txt}
-```
 
 To update later on, just run that command again.
 
@@ -84,12 +78,6 @@ because downloading binaries is so 2009:
 ```bash
 ./cask.sh
 ```
-
-### Virtualbox install on fresh 10.13 (High Sierra)
-
-there's no easy way around this, you're gonna have to manually enable the kernel extensions the first time (and run the package installer twice).
-see: http://matthewpalmer.net/blog/2017/12/10/install-virtualbox-mac-high-sierra/index.html
-After you installing the first time you can run `brew cask install virtualbox --force`
 
 ### Install Node Modules
 the world runs on node
