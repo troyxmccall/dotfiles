@@ -25,7 +25,6 @@ brew upgrade
 # Handle dependencies
 brew tap buo/cask-upgrade
 brew tap homebrew/cask-fonts
-brew tap homebrew/cask-versions
 
 # dependencies for Formulas and Casks
 dependencies=(
