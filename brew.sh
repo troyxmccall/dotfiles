@@ -25,6 +25,9 @@ brew update
 # Upgrade any already-installed formulae.
 brew upgrade
 
+# make sure we can use our launch agents
+mkdir -p ~/Library/LaunchAgents
+
 # autoupdate - https://github.com/Homebrew/homebrew-autoupdate
 brew tap homebrew/autoupdate
 brew autoupdate start
@@ -65,8 +68,8 @@ brew install bash-completion
 brew install grc
 
 # Switch to using brew-installed bash as default shell
-if ! fgrep -q '$(brew --prefix)/bin/bash' /etc/shells; then
-  echo '$(brew --prefix)/bin/bash' | sudo tee -a /etc/shells;
+if ! fgrep -q "$(brew --prefix)/bin/bash" /etc/shells; then
+  echo "$(brew --prefix)/bin/bash" | sudo tee -a /etc/shells;
   chsh -s $(brew --prefix)/bin/bash;
 fi;
 
