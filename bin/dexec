@@ -1,0 +1,18 @@
+ #!/bin/bash
+
+# Grab the container name and use fzf to let us pick it
+result=$(docker container ls --format "{{.Names}}" | fzf)
+
+# No command - try bash
+if [ $# -eq 0 ]
+  then
+    echo "docker exec -it $result /bin/bash"
+    docker exec -it "$result" /bin/bash
+fi
+
+# Command was given so use that
+if [ $# -eq 1 ]
+  then
+    echo "docker exec -it $result $1"
+    docker exec -it "$result" "$1"
+fi

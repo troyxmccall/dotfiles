@@ -1,0 +1,9 @@
+ #!/bin/bash
+
+# Grab the container name and use fzf to let us pick it
+result=$(docker container ls --format "{{.Names}}" | fzf)
+
+echo "docker logs -f $result"
+
+temp_dir=$(mktemp -d "/tmp/output.XXXXXXXXXX")
+docker logs -f $result | tee "$temp_dir/output.txt" | lnav -q
