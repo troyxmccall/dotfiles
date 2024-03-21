@@ -143,6 +143,7 @@ brew install bat
 brew install ccat
 brew install dark-mode
 brew install diff-so-fancy
+brew install difftastic
 brew install exiv2
 brew install fzf
 brew install gh
