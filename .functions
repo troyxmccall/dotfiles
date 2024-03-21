@@ -544,24 +544,19 @@ function nvm-upgrade {
 }
 
 #docker functions
-if which docker > /dev/null;
-then
-docker_state=$(docker info >/dev/null 2>&1)
-if [[ $? -eq 0 ]]; then
-  function docker-stop-all() {
-      docker stop $(docker ps -q)
-  }
-  function docker-kill-all() {
-    docker kill $(docker ps -q)
-  }
-  function docker-remove-all-containers() {
-    docker rm $(docker ps -a -q) --force
-  }
-  function docker-remove-all-images() {
-    docker rmi $(docker images -q) --force
-  }
-fi
-fi;
+function docker-stop-all() {
+  docker stop $(docker ps -q)
+}
+function docker-kill-all() {
+  docker kill $(docker ps -q)
+}
+function docker-remove-all-containers() {
+  docker rm $(docker ps -a -q) --force
+}
+function docker-remove-all-images() {
+  docker rmi $(docker images -q) --force
+}
+
 
 
 #aritsan autocompletes
