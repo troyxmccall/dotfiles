@@ -185,6 +185,9 @@
   # Detect copies as well as renames.
   renames = copies
   tool = difftastic
+  # use difftastic as our default
+  external = difft
+
 
 [difftool]
         prompt = false
