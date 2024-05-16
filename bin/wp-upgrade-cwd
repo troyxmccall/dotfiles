@@ -43,6 +43,8 @@ if [ -e wp-config.php ]; then
     echo "tree is clean"
   else
     git add -A
+    git add -f wp-content/plugins/*/vendor/
+    find wp-content/plugins/*/vendor/ -name '.DS_Store' -exec git rm --cached {} \;
     cat autoupdate.log | sed '/^```/ d' | sed '/^$/d'  | git commit -F -
     git push -u origin update-wp --verbose
     gh pr create --title "Automatic Wordpress Updates" --body "$(cat autoupdate.log)"
