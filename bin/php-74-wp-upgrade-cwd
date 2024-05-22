@@ -11,29 +11,29 @@ if [ -e wp-config.php ]; then
   git pull
   git branch -D update-wp
   git checkout -b update-wp
-  if [ -z ${DOCKER_HOST_IP+x} ];
+  if [ -z ${DOCKER_MACHINE_IP+x} ];
   then
     docker run -e ACF_PRO_UPDATE_LICENSE=${ACF_PRO_UPDATE_LICENSE} -v `pwd`:/var/www/html  -i -t wordpress:cli-php7.4   /bin/bash  -c "wp eval 'acf_pro_update_license(\"${ACF_PRO_UPDATE_LICENSE}\");'"
   else
-    docker run -e ACF_PRO_UPDATE_LICENSE=${ACF_PRO_UPDATE_LICENSE} --add-host="host.docker.internal:${DOCKER_HOST_IP}" -v `pwd`:/var/www/html  -i -t wordpress:cli-php7.4   /bin/bash  -c "wp eval 'acf_pro_update_license(\"${ACF_PRO_UPDATE_LICENSE}\");'"
+    docker run -e ACF_PRO_UPDATE_LICENSE=${ACF_PRO_UPDATE_LICENSE} --add-host="host.docker.internal:${DOCKER_MACHINE_IP}" -v `pwd`:/var/www/html  -i -t wordpress:cli-php7.4   /bin/bash  -c "wp eval 'acf_pro_update_license(\"${ACF_PRO_UPDATE_LICENSE}\");'"
   fi
   echo "\`\`\`" >> autoupdate.log
   echo "" >> autoupdate.log
-  if [ -z ${DOCKER_HOST_IP+x} ];
+  if [ -z ${DOCKER_MACHINE_IP+x} ];
   then
     docker run -v `pwd`:/var/www/html  -i -t wordpress:cli-php7.4   /bin/bash  -c "wp core update" >> autoupdate.log
   else
-    docker run --add-host="host.docker.internal:${DOCKER_HOST_IP}" -v `pwd`:/var/www/html  -i -t wordpress:cli-php7.4   /bin/bash  -c "wp core update" >> autoupdate.log
+    docker run --add-host="host.docker.internal:${DOCKER_MACHINE_IP}" -v `pwd`:/var/www/html  -i -t wordpress:cli-php7.4   /bin/bash  -c "wp core update" >> autoupdate.log
   fi
   echo "\`\`\`" >> autoupdate.log
   echo "" >> autoupdate.log
   echo "\`\`\`" >> autoupdate.log
   echo "" >> autoupdate.log
-  if [ -z ${DOCKER_HOST_IP+x} ];
+  if [ -z ${DOCKER_MACHINE_IP+x} ];
   then
     docker run -v `pwd`:/var/www/html  -i -t wordpress:cli-php7.4   /bin/bash  -c "wp plugin update --all" >> autoupdate.log
   else
-    docker run --add-host="host.docker.internal:${DOCKER_HOST_IP}" -v `pwd`:/var/www/html  -i -t wordpress:cli-php7.4   /bin/bash  -c "wp plugin update --all" >> autoupdate.log
+    docker run --add-host="host.docker.internal:${DOCKER_MACHINE_IP}" -v `pwd`:/var/www/html  -i -t wordpress:cli-php7.4   /bin/bash  -c "wp plugin update --all" >> autoupdate.log
   fi
   echo "\`\`\`" >> autoupdate.log
   echo "" >> autoupdate.log
