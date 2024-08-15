@@ -23,6 +23,30 @@ function mkd() {
   mkdir -p "$@" && cd "$_";
 }
 
+# Function to create a directory and a file with a given path
+# Example usage:
+# tap mydir/myfile.txt
+tap() {
+    if [ "$#" -ne 1 ]; then
+        echo "Usage: tap <filepath>"
+        return 1
+    fi
+
+    local filepath="$1"
+    local dir
+    local file
+
+    # Extract directory path and file name from the filepath
+    dir=$(dirname "$filepath")
+    file=$(basename "$filepath")
+
+    # Create the directory and the file
+    mkdir -p "$dir" && touch "$filepath"
+}
+
+
+
+
 #find text|no-binary files with dir path as stdin or cwd
 function find-nb(){
   find ${1:-.} -type f -not -path '*/\.*' -exec grep -Il '.' {} \; | xargs -L 1 echo
