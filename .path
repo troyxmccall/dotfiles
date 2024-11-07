@@ -52,11 +52,11 @@ export PATH="$PATH:~/golang/src/github.com/troyxmccall/hermes/dist"
 export PATH="$HOME/.jenv/bin:$PATH"
 
 #php
-# export PATH="$(brew --prefix)/opt/php@8.0/bin:$PATH"
-# export PATH="$(brew --prefix)/opt/php@8.0/sbin:$PATH"
-# export LDFLAGS="-L$(brew --prefix)/opt/php@8.0/lib"
-# export CPPFLAGS="-I$(brew --prefix)/opt/php@8.0/include"
+export PATH="$(brew --prefix)/opt/php@8.0/bin:$PATH"
+export PATH="$(brew --prefix)/opt/php@8.0/sbin:$PATH"
+export LDFLAGS="-L$(brew --prefix)/opt/php@8.0/lib"
+export CPPFLAGS="-I$(brew --prefix)/opt/php@8.0/include"
 
 #libffi
-#export LDFLAGS="-L$(brew --prefix)/opt/libffi/lib"
-#export PKG_CONFIG_PATH="$(brew --prefix)/opt/libffi/lib/pkgconfig"
+export LDFLAGS="-L$(brew --prefix)/opt/libffi/lib"
+export PKG_CONFIG_PATH="$(brew --prefix)/opt/libffi/lib/pkgconfig"
