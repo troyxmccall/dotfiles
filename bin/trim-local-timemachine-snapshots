@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo "Listing all local Time Machine snapshots..."
+tmutil listlocalsnapshots /
+
+echo "Deleting snapshots..."
+tmutil listlocalsnapshots / | grep "com.apple.TimeMachine" | while read -r snapshot; do
+    date_part=$(echo "$snapshot" | sed 's/com.apple.TimeMachine.\(.*\).local/\1/')
+    echo "Deleting snapshot: $date_part"
+    tmutil deletelocalsnapshots "$date_part"
+done
+
+echo "Done! All local snapshots have been deleted."
