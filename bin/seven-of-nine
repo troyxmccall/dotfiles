@@ -50,6 +50,8 @@ MAGENTA="\033[0;35m"
 CYAN="\033[0;36m"
 BOLD="\033[1m"
 RESET="\033[0m"
+# Borg-inspired green color for the banner
+BORG_GREEN="\033[38;5;46m"
 
 # === HELPER FUNCTIONS ===
 print_header() {
@@ -168,12 +170,14 @@ check_dependencies() {
 
   # On macOS, check for the FUSE component
   if [[ "$(uname)" == "Darwin" ]]; then
-    # Try to get borg version to see if full FUSE version is installed
-    if ! borg --version 2>&1 | grep -q "FUSE"; then
+    # Check if borgbackup-fuse is installed using brew
+    if ! brew list | grep -q "borgbackup-fuse"; then
       print_warning "The FUSE version of Borg is not installed on macOS"
       print_info "Mounting repositories requires borgbackup/tap/borgbackup-fuse"
       print_info "Install with: brew install borgbackup/tap/borgbackup-fuse"
       print_info "Continuing, but mount operations may not work"
+    else
+      print_success "borgbackup-fuse is installed"
     fi
   fi
 
@@ -699,7 +703,7 @@ umount_archive() {
 # === MAIN PROGRAM ===
 main() {
   clear
-  echo -e "${BOLD}${GREEN}"
+  echo -e "${BOLD}${BORG_GREEN}"
   cat << "EOF"
 ┌───┬───┬───┬───┬───┐┌───┬───┐┌───┬───┬───┬───┐
 │ S │ E │ V │ E │ N ││ O │ F ││ N │ I │ N │ E │
