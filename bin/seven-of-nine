@@ -1,0 +1,780 @@
+#!/bin/bash
+# === SEVEN OF NINE | BORG BACKUP WRAPPER ===
+# Version: 4.0
+# A reliable, feature-rich, and platform-independent script for working with Borg archives
+
+# === USAGE INSTRUCTIONS ===
+print_usage() {
+  cat << "EOF"
+USAGE:
+  ./seven-of-nine [--help|-h]
+
+DESCRIPTION:
+  Interactive Borg Backup Management Script
+
+REQUIRED ENVIRONMENT VARIABLES:
+  SON_REPO              Path to the Borg repository
+
+OPTIONAL ENVIRONMENT VARIABLES:
+  SON_PASSPHRASE        Passphrase for the Borg repository
+  SON_BASE_DIR          Base directory for mounts, extracts, and logs
+  SON_MOUNTPOINT        Directory for mounting archives
+  SON_EXTRACT_DIR       Directory for extracting files
+  SON_LOG_DIR           Directory for log files
+  SON_MOUNT_TIMEOUT     Timeout in seconds for auto-unmounting
+
+COMPATIBILITY WITH ORIGINAL BORG ENV VARS:
+  The script will still recognize original BORG_* variables if SON_* variables are not set.
+
+EXAMPLES:
+  # Run with required environment variables
+  SON_REPO=/path/to/repo ./seven-of-nine
+
+  # Run with additional environment variables
+  SON_REPO=/path/to/repo SON_BASE_DIR=/tmp/borg SON_MOUNT_TIMEOUT=7200 ./seven-of-nine
+EOF
+}
+
+# Check for --help flag
+if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+  print_usage
+  exit 0
+fi
+
+# === COLORS & FORMATTING ===
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+YELLOW="\033[0;33m"
+BLUE="\033[0;34m"
+MAGENTA="\033[0;35m"
+CYAN="\033[0;36m"
+BOLD="\033[1m"
+RESET="\033[0m"
+
+# === HELPER FUNCTIONS ===
+print_header() {
+  echo -e "\n${BOLD}${BLUE}=== $1 ===${RESET}\n"
+}
+
+print_success() {
+  echo -e "${GREEN}✅ $1${RESET}"
+}
+
+print_warning() {
+  echo -e "${YELLOW}⚠️  $1${RESET}"
+}
+
+print_error() {
+  echo -e "${RED}❌ $1${RESET}"
+}
+
+print_info() {
+  echo -e "${CYAN}ℹ️  $1${RESET}"
+}
+
+confirm() {
+  read -p "$1 (y/n): " choice
+  case "$choice" in
+    y|Y ) return 0 ;;
+    * ) return 1 ;;
+  esac
+}
+
+# === CONFIGURATION VALIDATION ===
+check_required_env_vars() {
+  print_header "CHECKING ENVIRONMENT"
+
+  # Check for required repository path
+  # First try SON_REPO, then fallback to BORG_REPO for compatibility
+  export SON_REPO="${SON_REPO:-${BORG_REPO:-}}"
+  if [ -z "$SON_REPO" ]; then
+    print_error "SON_REPO environment variable is required but not set"
+    print_info "Please set it before running the script, e.g.:"
+    print_info "  SON_REPO=/path/to/repo ./seven-of-nine"
+    exit 1
+  fi
+
+  print_success "Required environment variables found"
+}
+
+setup_environment() {
+  print_header "SETTING UP ENVIRONMENT"
+
+  # Set up environment variables with SON_ prefix, with fallbacks to BORG_ variables
+
+  # Set up Borg environment variables
+  export BORG_REPO="$SON_REPO"
+
+  # Set base directory with fallback to temporary directory
+  SON_BASE_DIR="${SON_BASE_DIR:-${BORG_BASE_DIR:-}}"
+  if [ -z "$SON_BASE_DIR" ]; then
+    # Choose an appropriate temp directory based on platform
+    if [[ "$(uname)" == "Darwin" ]]; then
+      SON_BASE_DIR="/tmp/borg"
+    else
+      SON_BASE_DIR="/tmp/borg"
+    fi
+    print_warning "SON_BASE_DIR not set, using: $SON_BASE_DIR"
+  fi
+
+  # Derived paths with fallbacks
+  SON_MOUNTPOINT="${SON_MOUNTPOINT:-${BORG_MOUNTPOINT:-$SON_BASE_DIR/mounts}}"
+  SON_EXTRACT_DIR="${SON_EXTRACT_DIR:-${BORG_EXTRACT_DIR:-$SON_BASE_DIR/extracts}}"
+  SON_LOG_DIR="${SON_LOG_DIR:-${BORG_LOG_DIR:-$SON_BASE_DIR/logs}}"
+
+  # Other settings
+  SON_MOUNT_TIMEOUT="${SON_MOUNT_TIMEOUT:-${BORG_MOUNT_TIMEOUT:-3600}}"  # Auto-unmount after 1 hour (in seconds)
+
+  # Assign to shorter variable names for script use
+  MOUNTPOINT="$SON_MOUNTPOINT"
+  EXTRACT_DIR="$SON_EXTRACT_DIR"
+  LOG_DIR="$SON_LOG_DIR"
+  MOUNT_TIMEOUT="$SON_MOUNT_TIMEOUT"
+
+  print_success "Environment configured"
+
+  # Display configuration
+  print_info "Using configuration:"
+  print_info "Repository: $BORG_REPO"
+  print_info "Base Directory: $SON_BASE_DIR"
+  print_info "Mount Point: $MOUNTPOINT"
+  print_info "Extract Directory: $EXTRACT_DIR"
+  print_info "Log Directory: $LOG_DIR"
+  print_info "Mount Timeout: ${MOUNT_TIMEOUT}s"
+}
+
+check_dependencies() {
+  print_header "CHECKING DEPENDENCIES"
+
+  # Check for Borg
+  if ! command -v borg &> /dev/null; then
+    print_error "Borg backup is not installed. Please install it first:"
+    print_info "  For macOS: brew install borgbackup/tap/borgbackup-fuse"
+    print_info "  For Debian/Ubuntu: apt install borgbackup"
+    print_info "  For Fedora: dnf install borgbackup"
+    print_info "  For Arch: pacman -S borg"
+    exit 1
+  fi
+
+  # Check for fzf
+  if ! command -v fzf &> /dev/null; then
+    print_error "fzf is not installed. Please install it first:"
+    print_info "  For macOS: brew install fzf"
+    print_info "  For Debian/Ubuntu: apt install fzf"
+    print_info "  For Fedora: dnf install fzf"
+    print_info "  For Arch: pacman -S fzf"
+    exit 1
+  fi
+
+  # On macOS, check for the FUSE component
+  if [[ "$(uname)" == "Darwin" ]]; then
+    # Try to get borg version to see if full FUSE version is installed
+    if ! borg --version 2>&1 | grep -q "FUSE"; then
+      print_warning "The FUSE version of Borg is not installed on macOS"
+      print_info "Mounting repositories requires borgbackup/tap/borgbackup-fuse"
+      print_info "Install with: brew install borgbackup/tap/borgbackup-fuse"
+      print_info "Continuing, but mount operations may not work"
+    fi
+  fi
+
+  print_success "All dependencies found"
+}
+
+get_passphrase() {
+  # Check for passphrase in environment variables, with SON_ taking precedence
+  SEVEN_OF_NINE_PASSPHRASE="${SON_PASSPHRASE:-${BORG_PASSPHRASE:-}}"
+
+  # If passphrase is already set, use it
+  if [ -n "$SEVEN_OF_NINE_PASSPHRASE" ]; then
+    # Set the BORG_PASSPHRASE for Borg to use
+    export BORG_PASSPHRASE="$SEVEN_OF_NINE_PASSPHRASE"
+    print_success "Using passphrase from environment variable"
+    return 0
+  fi
+
+  # Platform-specific password management
+  if [[ "$(uname)" == "Darwin" ]] && command -v security &> /dev/null; then
+    # macOS: Try to get from keychain
+    if confirm "Try to get passphrase from macOS Keychain?"; then
+      local keychain_pass=$(security find-generic-password -a "$USER" -s "BorgBackup" -w 2>/dev/null)
+      if [ -n "$keychain_pass" ]; then
+        export BORG_PASSPHRASE="$keychain_pass"
+        print_success "Passphrase retrieved from Keychain"
+        # Debug output for passphrase
+        print_info "Passphrase from keychain (first character): ${BORG_PASSPHRASE:0:1}***"
+        return 0
+      else
+        print_warning "Passphrase not found in Keychain"
+      fi
+    fi
+  else
+    # Linux: Check for vault file
+    local vault_file="$HOME/.borg_vault"
+    if [ -f "$vault_file" ] && confirm "Try to get passphrase from vault file?"; then
+      if [ -r "$vault_file" ]; then
+        export BORG_PASSPHRASE=$(cat "$vault_file")
+        if [ -n "$BORG_PASSPHRASE" ]; then
+          print_success "Passphrase retrieved from vault file"
+          # Debug output for passphrase
+          print_info "Passphrase from vault (first character): ${BORG_PASSPHRASE:0:1}***"
+          return 0
+        else
+          print_warning "Vault file exists but is empty"
+        fi
+      else
+        print_warning "Vault file exists but is not readable"
+      fi
+    fi
+  fi
+
+  # Otherwise prompt for passphrase
+  print_info "Please enter your Borg repository passphrase"
+  read -s -p "Passphrase: " BORG_PASSPHRASE
+  echo
+
+  if [ -z "$BORG_PASSPHRASE" ]; then
+    print_error "No passphrase entered"
+    return 1
+  fi
+
+  export BORG_PASSPHRASE
+
+  # Debug output for passphrase
+  print_info "Passphrase entered (first character): ${BORG_PASSPHRASE:0:1}***"
+
+  # Platform-specific password storage
+  if [[ "$(uname)" == "Darwin" ]] && command -v security &> /dev/null; then
+    # macOS: Ask if user wants to save to keychain
+    if confirm "Save passphrase to macOS Keychain for future use?"; then
+      security add-generic-password -a "$USER" -s "BorgBackup" -w "$BORG_PASSPHRASE" 2>/dev/null
+      if [ $? -eq 0 ]; then
+        print_success "Passphrase saved to Keychain"
+      else
+        print_error "Failed to save passphrase to Keychain"
+      fi
+    fi
+  else
+    # Linux: Ask if user wants to save to vault file
+    if confirm "Save passphrase to vault file ($vault_file) for future use?"; then
+      # Create with restrictive permissions
+      echo "$BORG_PASSPHRASE" > "$vault_file"
+      chmod 600 "$vault_file"
+      if [ $? -eq 0 ]; then
+        print_success "Passphrase saved to vault file"
+      else
+        print_error "Failed to save passphrase to vault file"
+      fi
+    fi
+  fi
+
+  return 0
+}
+
+ensure_dirs() {
+  # Check if base directory exists or can be created
+  local base_dir_parent=$(dirname "$SON_BASE_DIR")
+  if [ ! -d "$base_dir_parent" ]; then
+    print_error "Parent directory for base directory does not exist: $base_dir_parent"
+    print_info "Please mount or create the required directory"
+    exit 1
+  fi
+
+  # Create base directory if it doesn't exist
+  if [ ! -d "$SON_BASE_DIR" ]; then
+    print_info "Creating base directory: $SON_BASE_DIR"
+    mkdir -p "$SON_BASE_DIR"
+    chmod 775 "$SON_BASE_DIR"
+  fi
+
+  # Create subdirectories with appropriate permissions
+  for dir in "$MOUNTPOINT" "$EXTRACT_DIR" "$LOG_DIR"; do
+    if [ ! -d "$dir" ]; then
+      print_info "Creating directory: $dir"
+      mkdir -p "$dir"
+      # Set permissions to allow both current user and borg user access
+      chmod 775 "$dir"
+    fi
+  done
+}
+
+check_repo() {
+  if [ ! -d "$BORG_REPO" ]; then
+    print_error "Repository not found: $BORG_REPO"
+    exit 1
+  fi
+
+  # Check repo directly
+  print_info "Checking repository access"
+  if [ -r "$BORG_REPO" ]; then
+    print_success "Repository found and accessible: $BORG_REPO"
+
+    # Try to list repositories to verify access
+    if ls -la "$BORG_REPO" &>/dev/null; then
+      print_success "The repository is accessible"
+    else
+      print_warning "There may be issues accessing the repository"
+      print_info "Continuing anyway, but you may encounter permissions issues"
+    fi
+  else
+    print_error "Cannot read the repository: $BORG_REPO"
+    print_info "Please check permissions and ownership"
+    exit 1
+  fi
+}
+
+# === MAIN FUNCTIONS ===
+# Function to display repository info
+show_repo_info() {
+  print_header "REPOSITORY INFO"
+  borg info "$BORG_REPO"
+}
+
+# Function to list all archives
+list_archives() {
+  print_header "AVAILABLE ARCHIVES"
+  borg list "$BORG_REPO"
+  echo
+  read -p "Press Enter to continue..."
+}
+
+# Function to create a new archive
+create_archive() {
+  print_header "CREATE NEW ARCHIVE"
+
+  # Use more descriptive default name with hostname and timestamp
+  local default_name="$(hostname)-$(date +%Y-%m-%d-%H%M%S)"
+  read -p "Archive name [$default_name]: " archive_name
+  archive_name=${archive_name:-$default_name}
+
+  read -p "Source directory to backup [$HOME]: " source_dir
+  source_dir=${source_dir:-$HOME}
+
+  if [ ! -d "$source_dir" ]; then
+    print_error "Source directory does not exist: $source_dir"
+    return 1
+  fi
+
+  print_info "Creating archive '$archive_name' from '$source_dir'..."
+
+  # Ask for exclusions
+  local exclude_file=$(mktemp)
+  if confirm "Do you want to add exclusion patterns?"; then
+    echo "# Enter exclusion patterns (one per line). Empty line to finish:" > "$exclude_file"
+    echo "# Common patterns are added automatically" >> "$exclude_file"
+    echo "*/node_modules" >> "$exclude_file"
+    echo "*/.git" >> "$exclude_file"
+
+    # Platform-specific exclusions
+    if [[ "$(uname)" == "Darwin" ]]; then
+      # macOS specific exclusions
+      echo "*/Library/Caches" >> "$exclude_file"
+      echo "*/Library/Application Support/Google" >> "$exclude_file"
+      echo "*/Library/Application Support/MobileSync" >> "$exclude_file"
+      echo "*/Library/Containers" >> "$exclude_file"
+      echo "*/Library/Logs" >> "$exclude_file"
+      echo "*/Library/Mail" >> "$exclude_file"
+    else
+      # Linux specific exclusions
+      echo "*/snap" >> "$exclude_file"
+      echo "*/cache" >> "$exclude_file"
+      echo "*/.cache" >> "$exclude_file"
+      echo "*/steam" >> "$exclude_file"
+      echo "*/steamapps" >> "$exclude_file"
+      echo "*/Downloads" >> "$exclude_file"
+    fi
+
+    # Common exclusions across platforms
+    echo "*/tmp" >> "$exclude_file"
+    echo "*/lost+found" >> "$exclude_file"
+    echo "*/Trash" >> "$exclude_file"
+    echo "*/.Trash" >> "$exclude_file"
+
+    # Let user edit in $EDITOR or default to nano
+    ${EDITOR:-nano} "$exclude_file"
+
+    # Create archive with exclusions
+    borg create --verbose --stats --progress --compression lz4 \
+      --exclude-from "$exclude_file" \
+      "$BORG_REPO::$archive_name" "$source_dir"
+  else
+    # Create archive with default exclusions
+    borg create --verbose --stats --progress --compression lz4 \
+      --exclude '*/.git' --exclude '*/node_modules' --exclude '*/tmp' \
+      "$BORG_REPO::$archive_name" "$source_dir"
+  fi
+
+  if [ $? -eq 0 ]; then
+    print_success "Archive created successfully"
+    rm -f "$exclude_file"
+  else
+    print_error "Failed to create archive"
+    rm -f "$exclude_file"
+    return 1
+  fi
+}
+
+# Function to prune archives
+prune_archives() {
+  print_header "PRUNE ARCHIVES"
+
+  print_warning "This will remove archives according to the retention policy"
+  echo "Keep policy:"
+  echo "- Last 7 daily backups"
+  echo "- Last 4 weekly backups"
+  echo "- Last 6 monthly backups"
+  echo "- Last 1 yearly backup"
+
+  if ! confirm "Do you want to continue?"; then
+    return 0
+  fi
+
+  borg prune --verbose --list --prefix "$(hostname)-" \
+    --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --keep-yearly 1 \
+    "$BORG_REPO"
+
+  if [ $? -eq 0 ]; then
+    print_success "Pruning completed successfully"
+  else
+    print_error "Pruning failed"
+    return 1
+  fi
+}
+
+# Function to run operations on an archive
+work_with_archive() {
+  # Get a list of archives and save to a temp file
+  local archive_list_file=$(mktemp)
+  borg list --short "$BORG_REPO" > "$archive_list_file"
+
+  if [ ! -s "$archive_list_file" ]; then
+    print_error "No archives found in repository"
+    rm -f "$archive_list_file"
+    return 1
+  fi
+
+  # Select an archive using fzf
+  print_header "SELECT ARCHIVE"
+  local archive=$(cat "$archive_list_file" | fzf --height=40% --prompt="Select Archive > " --border --reverse)
+  rm -f "$archive_list_file"
+
+  if [ -z "$archive" ]; then
+    print_warning "No archive selected"
+    return 1
+  fi
+
+  print_info "Selected archive: $archive"
+
+  # Choose an action
+  print_header "SELECT ACTION"
+  local action=$(printf "browse\nextract\nmount\ninfo\ncheck\ndiff\ndelete\nback" | \
+    fzf --height=30% --prompt="Action for '$archive' > " --reverse --border)
+
+  case "$action" in
+    browse)
+      print_header "BROWSING CONTENTS OF '$archive'"
+      echo "Browsing contents (fzf)..."
+      borg list "$BORG_REPO::$archive" | \
+        fzf --preview="echo {}" --height=80% --border --reverse --prompt="Archive Contents > "
+      ;;
+
+    extract)
+      print_header "EXTRACT FILES FROM '$archive'"
+
+      # Use fzf to select files for extraction
+      local file_list_file=$(mktemp)
+      borg list --short "$BORG_REPO::$archive" > "$file_list_file"
+
+      local files=$(cat "$file_list_file" | fzf --multi --height=40% --prompt="Select file(s) to extract > " --reverse --border)
+      rm -f "$file_list_file"
+
+      if [ -z "$files" ]; then
+        print_warning "No files selected"
+        return 0
+      fi
+
+      # Create destination directory
+      local dest_dir="$EXTRACT_DIR/$archive"
+      mkdir -p "$dest_dir"
+
+      print_info "Extracting to: $dest_dir"
+
+      # Save current directory and change to destination
+      pushd "$dest_dir" > /dev/null
+
+      # Extract each file
+      for file in $files; do
+        print_info "Extracting: $file"
+        borg extract "$BORG_REPO::$archive" "$file"
+      done
+
+      popd > /dev/null
+
+      print_success "Files extracted to $dest_dir"
+
+      # Platform-specific open command
+      if confirm "Open extract directory?"; then
+        if [[ "$(uname)" == "Darwin" ]]; then
+          open "$dest_dir"
+        elif command -v xdg-open &> /dev/null; then
+          xdg-open "$dest_dir"
+        else
+          print_info "Extract directory: $dest_dir"
+        fi
+      fi
+      ;;
+
+    mount)
+      print_header "MOUNTING ARCHIVE '$archive'"
+
+      # Check if already mounted
+      if mount | grep -q "$MOUNTPOINT"; then
+        print_warning "A filesystem is already mounted at $MOUNTPOINT"
+        if confirm "Unmount it first?"; then
+          borg umount "$MOUNTPOINT"
+          if [ $? -ne 0 ]; then
+            print_error "Failed to unmount existing filesystem"
+            return 1
+          fi
+        else
+          return 1
+        fi
+      fi
+
+      # Make sure mountpoint exists
+      mkdir -p "$MOUNTPOINT"
+
+      # Mount the archive
+      print_info "Mounting archive at $MOUNTPOINT..."
+      borg mount "$BORG_REPO::$archive" "$MOUNTPOINT"
+
+      if [ $? -eq 0 ]; then
+        print_success "Archive mounted successfully"
+
+        # Platform-specific open command
+        if confirm "Open mounted directory?"; then
+          if [[ "$(uname)" == "Darwin" ]]; then
+            open "$MOUNTPOINT"
+          elif command -v xdg-open &> /dev/null; then
+            xdg-open "$MOUNTPOINT"
+          else
+            print_info "Mount point: $MOUNTPOINT"
+          fi
+        fi
+
+        print_warning "The archive will be automatically unmounted after ${MOUNT_TIMEOUT}s"
+        print_info "To unmount manually, select 'umount' from the main menu"
+
+        # Auto-unmount after timeout (run in background)
+        (
+          sleep $MOUNT_TIMEOUT
+          if mount | grep -q "$MOUNTPOINT"; then
+            borg umount "$MOUNTPOINT" &>/dev/null
+            echo -e "\n${YELLOW}⚠️  Auto-unmounted $MOUNTPOINT after timeout${RESET}" > /dev/tty
+          fi
+        ) &
+      else
+        print_error "Failed to mount archive"
+      fi
+      ;;
+
+    info)
+      print_header "ARCHIVE INFO FOR '$archive'"
+      borg info "$BORG_REPO::$archive" | less
+      ;;
+
+    check)
+      print_header "CHECKING ARCHIVE '$archive'"
+
+      local current_date=$(date +%Y%m%d-%H%M%S)
+      local logfile="$LOG_DIR/borg-check-$current_date.log"
+      mkdir -p "$LOG_DIR"
+
+      print_info "Checking archive with progress..."
+      print_info "Log: $logfile"
+      echo ""
+
+      borg check --progress "$BORG_REPO::$archive" 2>&1 | tee "$logfile" &
+      local check_pid=$!
+
+      sleep 1  # Let it start
+
+      if confirm "Watch check progress in real time with fzf?"; then
+        tail -f "$logfile" | fzf --no-sort --reverse --border --height=90% --prompt="Borg check log > "
+      else
+        wait $check_pid
+      fi
+
+      if [ ${PIPESTATUS[0]} -eq 0 ]; then
+        print_success "Check completed. Log saved to $logfile"
+      else
+        print_error "Check failed. See log at $logfile"
+      fi
+      ;;
+
+    diff)
+      print_header "COMPARE WITH ANOTHER ARCHIVE"
+
+      # Get another archive for comparison
+      local second_archive_file=$(mktemp)
+      borg list --short "$BORG_REPO" > "$second_archive_file"
+
+      local second_archive=$(cat "$second_archive_file" | fzf --height=40% --prompt="Select second archive > " --border --reverse)
+      rm -f "$second_archive_file"
+
+      if [ -z "$second_archive" ]; then
+        print_warning "No second archive selected"
+        return 1
+      fi
+
+      print_info "Comparing '$archive' with '$second_archive'..."
+
+      borg diff "$BORG_REPO::$archive" "$BORG_REPO::$second_archive" | \
+        fzf --no-sort --reverse --border --height=90% --prompt="Differences > "
+      ;;
+
+    delete)
+      print_header "DELETE ARCHIVE"
+
+      if ! confirm "Are you SURE you want to delete archive '$archive'? This cannot be undone!"; then
+        print_warning "Delete operation cancelled"
+        return 1
+      fi
+
+      print_info "Deleting archive '$archive'..."
+      borg delete "$BORG_REPO::$archive"
+
+      if [ $? -eq 0 ]; then
+        print_success "Archive deleted successfully"
+      else
+        print_error "Failed to delete archive"
+        return 1
+      fi
+      ;;
+
+    back|"")
+      return 0
+      ;;
+
+    *)
+      print_error "Unknown action: $action"
+      return 1
+      ;;
+  esac
+}
+
+# Function to unmount an archive
+umount_archive() {
+  print_header "UNMOUNTING"
+
+  if ! mount | grep -q "$MOUNTPOINT"; then
+    print_warning "Nothing is mounted at $MOUNTPOINT"
+    return 0
+  fi
+
+  print_info "Unmounting $MOUNTPOINT..."
+  borg umount "$MOUNTPOINT"
+
+  if [ $? -eq 0 ]; then
+    print_success "Unmounted successfully"
+  else
+    print_error "Failed to unmount. Try force unmount?"
+    if confirm "Force unmount?"; then
+      if [[ "$(uname)" == "Darwin" ]]; then
+        # macOS
+        diskutil unmount force "$MOUNTPOINT"
+      else
+        # Linux
+        umount -f "$MOUNTPOINT"
+      fi
+
+      if [ $? -eq 0 ]; then
+        print_success "Force unmount successful"
+      else
+        print_error "Force unmount failed"
+      fi
+    fi
+  fi
+}
+
+# === MAIN PROGRAM ===
+main() {
+  clear
+  echo -e "${BOLD}${GREEN}"
+  cat << "EOF"
+┌───┬───┬───┬───┬───┐┌───┬───┐┌───┬───┬───┬───┐
+│ S │ E │ V │ E │ N ││ O │ F ││ N │ I │ N │ E │
+└─╥─┴─╥─┴─╥─┴─╥─┴─╥─┘└─╥─┴─╥─┘└─╥─┴─╥─┴─╥─┴─╥─┘
+  ║   ║   ║   ║   ║    ║   ║    ║   ║   ║   ║
+ ═╩═══╩═══╩═══╩═══╩════╩═══╩════╩═══╩═══╩═══╩═
+ [7]   [OF]   [9]   [BORG DESIGNATION]   [END]
+EOF
+  echo -e "${RESET}"
+
+  # Check required environment variables
+  check_required_env_vars
+
+  # Setup environment with optional variables
+  setup_environment
+
+  # Check dependencies and repository
+  check_dependencies
+  ensure_dirs
+  check_repo
+
+  # Get passphrase
+  if ! get_passphrase; then
+    print_error "Cannot proceed without a valid passphrase"
+    exit 1
+  fi
+
+  # Main menu loop
+  while true; do
+    print_header "MAIN MENU"
+
+    # Main menu with fzf
+    local action=$(printf "archives\ncreate\nrepo-info\nprune\numount\nquit" | \
+      fzf --height=30% --prompt="Choose action > " --reverse --border)
+
+    case "$action" in
+      archives)
+        work_with_archive
+        ;;
+
+      create)
+        create_archive
+        ;;
+
+      repo-info)
+        show_repo_info
+        ;;
+
+      prune)
+        prune_archives
+        ;;
+
+      umount)
+        umount_archive
+        ;;
+
+      quit|"")
+        print_info "Checking for mounted archives..."
+        if mount | grep -q "$MOUNTPOINT"; then
+          print_warning "Archive still mounted at $MOUNTPOINT"
+          if confirm "Unmount before exiting?"; then
+            umount_archive
+          fi
+        fi
+
+        print_info "Goodbye!"
+        exit 0
+        ;;
+
+      *)
+        print_error "Unknown action: $action"
+        ;;
+    esac
+  done
+}
+
+# Run main program
+main
