@@ -615,7 +615,7 @@ work_with_archive() {
       fi
       ;;
 
-    diff)
+  diff)
       print_header "COMPARE WITH ANOTHER ARCHIVE"
 
       # Get another archive for comparison
@@ -632,7 +632,8 @@ work_with_archive() {
 
       print_info "Comparing '$archive' with '$second_archive'..."
 
-      borg diff "$BORG_REPO::$archive" "$BORG_REPO::$second_archive" | \
+      # Fixed command: use proper syntax for borg diff
+      borg diff "$BORG_REPO::$archive" "$second_archive" | \
         fzf --no-sort --reverse --border --height=90% --prompt="Differences > "
       ;;
 
