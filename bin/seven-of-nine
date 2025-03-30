@@ -470,63 +470,10 @@ work_with_archive() {
 
   # Choose an action
   print_header "SELECT ACTION"
-  local action=$(printf "browse\nextract\nmount\ninfo\ncheck\ndiff\ndelete\nback" | \
+  local action=$(printf "extract\nmount\ninfo\ncheck\ndiff\ndelete\nback" | \
     fzf --height=30% --prompt="Action for '$archive' > " --reverse --border)
 
   case "$action" in
-    browse)
-      print_header "BROWSING CONTENTS OF '$archive'"
-      echo "Browsing contents (fzf)..."
-      borg list "$BORG_REPO::$archive" | \
-        fzf --preview="echo {}" --height=80% --border --reverse --prompt="Archive Contents > "
-      ;;
-
-    extract)
-      print_header "EXTRACT FILES FROM '$archive'"
-
-      # Use fzf to select files for extraction
-      local file_list_file=$(mktemp)
-      borg list --short "$BORG_REPO::$archive" > "$file_list_file"
-
-      local files=$(cat "$file_list_file" | fzf --multi --height=40% --prompt="Select file(s) to extract > " --reverse --border)
-      rm -f "$file_list_file"
-
-      if [ -z "$files" ]; then
-        print_warning "No files selected"
-        return 0
-      fi
-
-      # Create destination directory
-      local dest_dir="$EXTRACT_DIR/$archive"
-      mkdir -p "$dest_dir"
-
-      print_info "Extracting to: $dest_dir"
-
-      # Save current directory and change to destination
-      pushd "$dest_dir" > /dev/null
-
-      # Extract each file
-      for file in $files; do
-        print_info "Extracting: $file"
-        borg extract "$BORG_REPO::$archive" "$file"
-      done
-
-      popd > /dev/null
-
-      print_success "Files extracted to $dest_dir"
-
-      # Platform-specific open command
-      if confirm "Open extract directory?"; then
-        if [[ "$(uname)" == "Darwin" ]]; then
-          open "$dest_dir"
-        elif command -v xdg-open &> /dev/null; then
-          xdg-open "$dest_dir"
-        else
-          print_info "Extract directory: $dest_dir"
-        fi
-      fi
-      ;;
-
     mount)
       print_header "MOUNTING ARCHIVE '$archive'"
 
