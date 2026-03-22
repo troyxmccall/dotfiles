@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+MACHINE="${1:-default}"
+CERTS_DIR="$HOME/.docker/machine/certs"
+MACHINE_DIR="$HOME/.docker/machine/machines/$MACHINE"
+
+if [ ! -d "$MACHINE_DIR" ]; then
+  echo "Error: docker-machine '$MACHINE' not found at $MACHINE_DIR" >&2
+  exit 1
+fi
+
+echo "Provisioning TLS certs for machine: $MACHINE"
+
+# Create certs dir if missing
+mkdir -p "$CERTS_DIR"
+
+# Generate CA
+echo "Generating CA key and cert..."
+openssl genrsa -out "$CERTS_DIR/ca-key.pem" 4096
+openssl req -new -x509 -days 1095 \
+  -key "$CERTS_DIR/ca-key.pem" \
+  -out "$CERTS_DIR/ca.pem" \
+  -subj "/C=US/ST=CA/O=Docker/CN=Docker CA"
+
+# Generate client key and cert
+echo "Generating client key and cert..."
+openssl genrsa -out "$CERTS_DIR/key.pem" 4096
+openssl req -new \
+  -key "$CERTS_DIR/key.pem" \
+  -out /tmp/docker-client.csr \
+  -subj "/C=US/ST=CA/O=Docker/CN=Docker Client"
+openssl x509 -req -days 1095 \
+  -in /tmp/docker-client.csr \
+  -CA "$CERTS_DIR/ca.pem" \
+  -CAkey "$CERTS_DIR/ca-key.pem" \
+  -CAcreateserial \
+  -out "$CERTS_DIR/cert.pem"
+rm -f /tmp/docker-client.csr
+
+# Regenerate machine certs
+echo "Regenerating machine certs for '$MACHINE'..."
+docker-machine regenerate-certs --force "$MACHINE"
+
+echo ""
+echo "Done. Run the following to update your shell environment:"
+echo ""
+echo "  eval \$(docker-machine env $MACHINE)"
+echo ""
