@@ -540,6 +540,11 @@ function nvm_auto_switch() {
   local NVM_RC_FILE
   local DEFAULT_VERSION
   local NVM_VERSION
+
+  if ! declare -f nvm_find_nvmrc >/dev/null; then
+    declare -f __load_nvm >/dev/null && __load_nvm || return 0
+  fi
+
   NVM_RC_FILE=$(nvm_find_nvmrc)
 
   if [ "$NVM_RC_FILE"  == "" ]; then
@@ -548,6 +553,8 @@ function nvm_auto_switch() {
   else
     NVM_VERSION=$(cat "$NVM_RC_FILE")
   fi
+
+  [[ -n "$NVM_VERSION" ]] || return 0
 
   # Use pyenv's python for node-gyp without spawning npm config on every directory change.
   export npm_config_python="$HOME/.pyenv/shims/python"
