@@ -1,8 +1,16 @@
 #!/usr/bin/env bash
 
-# Homebrew for M1s - needed before other sourcing
-if [[ -f /opt/homebrew/bin/brew ]]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
+# Homebrew - needed before other sourcing
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  export BREW_BIN=/opt/homebrew/bin/brew
+elif [[ -x /usr/local/bin/brew ]]; then
+  export BREW_BIN=/usr/local/bin/brew
+fi
+
+if [[ -n "${BREW_BIN:-}" ]]; then
+  eval "$("$BREW_BIN" shellenv)"
+  # Cache the prefix once so startup doesn't fork `brew --prefix` repeatedly.
+  export BREW_PREFIX="${HOMEBREW_PREFIX:-$("$BREW_BIN" --prefix)}"
 fi
 
 # Add `~/bin` to the `$PATH`
@@ -35,8 +43,8 @@ done;
 
 
 # Add tab completion for many Bash commands
-if which brew &> /dev/null && [ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]; then
-  [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+if [[ -n "${BREW_PREFIX:-}" ]] && [[ -r "$BREW_PREFIX/etc/profile.d/bash_completion.sh" ]]; then
+  . "$BREW_PREFIX/etc/profile.d/bash_completion.sh"
 fi;
 
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
@@ -50,12 +58,12 @@ complete -W "NSGlobalDomain" defaults;
 complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes SystemUIServer Terminal Twitter" killall;
 
 #alias hub as git https://github.com/github/hub#aliasing
-if which hub > /dev/null; then eval "$(hub alias -s)"; fi
+if command -v hub > /dev/null; then eval "$(hub alias -s)"; fi
 #iterm2 shell integration https://iterm2.com/shell_integration.html
 test -e ${HOME}/.iterm2_shell_integration.bash && source ${HOME}/.iterm2_shell_integration.bash
 # https://github.com/rupa/z
-if [ -f `brew --prefix`/etc/profile.d/z.sh ]; then
-  . `brew --prefix`/etc/profile.d/z.sh
+if [[ -n "${BREW_PREFIX:-}" ]] && [[ -f "$BREW_PREFIX/etc/profile.d/z.sh" ]]; then
+  . "$BREW_PREFIX/etc/profile.d/z.sh"
 fi
 #wakatime
 if [ -f $HOME/projects/bash-wakatime/bash-wakatime.sh ]; then
@@ -65,35 +73,98 @@ fi
 ### ALL THE LANG ENVS
 
 #nvm because node is just as fucked as ruby
-if [ -f "$(brew --prefix nvm)/nvm.sh" ]; then
+__load_nvm() {
+  [[ -n "${__NVM_LOADED:-}" ]] && return 0
+  [[ -n "${BREW_PREFIX:-}" ]] || return 1
+  [[ -f "$BREW_PREFIX/opt/nvm/nvm.sh" ]] || return 1
+
   export NVM_DIR="$HOME/.nvm"
-  . "$(brew --prefix nvm)/nvm.sh"
-  [[ -r $NVM_DIR/bash_completion ]] && \. $NVM_DIR/bash_completion
-  #alias builtin cd function to call nvm_auto_switch everytime
-  function cd() { builtin cd "$@"; nvm_auto_switch; }
-fi
+  unset -f nvm node npm npx 2>/dev/null || true
+  # Load nvm on first use instead of paying its startup cost in every shell.
+  . "$BREW_PREFIX/opt/nvm/nvm.sh"
+  [[ -r "$NVM_DIR/bash_completion" ]] && . "$NVM_DIR/bash_completion"
+  __NVM_LOADED=1
+}
+
+__maybe_load_nvm_for_dir() {
+  local dir="${1:-$PWD}"
+  while [[ "$dir" != "/" ]]; do
+    [[ -f "$dir/.nvmrc" ]] && return 0
+    dir="${dir%/*}"
+    [[ -z "$dir" ]] && dir="/"
+  done
+  return 1
+}
+
+function cd() {
+  builtin cd "$@" || return
+  if declare -f nvm_auto_switch >/dev/null; then
+    nvm_auto_switch
+  elif __maybe_load_nvm_for_dir "$PWD"; then
+    # Only initialize nvm automatically when entering a project that has .nvmrc.
+    __load_nvm && nvm_auto_switch
+  fi
+}
+
+nvm() { __load_nvm && nvm "$@"; }
+node() { __load_nvm && node "$@"; }
+npm() { __load_nvm && npm "$@"; }
+npx() { __load_nvm && npx "$@"; }
 
 #swift env
-if which swiftenv > /dev/null; then eval "$(swiftenv init -)"; fi
-#pyenv
-if command -v pyenv 1>/dev/null 2>&1; then eval "$(pyenv init --path)"; fi
-if command -v pyenv 1>/dev/null 2>&1; then eval "$(pyenv init -)"; fi
+if [[ -d "$HOME/.swiftenv" ]]; then
+  export SWIFTENV_ROOT="$HOME/.swiftenv"
+  export PATH="$SWIFTENV_ROOT/shims:$SWIFTENV_ROOT/bin:$PATH"
+  if command -v swiftenv > /dev/null 2>&1; then
+    swiftenv() {
+      unset -f swiftenv
+      eval "$(command swiftenv init -)"
+      swiftenv "$@"
+    }
+  fi
+fi
 
-#pyenv virtualenv
-if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+#pyenv
+if [[ -d "$HOME/.pyenv" ]] && command -v pyenv > /dev/null 2>&1; then
+  pyenv() {
+    unset -f pyenv
+    # Keep pyenv shims on PATH, but defer its shell integration until needed.
+    eval "$(command pyenv init -)"
+    if command -v pyenv-virtualenv-init > /dev/null 2>&1; then
+      eval "$(pyenv virtualenv-init -)"
+    fi
+    pyenv "$@"
+  }
+fi
+
 #jenv
-if which jenv > /dev/null; then eval "$(jenv init -)"; fi
+if [[ -d "$HOME/.jenv" ]] && command -v jenv > /dev/null 2>&1; then
+  jenv() {
+    unset -f jenv
+    # jenv init is one of the slowest startup steps, so load it lazily.
+    eval "$(command jenv init -)"
+    jenv "$@"
+  }
+fi
+
 #rbenv
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+if [[ -d "$HOME/.rbenv" ]] && command -v rbenv > /dev/null 2>&1; then
+  rbenv() {
+    unset -f rbenv
+    # rbenv shims work from PATH; shell hooks are only needed when invoking rbenv itself.
+    eval "$(command rbenv init -)"
+    rbenv "$@"
+  }
+fi
 
 #### END LANG ENV
 
 #starship
-if which starship > /dev/null; then eval "$(starship init bash)"; fi
+if command -v starship > /dev/null; then eval "$(starship init bash)"; fi
 
 # grc
 GRC_ALIASES=true
-[[ -f "$(brew --prefix)/etc/grc.sh" ]] && source  $(brew --prefix)/etc/grc.sh
+[[ -n "${BREW_PREFIX:-}" ]] && [[ -f "$BREW_PREFIX/etc/grc.sh" ]] && source "$BREW_PREFIX/etc/grc.sh"
 
 #aritsan completion
 complete -F _artisan art
@@ -204,4 +275,3 @@ __git_refs ()
     ;;
   esac
 }
-

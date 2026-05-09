@@ -14,3 +14,11 @@ Thumbs.db
 # Files that might appear on external disks
 .Spotlight-V100
 .Trashes
+
+# Local state created when shell managers treat this repo as HOME during tests.
+/.jenv/
+/.nvm/
+/.pyenv/
+/.rbenv/
+/.swiftenv/
+/Library/

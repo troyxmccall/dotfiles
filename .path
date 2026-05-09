@@ -1,55 +1,65 @@
 #!/usr/bin/env bash
 
+# Reuse the cached Homebrew prefix from .bash_profile so PATH setup stays fork-free.
+BREW_PREFIX="${BREW_PREFIX:-${HOMEBREW_PREFIX:-/usr/local}}"
+
 #homebrew
-export PATH="$(brew --prefix)/bin:$PATH"
-export PATH="$(brew --prefix)/sbin:$PATH"
+export PATH="$BREW_PREFIX/bin:$PATH"
+export PATH="$BREW_PREFIX/sbin:$PATH"
 #composer
-export PATH="$PATH:~/.composer/vendor/bin"
+export PATH="$PATH:$HOME/.composer/vendor/bin"
 #gnu utils
-export PATH="$PATH:(brew --prefix coreutils)/libexec/gnubin"
+export PATH="$PATH:$BREW_PREFIX/opt/coreutils/libexec/gnubin"
 #brew cask install path
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 #go $ brew info go
 # https://gist.github.com/vsouza/77e6b20520d07652ed7d
 export GOPATH="$HOME/golang"
-export GOROOT="$(brew --prefix)/opt/go/libexec"
+export GOROOT="$BREW_PREFIX/opt/go/libexec"
 export PATH="$PATH:$GOPATH/bin"
 export PATH="$PATH:$GOROOT/bin"
 # homebrew cask contrib
-export PATH="$PATH:$(brew --prefix)/Library/Taps/caskroom/homebrew-cask/developer/bin"
+export PATH="$PATH:$BREW_PREFIX/Library/Taps/caskroom/homebrew-cask/developer/bin"
 #brewed python
-export PATH="$PATH:$(brew --prefix python)/libexec/bin"
+export PATH="$PATH:$BREW_PREFIX/opt/python/libexec/bin"
 #yarn
 export PATH="$PATH:$HOME/.yarn/bin"
 #brewed bison
-export PATH="$PATH:$(brew --prefix)/opt/bison/bin"
+export PATH="$PATH:$BREW_PREFIX/opt/bison/bin"
 #brewed curl
-export PATH="$PATH:$(brew --prefix)/opt/curl/bin"
+export PATH="$PATH:$BREW_PREFIX/opt/curl/bin"
 #other brewed formulas
-export PATH="$PATH:$(brew --prefix)/opt/dirmngr/bin"
-export PATH="$(brew --prefix)/opt/curl/bin:$PATH"
-export PATH="$(brew --prefix)/opt/icu4c/bin:$PATH"
-export PATH="$(brew --prefix)/opt/icu4c/sbin:$PATH"
-export PATH="$(brew --prefix)/opt/libxml2/bin:$PATH"
-export PATH="$(brew --prefix)/opt/qt/bin:$PATH"
-export PATH="$(brew --prefix)/opt/unzip/bin:$PATH"
+export PATH="$PATH:$BREW_PREFIX/opt/dirmngr/bin"
+export PATH="$BREW_PREFIX/opt/curl/bin:$PATH"
+export PATH="$BREW_PREFIX/opt/icu4c/bin:$PATH"
+export PATH="$BREW_PREFIX/opt/icu4c/sbin:$PATH"
+export PATH="$BREW_PREFIX/opt/libxml2/bin:$PATH"
+export PATH="$BREW_PREFIX/opt/qt/bin:$PATH"
+export PATH="$BREW_PREFIX/opt/unzip/bin:$PATH"
 #redis
 export PATH="/Applications/Redis.app/Contents/Resources/Vendor/redis/bin:$PATH"
 #nss - firefox cert automation
-export PATH="$(brew --prefix)/opt/nss/bin:$PATH"
+export PATH="$BREW_PREFIX/opt/nss/bin:$PATH"
 
 #behat
 export PATH="./vendor/bin:$PATH"
 
 #pyenv  - https://github.com/pyenv/pyenv
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+export PATH="$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH"
 
 #hermes
-export PATH="$PATH:~/golang/src/github.com/troyxmccall/hermes/dist"
+export PATH="$PATH:$HOME/golang/src/github.com/troyxmccall/hermes/dist"
 
 #jenv
-export PATH="$HOME/.jenv/bin:$PATH"
+export JENV_ROOT="$HOME/.jenv"
+# Keep jenv behind pyenv so Python shims win when multiple managers provide wrappers.
+export PATH="$PATH:$JENV_ROOT/shims:$JENV_ROOT/bin"
+
+#rbenv
+export RBENV_ROOT="$HOME/.rbenv"
+# Keep rbenv behind pyenv; active nvm versions will still take precedence for Node.
+export PATH="$PATH:$RBENV_ROOT/shims:$RBENV_ROOT/bin"
 
 #libffi
 # export LDFLAGS="-L$(brew --prefix)/opt/libffi/lib"
