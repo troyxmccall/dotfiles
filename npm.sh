@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 
 nvm_versions=(
-  lts/fermium,
-  lts/gallium
+  lts/hydrogen,
+  lts/krypton
 )
 
-echo "installing v14, and v16 lts node versions and all global packages to 'em. this may take a few minutes"
+echo "installing v18, and v24 lts node versions and all global packages to 'em. this may take a few minutes"
 
 for nvm_version in "${nvm_versions[@]}"
 do
   nvm install $nvm_version --reinstall-packages-from=node
 
   # front-end web, client and tasks modules
-  npm install -g bower
+  # npm install -g bower
   npm install -g grunt-cli grunt
   npm install -g gulp-cli gulp
   npm install -g webpack
@@ -41,7 +41,7 @@ do
   # npm install -g vtop
 
   # alfred deps
-  npm install -g @bchatard/alfred-jetbrains
+  # npm install -g @bchatard/alfred-jetbrains
 
   #updates
   npm install -g npm-check-update
