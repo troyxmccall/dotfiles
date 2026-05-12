@@ -4,7 +4,7 @@
 # Measures voice loudness baseline via ebur128, then flags silence that far below it.
 # Requires: ffmpeg, gawk (brew install gawk)
 
-set -e
+set -euo pipefail
 
 INPUT=""
 MIN_DURATION=3
@@ -134,17 +134,36 @@ echo ""
 echo "Cutting ${#TO_CUT_STARTS[@]} section(s)..."
 
 BASENAME="${INPUT%.*}"
-EXT="${INPUT##*.}"
 OUTPUT="${BASENAME}-cut.mp4"
 
-PARTS=()
-LIST=$(mktemp /tmp/trim_list_XXXXXX.txt)
+MERGED_CUT_STARTS=()
+MERGED_CUT_ENDS=()
+MERGE_EPSILON=0.05
 
-cleanup() {
-  for f in "${PARTS[@]}"; do rm -f "$f"; done
-  rm -f "$LIST"
-}
-trap cleanup EXIT
+for (( i=0; i<${#TO_CUT_STARTS[@]}; i++ )); do
+  START="${TO_CUT_STARTS[$i]}"
+  END="${TO_CUT_ENDS[$i]}"
+
+  if [ ${#MERGED_CUT_STARTS[@]} -eq 0 ]; then
+    MERGED_CUT_STARTS+=("$START")
+    MERGED_CUT_ENDS+=("$END")
+    continue
+  fi
+
+  LAST_INDEX=$((${#MERGED_CUT_ENDS[@]} - 1))
+  LAST_END="${MERGED_CUT_ENDS[$LAST_INDEX]}"
+  SHOULD_MERGE=$(echo "$START $LAST_END $MERGE_EPSILON" | "$GAWK" '{print ($1 <= $2 + $3) ? "yes" : "no"}')
+
+  if [ "$SHOULD_MERGE" = "yes" ]; then
+    MERGED_CUT_ENDS[$LAST_INDEX]="$END"
+  else
+    MERGED_CUT_STARTS+=("$START")
+    MERGED_CUT_ENDS+=("$END")
+  fi
+done
+
+TO_CUT_STARTS=("${MERGED_CUT_STARTS[@]}")
+TO_CUT_ENDS=("${MERGED_CUT_ENDS[@]}")
 
 SEG_STARTS=()
 SEG_ENDS=()
@@ -158,8 +177,9 @@ done
 SEG_STARTS+=("$PREV_END")
 SEG_ENDS+=("$DURATION")
 
-> "$LIST"
 SEG_NUM=0
+FILTER=""
+CONCAT_INPUTS=""
 
 for (( i=0; i<${#SEG_STARTS[@]}; i++ )); do
   S="${SEG_STARTS[$i]}"
@@ -168,21 +188,19 @@ for (( i=0; i<${#SEG_STARTS[@]}; i++ )); do
   if [ "$IS_POS" != "yes" ]; then continue; fi
 
   SEG_NUM=$((SEG_NUM+1))
-  PART=$(mktemp /tmp/trim_part_XXXXXX)
-  mv "$PART" "${PART}.${EXT}"
-  PART="${PART}.${EXT}"
-  PARTS+=("$PART")
   echo "  Segment $SEG_NUM: $(fmt_time $S) --> $(fmt_time $E)"
-  ffmpeg -y -loglevel error -stats \
-    -i "$INPUT" -ss "$S" -to "$E" \
-    -c:v libx264 -c:a aac "$PART"
-  printf "file '%s'\n" "$PART" >> "$LIST"
+  FILTER+="[0:v]trim=start=${S}:end=${E},setpts=PTS-STARTPTS[v${SEG_NUM}];"
+  FILTER+="[0:a]atrim=start=${S}:end=${E},asetpts=PTS-STARTPTS[a${SEG_NUM}];"
+  CONCAT_INPUTS+="[v${SEG_NUM}][a${SEG_NUM}]"
 done
 
 echo ""
-echo "Joining $SEG_NUM segments..."
+echo "Rendering joined output from $SEG_NUM segment(s)..."
 ffmpeg -y -loglevel error -stats \
-  -f concat -safe 0 -i "$LIST" -c copy "$OUTPUT"
+  -i "$INPUT" \
+  -filter_complex "${FILTER}${CONCAT_INPUTS}concat=n=${SEG_NUM}:v=1:a=1[outv][outa]" \
+  -map "[outv]" -map "[outa]" \
+  -c:v libx264 -c:a aac "$OUTPUT"
 
 echo ""
 echo "Done. Output: $OUTPUT"
